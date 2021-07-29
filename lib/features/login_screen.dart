@@ -16,83 +16,85 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 74,
-                right: 212,
-                left: 48,
-              ),
-              child: Image.asset('assets/images/logo_budget.png'),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 16.15,
-                left: 48,
-                right: 112,
-              ),
-              child: Container(
-                width: 200,
-                height: 112,
-                child: Text(
-                  'Vamos começar!',
-                  style: TextStyle(
-                    fontSize: 48,
-                    fontFamily: 'Roboto',
-                    color: AppColors.cyan,
-                  ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 74,
+                  right: 212,
+                  left: 48,
                 ),
+                child: Image.asset('assets/images/logo_budget.png'),
               ),
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 80,
-                  ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 16.15,
+                  left: 48,
+                  right: 112,
+                ),
+                child: Container(
+                  width: 200,
+                  height: 112,
                   child: Text(
-                    'Novo usuário?',
+                    'Vamos começar!',
                     style: TextStyle(
+                      fontSize: 48,
                       fontFamily: 'Roboto',
-                      fontSize: 16,
-                      letterSpacing: 0.15,
+                      color: AppColors.cyan,
                     ),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Crie uma conta!',
-                    style: TextStyles.createAccountButton,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 80,
+                    ),
+                    child: Text(
+                      'Novo usuário?',
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                        letterSpacing: 0.15,
+                      ),
+                    ),
                   ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Crie uma conta!',
+                      style: TextStyles.createAccountButton,
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 48),
+                child: InputText(
+                  label: 'Insira seu e-mail',
+                  obscureText: false,
+                  textInputType: TextInputType.emailAddress,
                 ),
-              ],
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 48),
-              child: InputText(
-                label: 'Insira seu e-mail',
-                obscureText: false,
-                textInputType: TextInputType.emailAddress,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 16.0,
-                left: 198,
-                // right: 48,
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 16.0,
+                  left: 198,
+                  // right: 48,
+                ),
+                child: ContinueButton(),
               ),
-              child: ContinueButton(),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                // bottom: 129,
-                top: 104,
+              Padding(
+                padding: const EdgeInsets.only(
+                  // bottom: 129,
+                  top: 104,
+                ),
+                child: Text('ou'),
               ),
-              child: Text('ou'),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
