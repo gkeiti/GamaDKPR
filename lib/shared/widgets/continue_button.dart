@@ -38,15 +38,10 @@ class ContinueButton extends StatelessWidget {
                 style: TextStyles.continueButton,
               ),
             ),
-            /* Icon(
-              Icons.arrow_forward,
-              size: 8,
-            ), */
           ],
         ),
         disabledColor: Colors.grey,
         disabledTextColor: Colors.black,
-        //disabledTextColor: Color.fromRGBO(0, 0, 0, 0.26),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(34),
         ),
