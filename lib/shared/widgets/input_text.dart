@@ -29,3 +29,6 @@ class InputText extends StatelessWidget {
     );
   }
 }
+
+// Tem algumas partes comentadas pq por enquanto eu to apenas posicionando 
+//tudo sem funcionalidade, depois so precisa descomentar e adicionar no codigo das telas
