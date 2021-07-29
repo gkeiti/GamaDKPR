@@ -19,6 +19,14 @@ class TextStyles {
     letterSpacing: 0.88,
     color: Colors.white,
   );
+  static const TextStyle white12w300Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w300,
+    fontStyle: FontStyle.italic,
+    fontSize: 12.0,
+    letterSpacing: 0.40,
+    color: Colors.white,
+  );
   static const TextStyle cyan48w400Roboto = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,
