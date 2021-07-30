@@ -42,6 +42,14 @@ class TextStyles {
     letterSpacing: 0.15,
     color: AppColors.black54,
   );
+  static const TextStyle cyan34w700Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w700,
+    fontStyle: FontStyle.normal,
+    fontSize: 34.0,
+    letterSpacing: 0.25,
+    color: AppColors.cyan,
+  );
   static const TextStyle createAccountButton = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,
