@@ -8,6 +8,7 @@ class AppColors {
   static const Color yellow = Color(0XFFFAC736);
   static const Color black54 = Color.fromRGBO(0, 0, 0, 0.54);
   static const Color white = Color(0xFFE5E5E5);
+  static const Color minsk = Color(0xFF343090);
 
   static const linearGradient = LinearGradient(
     colors: <Color>[

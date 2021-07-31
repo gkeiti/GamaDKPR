@@ -50,6 +50,14 @@ class TextStyles {
     letterSpacing: 0.25,
     color: AppColors.cyan,
   );
+  static const TextStyle minsk20w500Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 20.0,
+    letterSpacing: 0.15,
+    color: AppColors.minsk,
+  );
   static const TextStyle createAccountButton = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,
