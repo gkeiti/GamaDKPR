@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/home/widgets/balance_card.dart';
-import 'package:trabalho_final_dgpr/home/widgets/chart.dart';
 import 'package:trabalho_final_dgpr/home/widgets/day_to_day_card.dart';
 import 'package:trabalho_final_dgpr/home/widgets/new_control_button.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
