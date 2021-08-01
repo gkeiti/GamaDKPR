@@ -6,7 +6,10 @@ class AppColors {
   static const Color green = Color(0XFF58B368);
   static const Color pink = Color(0XFFF5487F);
   static const Color yellow = Color(0XFFFAC736);
+  static const Color black87 = Color.fromRGBO(0, 0, 0, 0.87);
   static const Color black54 = Color.fromRGBO(0, 0, 0, 0.54);
+  static const Color black38 = Color.fromRGBO(0, 0, 0, 0.38);
+  static const Color drawerItemBorder = Color.fromRGBO(224, 224, 224, 1);
 
   static const linearGradient = LinearGradient(
     colors: <Color>[

@@ -58,4 +58,136 @@ class TextStyles {
     letterSpacing: 0.4,
     color: Colors.white,
   );
+  static const TextStyle purple20w500Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 20.0,
+    letterSpacing: 0.15,
+    height: 1.6,
+    color: AppColors.purple,
+  );
+  static const TextStyle black24w400Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    fontSize: 24.0,
+    letterSpacing: 0.4,
+    color: AppColors.black87,
+  );
+  static const TextStyle black14w500Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 14.0,
+    letterSpacing: 0.1,
+    color: AppColors.black38,
+  );
+  static const TextStyle black14w400Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    fontSize: 14.0,
+    letterSpacing: 0.15,
+    color: AppColors.black38,
+  );
+  static const TextStyle white24w400Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    fontSize: 24.0,
+    letterSpacing: 0.15,
+    color: Colors.white,
+    height: 1.33,
+  );
+  static const TextStyle grey14w500Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 14.0,
+    letterSpacing: 0.1,
+    color: Color.fromRGBO(196, 196, 196, 1),
+  );
+  static const TextStyle grey14w400Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    fontSize: 14.0,
+    letterSpacing: 0.1,
+    color: Color.fromRGBO(196, 196, 196, 1),
+  );
+  static const TextStyle black54_24w400Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    fontSize: 24.0,
+    letterSpacing: 0.4,
+    color: AppColors.black54,
+  );
+  static const TextStyle black87_16w400Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    fontSize: 16.0,
+    letterSpacing: 0.15,
+    color: AppColors.black87,
+  );
+  static const TextStyle purple16w500Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 16.0,
+    letterSpacing: 0.15,
+    color: AppColors.purple,
+  );
+  static const TextStyle white14w500Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 14.0,
+    letterSpacing: 0.4,
+    color: Colors.white,
+  );
+  static const TextStyle white26w700Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w700,
+    fontStyle: FontStyle.normal,
+    fontSize: 26.0,
+    letterSpacing: 0.25,
+    color: Colors.white,
+    height: 1.23,
+  );
+  static const TextStyle black87_16w500Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 16.0,
+    letterSpacing: 0.15,
+    color: AppColors.black87,
+  );
+  static const TextStyle black54_14w400Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    fontSize: 14.0,
+    letterSpacing: 0.15,
+    color: AppColors.black54,
+  );
+  static const TextStyle purple14w500Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 14.0,
+    letterSpacing: 0.4,
+    height: 1.7,
+    color: AppColors.purple,
+  );
+  static const TextStyle black54_16w400Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    fontSize: 16.0,
+    letterSpacing: 0.15,
+    color: AppColors.black54,
+  );
 }

@@ -15,15 +15,17 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
-      Future.delayed(Duration(seconds: 3)).then(
-        (value) => Navigator.of(context).pushReplacement(
-          CupertinoPageRoute(
-            builder: (BuildContext context) => Container(),
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback(
+      (timeStamp) {
+        Future.delayed(Duration(seconds: 3)).then(
+          (value) => Navigator.of(context).pushReplacement(
+            CupertinoPageRoute(
+              builder: (BuildContext context) => Container(),
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
     super.initState();
   }
 

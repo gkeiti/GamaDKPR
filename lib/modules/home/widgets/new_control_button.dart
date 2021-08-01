@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 
-class ContinueButton extends StatelessWidget {
-  const ContinueButton({
+class NewControlButton extends StatelessWidget {
+  const NewControlButton({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 114,
-      height: 36,
+      width: 182,
+      height: 40,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: <Color>[
@@ -33,9 +33,22 @@ class ContinueButton extends StatelessWidget {
         child: Row(
           children: [
             Flexible(
-              child: Text(
-                "CONTINUAR",
-                style: TextStyles.continueButton,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  FittedBox(
+                    fit: BoxFit.contain,
+                    child: Text(
+                      "NOVO CONTROLE",
+                      style: TextStyles.white14w500Roboto,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
