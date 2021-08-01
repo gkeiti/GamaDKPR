@@ -69,10 +69,8 @@ class SideDrawer extends StatelessWidget {
                     'Conta',
                     style: TextStyles.black54_14w400Roboto,
                   ),
-                  DrawerItem(
-                      route: '/in_transaction', itemName: 'Gerenciar cartões'),
-                  DrawerItem(
-                      route: '/out_transaction', itemName: 'Investimentos'),
+                  DrawerItem(route: '', itemName: 'Gerenciar cartões'),
+                  DrawerItem(route: '', itemName: 'Investimentos'),
                 ],
               ),
               decoration: BoxDecoration(
