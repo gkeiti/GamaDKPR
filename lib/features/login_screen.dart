@@ -88,10 +88,71 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                  // bottom: 129,
+                  bottom: 9,
                   top: 104,
                 ),
                 child: Text('ou'),
+              ),
+              Container(
+                width: 267,
+                height: 36,
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.greyGoogle),
+                  // color: Colors.blue,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: SizedBox.expand(
+                  child: MaterialButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image.asset('assets/images/continue_google.png'),
+                        // Icon(Icons.ac_unit),
+                        // // MaterialButton(
+                        //   // onPressed: () {},
+                        //   // child:
+                        //   Text(
+                        //     'CONTINUAR COM O GOOGLE',
+                        //     style: TextStyle(
+                        //       fontWeight: FontWeight.w500,
+                        //       // botei weight de 500 pq é como ta mandando no figma, mas acho que o 600 ta melhor
+                        //       letterSpacing: 0.46,
+                        //       fontSize: 13,
+                        //       fontStyle: FontStyle.normal,
+                        //       fontFamily: 'Roboto',
+                        //       color: AppColors.black54,
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: Container(
+                  width: 267,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.blue),
+                    color: AppColors.blue,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: SizedBox.expand(
+                    child: MaterialButton(
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image.asset('assets/images/facebook_logo.png'),
+                          Image.asset('assets/images/continue_facebook.png'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -101,5 +162,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-// Vou deixar pra amanha colocar a imagem e o botao de continuar 
-// Os de logar com a conta do facebook e do google, vou ver com vocês
+
+// Tirar a Row do icone do google caso deixe com a imagem mesmo
+// eu tava fazendo na mao da forma que eles deixaram no figma, mas tava muito
+// diferente, colocando a imagem do icone foi o mais próximo que ficou 
+// pode só descomentar o código que ta comentado e comentar 
+// a imagem, o sized box e o material button pra ver como ficou
+// ta com aquele icone meio aleatorio pq eu tava testando como ficaria pra não baixar
+// o do google pra nada
