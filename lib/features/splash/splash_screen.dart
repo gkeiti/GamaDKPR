@@ -2,6 +2,7 @@ import 'package:animated_card/animated_card.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:trabalho_final_dgpr/features/login_screen.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Future.delayed(Duration(seconds: 3)).then(
         (value) => Navigator.of(context).pushReplacement(
           CupertinoPageRoute(
-            builder: (BuildContext context) => Container(),
+            builder: (BuildContext context) => LoginScreen(),
           ),
         ),
       );
