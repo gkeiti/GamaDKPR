@@ -19,11 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback(
       (timeStamp) {
         Future.delayed(Duration(seconds: 3)).then(
-          (value) => Navigator.of(context).pushReplacement(
-            CupertinoPageRoute(
-              builder: (BuildContext context) => Container(),
-            ),
-          ),
+          (value) => Navigator.of(context).pushNamed('/login'),
         );
       },
     );

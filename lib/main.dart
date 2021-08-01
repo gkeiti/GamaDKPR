@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trabalho_final_dgpr/features/login_screen.dart';
 import 'package:trabalho_final_dgpr/modules/control/in/in_transaction.dart';
 import 'package:trabalho_final_dgpr/modules/control/out/out_transaction.dart';
 import 'package:trabalho_final_dgpr/modules/home/pages/home_page.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => SplashScreen(),
+        '/login': (context) => LoginScreen(),
         '/home': (context) => HomePage(),
         '/update_register': (context) => UpdateRegisterScreen(),
         '/in_transaction': (context) => InTransaction(),
