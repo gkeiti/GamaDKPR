@@ -11,7 +11,8 @@ class AppColors {
   static const Color greyGoogle = Color.fromRGBO(189, 189, 189, 1);
   static const Color blue = Color.fromRGBO(58, 91, 150, 1);
   static const Color white = Color.fromRGBO(255, 255, 255, 1);
-
+  static const Color black38 = Color.fromRGBO(0, 0, 0, 0.38);
+  static const Color drawerItemBorder = Color.fromRGBO(224, 224, 224, 1);
 
   static const linearGradient = LinearGradient(
     colors: <Color>[
