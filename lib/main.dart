@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:trabalho_final_dgpr/home/pages/error_home_page.dart';
+import 'package:trabalho_final_dgpr/home/pages/home_page.dart';
 import 'features/splash/splash_screen.dart';
 
 void main() {
@@ -33,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SplashScreen(),
+      body: ErrorHomePage(),
     );
   }
 }

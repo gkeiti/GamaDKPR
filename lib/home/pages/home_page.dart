@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/home/widgets/balance_card.dart';
+import 'package:trabalho_final_dgpr/home/widgets/chart.dart';
 import 'package:trabalho_final_dgpr/home/widgets/day_to_day_card.dart';
 import 'package:trabalho_final_dgpr/home/widgets/new_control_button.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
@@ -23,10 +24,6 @@ class _HomePageState extends State<HomePage> {
           style: TextStyles.white24w400Roboto,
         ),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.menu),
-        ),
         flexibleSpace: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -38,10 +35,12 @@ class _HomePageState extends State<HomePage> {
                 AppColors.purple,
               ],
               stops: [0.05, 0.6],
+              transform: GradientRotation((45 * 3.1415) / 180),
             ),
           ),
         ),
       ),
+      drawer: Drawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
