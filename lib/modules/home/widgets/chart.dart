@@ -10,8 +10,8 @@ class Chart extends StatefulWidget {
 }
 
 class _ChartState extends State<Chart> {
-  final int entrada = 5000;
-  final int saida = 10000;
+  final int entrada = 10000;
+  final int saida = 50000;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,11 +22,7 @@ class _ChartState extends State<Chart> {
             child: Row(
               children: [
                 Container(
-                  width: entrada <= saida
-                      ? MediaQuery.of(context).size.width * 0.79
-                      : (MediaQuery.of(context).size.width * 0.79) *
-                          saida /
-                          entrada,
+                  width: MediaQuery.of(context).size.width * 0.79,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -51,8 +47,8 @@ class _ChartState extends State<Chart> {
                         width: entrada <= saida
                             ? MediaQuery.of(context).size.width * 0.79
                             : (MediaQuery.of(context).size.width * 0.79) *
-                                entrada /
-                                saida,
+                                saida /
+                                entrada,
                         decoration: BoxDecoration(
                           color: AppColors.cyan,
                           borderRadius: BorderRadius.circular(360),
@@ -69,11 +65,7 @@ class _ChartState extends State<Chart> {
             child: Row(
               children: [
                 Container(
-                  width: entrada >= saida
-                      ? MediaQuery.of(context).size.width * 0.79
-                      : (MediaQuery.of(context).size.width * 0.79) *
-                          entrada /
-                          saida,
+                  width: MediaQuery.of(context).size.width * 0.79,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

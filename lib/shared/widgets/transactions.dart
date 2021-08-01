@@ -36,7 +36,7 @@ class Transactions extends StatelessWidget {
                       shape: BoxShape.circle,
                       image: DecorationImage(
                         fit: BoxFit.none,
-                        image: AssetImage('assets/logos/food.png'),
+                        image: AssetImage('assets/logos/Refeição.png'),
                       ),
                     ),
                   ),

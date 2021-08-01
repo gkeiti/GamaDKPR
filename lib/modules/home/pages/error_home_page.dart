@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
+import 'package:trabalho_final_dgpr/shared/widgets/side_drawer.dart';
 
 class ErrorHomePage extends StatelessWidget {
   const ErrorHomePage({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class ErrorHomePage extends StatelessWidget {
           ),
         ),
       ),
-      drawer: Drawer(),
+      drawer: SideDrawer(),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(76.0),

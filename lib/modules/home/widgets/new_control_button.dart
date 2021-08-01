@@ -34,16 +34,19 @@ class NewControlButton extends StatelessWidget {
           children: [
             Flexible(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Icon(
                     Icons.add,
                     color: Colors.white,
                     size: 20,
                   ),
-                  Text(
-                    "NOVO CONTROLE",
-                    style: TextStyles.white14w500Roboto,
+                  FittedBox(
+                    fit: BoxFit.contain,
+                    child: Text(
+                      "NOVO CONTROLE",
+                      style: TextStyles.white14w500Roboto,
+                    ),
                   ),
                 ],
               ),
@@ -51,7 +54,6 @@ class NewControlButton extends StatelessWidget {
           ],
         ),
         disabledColor: Colors.grey,
-        disabledTextColor: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(34),
         ),

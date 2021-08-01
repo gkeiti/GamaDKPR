@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trabalho_final_dgpr/home/widgets/chart.dart';
+import 'package:trabalho_final_dgpr/modules/home/widgets/chart.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 
@@ -13,6 +13,7 @@ class DayToDayCard extends StatefulWidget {
 }
 
 class _DayToDayCardState extends State<DayToDayCard> {
+  String dropdownValue = 'AGO';
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -50,11 +51,31 @@ class _DayToDayCardState extends State<DayToDayCard> {
                     borderRadius: BorderRadius.circular(34),
                   ),
                   child: DropdownButton(
-                    value: 'AGO',
+                    value: dropdownValue,
+                    dropdownColor: AppColors.purple,
+                    menuMaxHeight: 400,
                     underline: Container(
-                      color: Colors.transparent,
+                      color: Colors.black,
                     ),
-                    items: ['AGO'].map(
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValue = newValue!;
+                      });
+                    },
+                    items: [
+                      'JAN',
+                      'FEV',
+                      'MAR',
+                      'ABR',
+                      'MAI',
+                      'JUN',
+                      'JUL',
+                      'AGO',
+                      'SET',
+                      'OUT',
+                      'NOV',
+                      'DEZ'
+                    ].map(
                       (e) {
                         return DropdownMenuItem(
                           value: e,
