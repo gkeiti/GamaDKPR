@@ -3,8 +3,10 @@ import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 
 class ContinueButton extends StatelessWidget {
+  final Function() onPressed;
   const ContinueButton({
     Key? key,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -29,7 +31,7 @@ class ContinueButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(34),
       ),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: this.onPressed,
         child: Row(
           children: [
             Flexible(

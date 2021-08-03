@@ -62,7 +62,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/name_email');
+                    },
                     child: Text(
                       'Crie uma conta!',
                       style: TextStyles.createAccountButton,
@@ -84,7 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   left: 198,
                   // right: 48,
                 ),
-                child: ContinueButton(),
+                child: ContinueButton(
+                  onPressed: () {},
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(
