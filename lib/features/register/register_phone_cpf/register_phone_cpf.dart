@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
-class RegisterNameEmailPage extends StatefulWidget {
-  const RegisterNameEmailPage({Key? key}) : super(key: key);
+class RegisterPhoneCpfPage extends StatefulWidget {
+  const RegisterPhoneCpfPage({Key? key}) : super(key: key);
 
   @override
-  _RegisterNameEmailPageState createState() => _RegisterNameEmailPageState();
+  _RegisterPhoneCpfPageState createState() => _RegisterPhoneCpfPageState();
 }
 
-class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
-  TextEditingController? _nameController = TextEditingController();
-  TextEditingController? _emailController = TextEditingController();
+class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
+  MaskedTextController _phoneController =
+      MaskedTextController(mask: "(00)00000-0000");
+  MaskedTextController _cpfController =
+      MaskedTextController(mask: "000.000.000-00");
   FocusNode _myFocusNode = FocusNode();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -31,15 +32,13 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
   @override
   void dispose() {
     _myFocusNode.dispose();
-    _nameController?.dispose();
-    _emailController?.dispose();
+    _phoneController.dispose();
+    _cpfController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-  
-
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBarWhiteWidget(),
@@ -56,11 +55,12 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
               left: 48.0,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   BemVindoWidget(),
                   BemVindoCommentWidget(
-                    label: "Por favor insira seus dados \nno campos abaixo.",
+                    label: "Mais alguns dados.",
                   ),
                 ],
               ),
@@ -74,20 +74,22 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
                   children: [
                     InputText(
                       textInputAction: TextInputAction.next,
-                      controller: _nameController,
-                      onChanged: (value) => _nameController?.value,
-                      label: 'Nome',
-                      textInputType: TextInputType.name,
+                      controller: _phoneController,
+                      onChanged: (value) => _phoneController.value,
+                      label: 'Telefone',
+                      textInputType: TextInputType.phone,
                       validator: (String? value) {},
                     ),
                     SizedBox(height: 32.0),
                     InputText(
                       focusNode: _myFocusNode,
                       textInputAction: TextInputAction.done,
-                      controller: _emailController,
-                      onChanged: (value) => _emailController?.value,
-                      label: 'E-mail',
-                      textInputType: TextInputType.emailAddress,
+                      controller: _cpfController,
+                      onChanged: (value) => _cpfController.value,
+                      label: 'CPF',
+                      helperText:
+                          "O CPF é necessário para conectar suas contas.",
+                      textInputType: TextInputType.number,
                       validator: (String? value) {},
                     ),
                   ],

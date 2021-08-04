@@ -29,6 +29,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   animated_card: ^2.0.0
+  flutter_masked_text2: ^0.9.1
 
 dev_dependencies:
   flutter_test:

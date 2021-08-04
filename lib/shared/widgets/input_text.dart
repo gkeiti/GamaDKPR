@@ -7,23 +7,25 @@ import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 class InputText extends StatefulWidget {
   final TextEditingController? controller;
   final TextInputType textInputType;
+  final TextInputAction textInputAction;
   final String label;
+  final String? helperText;
   final String? Function(String? value) validator;
   final ValueChanged<String> onChanged;
   final bool obscureText;
   final FocusNode? focusNode;
-  final bool? autofocus;
 
   const InputText({
     Key? key,
     this.controller,
     this.textInputType = TextInputType.text,
+    this.helperText,
+    required this.textInputAction,
     required this.label,
     required this.validator,
     required this.onChanged,
     this.obscureText = false,
     this.focusNode,
-    this.autofocus,
   }) : super(key: key);
 
   @override
@@ -35,29 +37,22 @@ class _InputTextState extends State<InputText> {
 
   @override
   Widget build(BuildContext context) {
-    const _defaultColor = AppColors.black54;
-    const _focusColor = AppColors.minsk;
-
-    return Focus(
-      onFocusChange: (hasFocus) {
-        setState(() => _colorText = hasFocus ? _focusColor : _defaultColor);
-      },
-      child: TextFormField(
-        focusNode: widget.focusNode,
-        obscureText: widget.obscureText,
-        controller: widget.controller,
-        keyboardType: widget.textInputType,
-        onChanged: widget.onChanged,
-        autofocus: widget.autofocus!,
-        decoration: InputDecoration(
-          labelText: widget.label,
-          labelStyle: TextStyle(color: _colorText),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: AppColors.black54, width: 2.0),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: AppColors.minsk, width: 2.0),
-          ),
+    return TextFormField(
+      textInputAction: widget.textInputAction,
+      focusNode: widget.focusNode,
+      obscureText: widget.obscureText,
+      controller: widget.controller,
+      keyboardType: widget.textInputType,
+      onChanged: widget.onChanged,
+      decoration: InputDecoration(
+        labelText: widget.label,
+        labelStyle: TextStyle(color: _colorText),
+        helperText: widget.helperText,
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.black54, width: 2.0),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.minsk, width: 2.0),
         ),
       ),
     );
