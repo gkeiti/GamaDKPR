@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trabalho_final_dgpr/features/register/pageview/page_view.dart';
 import 'features/register/register_name_email/register_name_email.dart';
 import 'features/register/register_onboarding/register_onboarding_page.dart';
 import 'features/register/register_password/register_password.dart';
@@ -36,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: RegisterTermsPage(),
+      body: RegisterPageView(),
     );
   }
 }

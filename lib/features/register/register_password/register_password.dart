@@ -40,73 +40,75 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBarWhiteWidget(),
-      body: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-              top: 0.0,
-              left: 48.0,
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                top: 0.0,
+                left: 48.0,
+              ),
+              child: LogoBudgetWidget(),
             ),
-            child: LogoBudgetWidget(),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 70.0,
-              left: 48.0,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BemVindoWidget(),
-                BemVindoCommentWidget(
-                  label: "Agora crie sua senha contendo:",
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: 45.0,
-              top: 194.0,
-              right: 45.0,
-            ),
-            child: CommentsWidget(
-              text:
-                  "• Pelo menos oito caracteres; \n• Letras maiúsculas, letras minúsculas, números e símbolos.",
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 280.0, left: 48.0, right: 49.0),
-            child: Form(
-              key: _formKey,
+            Padding(
+              padding: EdgeInsets.only(
+                top: 70.0,
+                left: 48.0,
+              ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  InputText(
-                    textInputAction: TextInputAction.next,
-                    controller: _passwordController,
-                    onChanged: (value) => _passwordController.value,
-                    label: 'Crie uma senha',
-                    textInputType: TextInputType.text,
-                    validator: (String? value) {},
-                  ),
-                  SizedBox(height: 32.0),
-                  InputText(
-                    focusNode: _focusNode,
-                    textInputAction: TextInputAction.done,
-                    controller: _confirmPasswordController,
-                    onChanged: (value) => _confirmPasswordController.value,
-                    label: 'Confirme sua senha',
-                    textInputType: TextInputType.text,
-                    validator: (String? value) {},
+                  BemVindoWidget(),
+                  BemVindoCommentWidget(
+                    label: "Agora crie sua senha contendo:",
                   ),
                 ],
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.only(
+                left: 45.0,
+                top: 194.0,
+                right: 45.0,
+              ),
+              child: CommentsWidget(
+                text:
+                    "• Pelo menos oito caracteres; \n• Letras maiúsculas, letras minúsculas, números e símbolos.",
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 280.0, left: 48.0, right: 49.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InputText(
+                      textInputAction: TextInputAction.next,
+                      controller: _passwordController,
+                      onChanged: (value) => _passwordController.value,
+                      label: 'Crie uma senha',
+                      textInputType: TextInputType.text,
+                      validator: (String? value) {},
+                    ),
+                    SizedBox(height: 32.0),
+                    InputText(
+                      focusNode: _focusNode,
+                      textInputAction: TextInputAction.done,
+                      controller: _confirmPasswordController,
+                      onChanged: (value) => _confirmPasswordController.value,
+                      label: 'Confirme sua senha',
+                      textInputType: TextInputType.text,
+                      validator: (String? value) {},
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
