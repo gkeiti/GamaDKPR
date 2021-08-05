@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 
@@ -35,11 +36,7 @@ class _NameEmailState extends State<NameEmail> {
                 child: Container(
                   child: Text(
                     'Bem-vindo!',
-                    style: TextStyle(
-                      fontSize: 48,
-                      fontFamily: 'Roboto',
-                      color: AppColors.cyan,
-                    ),
+                    style: TextStyles.cyan48w400Roboto,
                   ),
                 ),
               ),
@@ -51,13 +48,7 @@ class _NameEmailState extends State<NameEmail> {
                 ),
                 child: Text(
                   'Por favor insira seus dados\nnos campos abaixo.',
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.15,
-                    color: AppColors.purple,
-                  ),
+                  style: TextStyles.purple20w600Roboto,
                 ),
               ),
               Container(
@@ -81,47 +72,25 @@ class _NameEmailState extends State<NameEmail> {
         ),
       ),
       bottomSheet: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              right: 56.5,
-              bottom: 20,
-            ),
-            child: TextButton(
-              onPressed: () {
-                Navigator.popAndPushNamed(context, '/login');
-              },
-              child: Text(
-                'VOLTAR',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.greyGoogle,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 22),
+          TextButton(
+            onPressed: () {
+              Navigator.popAndPushNamed(context, '/login');
+            },
             child: Text(
-              '1/4',
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14,
-                fontFamily: 'Roboto',
-              ),
+              'VOLTAR',
+              style: TextStyles.grey14w500Roboto,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 56.5,
-              bottom: 16,
-            ),
-            child: ContinueButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/tel_cpf');
-              },
-            ),
+          Text(
+            '1/4',
+            style: TextStyles.black14w400Robotoblack,
+          ),
+          ContinueButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/tel_cpf');
+            },
           ),
         ],
       ),
