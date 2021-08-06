@@ -7,11 +7,11 @@ import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 class InputText extends StatefulWidget {
   final TextEditingController? controller;
   final TextInputType textInputType;
-  final TextInputAction textInputAction;
+  final TextInputAction? textInputAction;
   final String label;
   final String? helperText;
-  final String? Function(String? value) validator;
-  final ValueChanged<String> onChanged;
+  final String? Function(String? value)? validator;
+  final ValueChanged<String?>? onChanged;
   final bool obscureText;
   final FocusNode? focusNode;
 
@@ -19,11 +19,11 @@ class InputText extends StatefulWidget {
     Key? key,
     this.controller,
     this.textInputType = TextInputType.text,
-    this.helperText,
-    required this.textInputAction,
+    this.textInputAction,
     required this.label,
-    required this.validator,
-    required this.onChanged,
+    this.helperText,
+    this.validator,
+    this.onChanged,
     this.obscureText = false,
     this.focusNode,
   }) : super(key: key);

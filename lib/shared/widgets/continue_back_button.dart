@@ -29,7 +29,7 @@ class ContinueBackButton extends StatelessWidget {
             ),
             Text(
               "VOLTAR",
-              style: TextStyles.black14w500Roboto,
+              style: TextStyles.black26_14w500Roboto,
             ),
           ],
         ),

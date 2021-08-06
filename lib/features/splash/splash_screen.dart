@@ -1,5 +1,4 @@
 import 'package:animated_card/animated_card.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
@@ -15,15 +14,13 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
-      Future.delayed(Duration(seconds: 3)).then(
-        (value) => Navigator.of(context).pushReplacement(
-          CupertinoPageRoute(
-            builder: (BuildContext context) => Container(),
-          ),
-        ),
-      );
-    });
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback(
+      (timeStamp) {
+        Future.delayed(Duration(seconds: 3)).then(
+          (value) => Navigator.of(context).pushNamed('/login'),
+        );
+      },
+    );
     super.initState();
   }
 
