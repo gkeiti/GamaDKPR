@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 
 class ContinueForwardButton extends StatelessWidget {
-  const ContinueForwardButton({Key? key}) : super(key: key);
+  const ContinueForwardButton({
+    Key? key,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,7 @@ class ContinueForwardButton extends StatelessWidget {
           bottom: 4.0,
           right: 6.0,
         ),
-        onPressed: () {},
+        onPressed: this.onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

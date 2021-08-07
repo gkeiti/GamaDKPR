@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/name_email');
+                      Navigator.pushNamed(context, '/register_pageview');
                     },
                     child: Text(
                       'Crie uma conta!',

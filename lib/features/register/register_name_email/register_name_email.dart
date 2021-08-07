@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/input_validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
@@ -9,7 +10,11 @@ import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 
 class RegisterNameEmailPage extends StatefulWidget {
-  const RegisterNameEmailPage({Key? key}) : super(key: key);
+    
+
+  const RegisterNameEmailPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _RegisterNameEmailPageState createState() => _RegisterNameEmailPageState();
@@ -20,7 +25,7 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
   TextEditingController? _emailController = TextEditingController();
   FocusNode _myFocusNode = FocusNode();
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+final GlobalKey<FormState>? nameEmailKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -68,7 +73,7 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
             Padding(
               padding: EdgeInsets.only(top: 280.0, left: 48.0, right: 49.0),
               child: Form(
-                key: _formKey,
+                key: nameEmailKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -78,7 +83,9 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
                       onChanged: (value) => _nameController?.value,
                       label: 'Nome',
                       textInputType: TextInputType.name,
-                      validator: (String? value) {},
+                      validator: (String? name) {
+                        InputValidators().nameValidator(name);
+                      },
                     ),
                     SizedBox(height: 32.0),
                     InputText(
@@ -88,7 +95,9 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
                       onChanged: (value) => _emailController?.value,
                       label: 'E-mail',
                       textInputType: TextInputType.emailAddress,
-                      validator: (String? value) {},
+                      validator: (String? email) {
+                        InputValidators().emailValidator(email);
+                      },
                     ),
                   ],
                 ),

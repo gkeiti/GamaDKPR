@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 
-class ContinueBackButton extends StatelessWidget {
-  const ContinueBackButton({Key? key}) : super(key: key);
+class BackButtonWidget extends StatelessWidget {
+  const BackButtonWidget({
+    Key? key,
+    this.onPressed,
+  }) : super(key: key);
+
+  final Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ class ContinueBackButton extends StatelessWidget {
           bottom: 4.0,
           right: 6.0,
         ),
-        onPressed: () {},
+        onPressed: this.onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
