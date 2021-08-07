@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/input_validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
@@ -21,7 +22,7 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
       MaskedTextController(mask: "000.000.000-00");
   FocusNode _myFocusNode = FocusNode();
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState>? phoneCpfKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -68,7 +69,7 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
             Padding(
               padding: EdgeInsets.only(top: 280.0, left: 48.0, right: 49.0),
               child: Form(
-                key: _formKey,
+                key: phoneCpfKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -78,7 +79,9 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
                       onChanged: (value) => _phoneController.value,
                       label: 'Telefone',
                       textInputType: TextInputType.phone,
-                      validator: (String? value) {},
+                      validator: (String? phone) {
+                        InputValidators().phoneValidator(phone);
+                      },
                     ),
                     SizedBox(height: 32.0),
                     InputText(
@@ -90,7 +93,9 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
                       helperText:
                           "O CPF é necessário para conectar suas contas.",
                       textInputType: TextInputType.number,
-                      validator: (String? value) {},
+                      validator: (String? cpf) {
+                        InputValidators().cpfValidator(cpf);
+                      },
                     ),
                   ],
                 ),

@@ -17,6 +17,9 @@ class RegisterTermsPage extends StatefulWidget {
 class _RegisterTermsPageState extends State<RegisterTermsPage> {
   bool? _checked = false;
 
+    final GlobalKey<FormState>? termsKey = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

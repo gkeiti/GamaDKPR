@@ -3,7 +3,7 @@ import 'package:trabalho_final_dgpr/features/register/register_name_email/regist
 import 'package:trabalho_final_dgpr/features/register/register_password/register_password.dart';
 import 'package:trabalho_final_dgpr/features/register/register_phone_cpf/register_phone_cpf.dart';
 import 'package:trabalho_final_dgpr/features/register/register_terms/register_terms.dart';
-import 'package:trabalho_final_dgpr/shared/widgets/continue_back_button.dart';
+import 'package:trabalho_final_dgpr/shared/widgets/back_button_widget.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_forward_button.dart';
 
 class RegisterPageView extends StatefulWidget {
@@ -14,6 +14,12 @@ class RegisterPageView extends StatefulWidget {
 }
 
 class _RegisterPageViewState extends State<RegisterPageView> {
+
+  final GlobalKey<FormState>? nameEmailKey = GlobalKey<FormState>();
+  final GlobalKey<FormState>? phoneCpfKey = GlobalKey<FormState>();
+  final GlobalKey<FormState>? termsKey = GlobalKey<FormState>();
+  final GlobalKey<FormState>? passwordKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final PageController controller = PageController(initialPage: 0);
@@ -22,12 +28,21 @@ class _RegisterPageViewState extends State<RegisterPageView> {
         children: [
           PageView(
             scrollDirection: Axis.horizontal,
+            physics: NeverScrollableScrollPhysics(),
             controller: controller,
             children: [
-              RegisterNameEmailPage(),
-              RegisterPhoneCpfPage(),
-              RegisterTermsPage(),
-              RegisterPasswordPage(),
+              RegisterNameEmailPage(
+                key: nameEmailKey,
+              ),
+              RegisterPhoneCpfPage(
+                key: phoneCpfKey,
+              ),
+              RegisterTermsPage(
+                key: termsKey,
+              ),
+              RegisterPasswordPage(
+                key: passwordKey,
+              ),
             ],
           ),
           Visibility(
@@ -41,8 +56,20 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ContinueBackButton(),
-                    ContinueForwardButton(),
+                    BackButtonWidget(
+                      onPressed: () {
+                        controller.previousPage(
+                            duration: Duration(milliseconds: 400),
+                            curve: Curves.easeIn);
+                      },
+                    ),
+                    ContinueForwardButton(
+                      onPressed: () {
+                        controller.nextPage(
+                            duration: Duration(milliseconds: 400),
+                            curve: Curves.easeIn);
+                      },
+                    ),
                   ],
                 ),
               ),

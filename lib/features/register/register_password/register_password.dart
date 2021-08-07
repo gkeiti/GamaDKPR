@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/input_validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
@@ -19,7 +20,7 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
   TextEditingController _confirmPasswordController = TextEditingController();
   FocusNode _focusNode = FocusNode();
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState>? passwordKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -81,7 +82,7 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
             Padding(
               padding: EdgeInsets.only(top: 280.0, left: 48.0, right: 49.0),
               child: Form(
-                key: _formKey,
+                key: passwordKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -91,7 +92,9 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                       onChanged: (value) => _passwordController.value,
                       label: 'Crie uma senha',
                       textInputType: TextInputType.text,
-                      validator: (String? value) {},
+                      validator: (String? password) {
+                        InputValidators().passwordValidator(password);
+                      },
                     ),
                     SizedBox(height: 32.0),
                     InputText(
@@ -101,7 +104,9 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                       onChanged: (value) => _confirmPasswordController.value,
                       label: 'Confirme sua senha',
                       textInputType: TextInputType.text,
-                      validator: (String? value) {},
+                      validator: (String? value) {
+                        InputValidators().confirmPasswordValidator(_passwordController.text, _confirmPasswordController.text);
+                      },
                     ),
                   ],
                 ),
