@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 
-class ContinueButton extends StatelessWidget {
-  final Function() onPressed;
-  const ContinueButton({
+class ContinueForwardButton extends StatelessWidget {
+  const ContinueForwardButton({
     Key? key,
     required this.onPressed,
   }) : super(key: key);
 
+  final Function()? onPressed;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 114,
-      height: 36,
+      width: 116,
+      height: 32,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: <Color>[
@@ -31,20 +33,31 @@ class ContinueButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(34),
       ),
       child: MaterialButton(
+        padding: EdgeInsets.only(
+          left: 4.0,
+          top: 4.0,
+          bottom: 4.0,
+          right: 6.0,
+        ),
         onPressed: this.onPressed,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(
-              child: Text(
-                "CONTINUAR",
-                style: TextStyles.continueButton,
-              ),
+            Text(
+              "CONTINUAR",
+              style: TextStyles.continueButton,
+            ),
+            Icon(
+              Icons.arrow_forward,
+              size: 20.0,
+              color: AppColors.white,
             ),
           ],
         ),
         disabledColor: Colors.grey,
+        disabledTextColor: Colors.black,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(34),
+          borderRadius: BorderRadius.circular(24),
         ),
       ),
     );
