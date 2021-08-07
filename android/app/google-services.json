@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "990115639252",
+    "project_id": "trabalhofinalraroacademy",
+    "storage_bucket": "trabalhofinalraroacademy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990115639252:android:0e1617e4da85cf24c83041",
+        "android_client_info": {
+          "package_name": "com.example.trabalho_final_dgpr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990115639252-brnil9e62au6r4rns4d4anjrh1jusc6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhBRwj4fI0zDhDErR7rtfz47j7-yLrgNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990115639252-brnil9e62au6r4rns4d4anjrh1jusc6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

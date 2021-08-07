@@ -22,20 +22,14 @@ class SideDrawer extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [
-                    AppColors.cyan,
-                    AppColors.purple,
-                  ],
+                  colors: <Color>[AppColors.cyan, AppColors.purple],
                   stops: [0.1, 0.6],
                   transform: GradientRotation((45 * 3.1415) / 180),
                 ),
               ),
               child: Padding(
                 padding: const EdgeInsets.only(left: 25.0, top: 44.0),
-                child: Text(
-                  "Olá, José",
-                  style: TextStyles.white26w700Roboto,
-                ),
+                child: Text("Olá, José", style: TextStyles.white26w700Roboto),
               ),
             ),
             Container(
@@ -44,18 +38,14 @@ class SideDrawer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Perfil',
-                    style: TextStyles.black54_14w400Roboto,
-                  ),
-                  DrawerItem(itemName: 'Cadastro', route: '/update_register'),
+                  Text('Perfil', style: TextStyles.black54_14w400Roboto),
+                  DrawerItem(
+                      itemName: 'Cadastro', route: '/home/update_register'),
                 ],
               ),
               decoration: BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(
-                    color: AppColors.drawerItemBorder,
-                  ),
+                  bottom: BorderSide(color: AppColors.drawerItemBorder),
                 ),
               ),
             ),
@@ -65,19 +55,15 @@ class SideDrawer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Conta',
-                    style: TextStyles.black54_14w400Roboto,
-                  ),
-                  DrawerItem(route: '', itemName: 'Gerenciar cartões'),
+                  Text('Conta', style: TextStyles.black54_14w400Roboto),
+                  DrawerItem(
+                      route: '/error_home_page', itemName: 'Gerenciar cartões'),
                   DrawerItem(route: '', itemName: 'Investimentos'),
                 ],
               ),
               decoration: BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(
-                    color: AppColors.drawerItemBorder,
-                  ),
+                  bottom: BorderSide(color: AppColors.drawerItemBorder),
                 ),
               ),
             ),
@@ -87,18 +73,13 @@ class SideDrawer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Segurança',
-                    style: TextStyles.black54_14w400Roboto,
-                  ),
+                  Text('Segurança', style: TextStyles.black54_14w400Roboto),
                   DrawerItem(route: '', itemName: 'Alterar senha')
                 ],
               ),
               decoration: BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(
-                    color: AppColors.drawerItemBorder,
-                  ),
+                  bottom: BorderSide(color: AppColors.drawerItemBorder),
                 ),
               ),
             ),

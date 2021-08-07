@@ -4,9 +4,7 @@ import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 
 class DayToDayCard extends StatefulWidget {
-  const DayToDayCard({
-    Key? key,
-  }) : super(key: key);
+  const DayToDayCard({Key? key}) : super(key: key);
 
   @override
   _DayToDayCardState createState() => _DayToDayCardState();
@@ -14,6 +12,20 @@ class DayToDayCard extends StatefulWidget {
 
 class _DayToDayCardState extends State<DayToDayCard> {
   String dropdownValue = 'AGO';
+  List<String> months = [
+    'JAN',
+    'FEV',
+    'MAR',
+    'ABR',
+    'MAI',
+    'JUN',
+    'JUL',
+    'AGO',
+    'SET',
+    'OUT',
+    'NOV',
+    'DEZ'
+  ];
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -26,26 +38,17 @@ class _DayToDayCardState extends State<DayToDayCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Dia a dia",
-                  style: TextStyles.purple20w500Roboto,
-                ),
+                Text("Dia a dia", style: TextStyles.purple20w500Roboto),
                 Container(
                   height: 32,
                   width: 74,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: <Color>[
-                        AppColors.cyan,
-                        AppColors.purple,
-                      ],
+                      colors: <Color>[AppColors.cyan, AppColors.purple],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      stops: [
-                        0.1,
-                        0.7,
-                      ],
+                      stops: [0.1, 0.7],
                       transform: GradientRotation((38 * 3.141592) / 180),
                     ),
                     borderRadius: BorderRadius.circular(34),
@@ -54,60 +57,33 @@ class _DayToDayCardState extends State<DayToDayCard> {
                     value: dropdownValue,
                     dropdownColor: AppColors.purple,
                     menuMaxHeight: 400,
-                    underline: Container(
-                      color: Colors.black,
-                    ),
+                    underline: Container(color: Colors.black),
                     onChanged: (String? newValue) {
                       setState(() {
                         dropdownValue = newValue!;
                       });
                     },
-                    items: [
-                      'JAN',
-                      'FEV',
-                      'MAR',
-                      'ABR',
-                      'MAI',
-                      'JUN',
-                      'JUL',
-                      'AGO',
-                      'SET',
-                      'OUT',
-                      'NOV',
-                      'DEZ'
-                    ].map(
-                      (e) {
-                        return DropdownMenuItem(
-                          value: e,
-                          child: Text(
-                            e,
-                            style: TextStyles.white14w500Roboto,
-                          ),
-                        );
-                      },
-                    ).toList(),
+                    items: months.map((e) {
+                      return DropdownMenuItem(
+                        value: e,
+                        child: Text(e, style: TextStyles.white14w500Roboto),
+                      );
+                    }).toList(),
                   ),
                 )
               ],
             ),
             Row(
               children: [
-                Text(
-                  'R\$ 3.000,00',
-                  style: TextStyles.black24w400Roboto,
-                )
+                Text('R\$ 3.000,00', style: TextStyles.black24w400Roboto)
               ],
             ),
-            SizedBox(
-              height: 16.0,
-            ),
+            SizedBox(height: 16.0),
             Chart(),
           ],
         ),
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(7.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0)),
       elevation: 3,
     );
   }
