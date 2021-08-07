@@ -76,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 48),
                 child: InputText(
                   label: 'Insira seu e-mail',
+                  validator: (value) => value!.isEmpty? 'Insira um e-mail' : null,
                   obscureText: false,
                   textInputType: TextInputType.emailAddress,
                 ),

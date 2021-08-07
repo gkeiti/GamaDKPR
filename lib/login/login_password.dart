@@ -67,7 +67,7 @@ class _LoginPasswordState extends State<LoginPassword> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   TextButton(
-                    child: Text('RECUPERAR SENHA'),
+                    child: Text('RECUPERAR SENHA', style: TextStyles.purple14w500Roboto,),
                     onPressed: () {},
                   ),
                   Padding(
