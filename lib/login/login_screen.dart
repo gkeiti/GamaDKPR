@@ -86,7 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   left: 198,
                 ),
                 child: ContinueButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login_password');
+                  },
                 ),
               ),
               Padding(
