@@ -3,6 +3,8 @@ import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
+import 'package:provider/provider.dart';
+import 'package:trabalho_final_dgpr/services/auth_service.dart';
 
 class LoginPassword extends StatefulWidget {
   const LoginPassword({Key? key}) : super(key: key);
@@ -40,6 +42,16 @@ class _LoginPasswordState extends State<LoginPassword> {
         toggleButton = 'Voltar ao login';
       }
     });
+  }
+
+  login() async {
+    try {
+      await context.read<AuthService>().login(email.text, senha.text);
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message)),
+      );
+    }
   }
 
   @override

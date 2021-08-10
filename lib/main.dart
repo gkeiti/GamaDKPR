@@ -17,4 +17,3 @@ void main(List<String> args) async {
     ),
   );
 }
-// parei o video nos 20 minutos

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trabalho_final_dgpr/services/auth_service.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/input_validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
@@ -7,6 +8,7 @@ import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/comments.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPasswordPage extends StatefulWidget {
   const RegisterPasswordPage({Key? key}) : super(key: key);
@@ -21,11 +23,24 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
   FocusNode _focusNode = FocusNode();
 
   final GlobalKey<FormState>? passwordKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
+  final confirmasenha = TextEditingController();
+  final senha = TextEditingController();
 
   @override
   void initState() {
     _focusNode = FocusNode();
     super.initState();
+  }
+
+  registrar() async {
+    try {
+      await context.read<AuthService>().registrar(senha.text, confirmasenha.text);
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message)),
+      );
+    }
   }
 
   @override
@@ -42,77 +57,82 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
       backgroundColor: AppColors.white,
       appBar: AppBarWhiteWidget(),
       body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                top: 0.0,
-                left: 48.0,
+        child: Form(
+          key: formKey,
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 0.0,
+                  left: 48.0,
+                ),
+                child: LogoBudgetWidget(),
               ),
-              child: LogoBudgetWidget(),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: 70.0,
-                left: 48.0,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  BemVindoWidget(),
-                  BemVindoCommentWidget(
-                    label: "Agora crie sua senha contendo:",
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: 45.0,
-                top: 194.0,
-                right: 45.0,
-              ),
-              child: CommentsWidget(
-                text:
-                    "• Pelo menos oito caracteres; \n• Letras maiúsculas, letras minúsculas, números e símbolos.",
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 280.0, left: 48.0, right: 49.0),
-              child: Form(
-                key: passwordKey,
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 70.0,
+                  left: 48.0,
+                ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    InputText(
-                      textInputAction: TextInputAction.next,
-                      controller: _passwordController,
-                      onChanged: (value) => _passwordController.value,
-                      label: 'Crie uma senha',
-                      textInputType: TextInputType.text,
-                      validator: (String? password) {
-                        InputValidators().passwordValidator(password);
-                      },
-                    ),
-                    SizedBox(height: 32.0),
-                    InputText(
-                      focusNode: _focusNode,
-                      textInputAction: TextInputAction.done,
-                      controller: _confirmPasswordController,
-                      onChanged: (value) => _confirmPasswordController.value,
-                      label: 'Confirme sua senha',
-                      textInputType: TextInputType.text,
-                      validator: (String? value) {
-                        InputValidators().confirmPasswordValidator(_passwordController.text, _confirmPasswordController.text);
-                      },
+                    BemVindoWidget(),
+                    BemVindoCommentWidget(
+                      label: "Agora crie sua senha contendo:",
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 45.0,
+                  top: 194.0,
+                  right: 45.0,
+                ),
+                child: CommentsWidget(
+                  text:
+                      "• Pelo menos oito caracteres; \n• Letras maiúsculas, letras minúsculas, números e símbolos.",
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 280.0, left: 48.0, right: 49.0),
+                child: Form(
+                  key: passwordKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InputText(
+                        textInputAction: TextInputAction.next,
+                        controller: _passwordController,
+                        onChanged: (value) => _passwordController.value,
+                        label: 'Crie uma senha',
+                        textInputType: TextInputType.text,
+                        validator: (String? password) {
+                          InputValidators().passwordValidator(password);
+                        },
+                      ),
+                      SizedBox(height: 32.0),
+                      InputText(
+                        focusNode: _focusNode,
+                        textInputAction: TextInputAction.done,
+                        controller: _confirmPasswordController,
+                        onChanged: (value) => _confirmPasswordController.value,
+                        label: 'Confirme sua senha',
+                        textInputType: TextInputType.text,
+                        validator: (String? value) {
+                          InputValidators().confirmPasswordValidator(
+                              _passwordController.text,
+                              _confirmPasswordController.text);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:trabalho_final_dgpr/services/auth_service.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
@@ -27,10 +29,10 @@ class _LoginScreenState extends State<LoginScreen> {
     setFormAction(true);
   }
 
-  setFormAction(bool acao){
+  setFormAction(bool acao) {
     setState(() {
       isLogin = acao;
-      if(isLogin){
+      if (isLogin) {
         titulo = 'Bem vindo';
         actionButton = 'Login';
         toggleButton = 'Ainda nao tem conta?';
@@ -40,6 +42,16 @@ class _LoginScreenState extends State<LoginScreen> {
         toggleButton = 'Voltar ao login';
       }
     });
+  }
+
+  login() async {
+    try {
+      await context.read<AuthService>().login(email.text, senha.text);
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message)),
+      );
+    }
   }
 
   @override

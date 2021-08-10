@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:trabalho_final_dgpr/services/auth_service.dart';
 
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/input_validators.dart';
@@ -10,8 +12,6 @@ import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 
 class RegisterNameEmailPage extends StatefulWidget {
-    
-
   const RegisterNameEmailPage({
     Key? key,
   }) : super(key: key);
@@ -25,7 +25,10 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
   TextEditingController? _emailController = TextEditingController();
   FocusNode _myFocusNode = FocusNode();
 
-final GlobalKey<FormState>? nameEmailKey = GlobalKey<FormState>();
+  final GlobalKey<FormState>? nameEmailKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
+  final email = TextEditingController();
+  final nome = TextEditingController();
 
   @override
   void initState() {
@@ -41,69 +44,80 @@ final GlobalKey<FormState>? nameEmailKey = GlobalKey<FormState>();
     super.dispose();
   }
 
+  registrar() async {
+    try {
+      await context.read<AuthService>().registrar(email.text, nome.text);
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message)),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-  
-
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBarWhiteWidget(),
       body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Positioned(
-              top: 0.0,
-              left: 48.0,
-              child: LogoBudgetWidget(),
-            ),
-            Positioned(
-              top: 70.0,
-              left: 48.0,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  BemVindoWidget(),
-                  BemVindoCommentWidget(
-                    label: "Por favor insira seus dados \nno campos abaixo.",
-                  ),
-                ],
+        child: Form(
+          key: formKey,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 0.0,
+                left: 48.0,
+                child: LogoBudgetWidget(),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 280.0, left: 48.0, right: 49.0),
-              child: Form(
-                key: nameEmailKey,
+              Positioned(
+                top: 70.0,
+                left: 48.0,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    InputText(
-                      textInputAction: TextInputAction.next,
-                      controller: _nameController,
-                      onChanged: (value) => _nameController?.value,
-                      label: 'Nome',
-                      textInputType: TextInputType.name,
-                      validator: (String? name) {
-                        InputValidators().nameValidator(name);
-                      },
-                    ),
-                    SizedBox(height: 32.0),
-                    InputText(
-                      focusNode: _myFocusNode,
-                      textInputAction: TextInputAction.done,
-                      controller: _emailController,
-                      onChanged: (value) => _emailController?.value,
-                      label: 'E-mail',
-                      textInputType: TextInputType.emailAddress,
-                      validator: (String? email) {
-                        InputValidators().emailValidator(email);
-                      },
+                    BemVindoWidget(),
+                    BemVindoCommentWidget(
+                      label: "Por favor insira seus dados \nno campos abaixo.",
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.only(top: 280.0, left: 48.0, right: 49.0),
+                child: Form(
+                  key: nameEmailKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InputText(
+                        textInputAction: TextInputAction.next,
+                        controller: _nameController,
+                        onChanged: (value) => _nameController?.value,
+                        label: 'Nome',
+                        textInputType: TextInputType.name,
+                        validator: (String? name) {
+                          InputValidators().nameValidator(name);
+                        },
+                      ),
+                      SizedBox(height: 32.0),
+                      InputText(
+                        focusNode: _myFocusNode,
+                        textInputAction: TextInputAction.done,
+                        controller: _emailController,
+                        onChanged: (value) => _emailController?.value,
+                        label: 'E-mail',
+                        textInputType: TextInputType.emailAddress,
+                        validator: (String? email) {
+                          InputValidators().emailValidator(email);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
