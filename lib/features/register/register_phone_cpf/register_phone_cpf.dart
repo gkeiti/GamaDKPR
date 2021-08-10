@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
-import 'package:trabalho_final_dgpr/shared/app_constants/input_validators.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
+import 'package:trabalho_final_dgpr/shared/widgets/back_button_widget.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
+import 'package:trabalho_final_dgpr/shared/widgets/continue_forward_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -22,7 +25,12 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
       MaskedTextController(mask: "000.000.000-00");
   FocusNode _myFocusNode = FocusNode();
 
-  final GlobalKey<FormState>? phoneCpfKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> phoneCpfKey = GlobalKey<FormState>();
+
+  Validators validators = Validators();
+
+  String phone = "";
+  String cpf = "";
 
   @override
   void initState() {
@@ -73,32 +81,58 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    InputText(
-                      textInputAction: TextInputAction.next,
-                      controller: _phoneController,
-                      onChanged: (value) => _phoneController.value,
-                      label: 'Telefone',
-                      textInputType: TextInputType.phone,
-                      validator: (String? phone) {
-                        InputValidators().phoneValidator(phone);
-                      },
-                    ),
+                    Observer(builder: (_) {
+                      return InputText(
+                        textInputAction: TextInputAction.next,
+                        controller: _phoneController,
+                        onChanged: (value) => validators.setPhone(value!),
+                        label: 'Telefone',
+                        textInputType: TextInputType.phone,
+                        validator: (value) => validators.isPhoneValid(),
+                        onSaved: (String? value) {
+                          this.phone = value!;
+                        },
+                      );
+                    }),
                     SizedBox(height: 32.0),
-                    InputText(
-                      focusNode: _myFocusNode,
-                      textInputAction: TextInputAction.done,
-                      controller: _cpfController,
-                      onChanged: (value) => _cpfController.value,
-                      label: 'CPF',
-                      helperText:
-                          "O CPF é necessário para conectar suas contas.",
-                      textInputType: TextInputType.number,
-                      validator: (String? cpf) {
-                        InputValidators().cpfValidator(cpf);
-                      },
-                    ),
+                    Observer(builder: (_) {
+                      return InputText(
+                        focusNode: _myFocusNode,
+                        textInputAction: TextInputAction.done,
+                        controller: _cpfController,
+                        onChanged: (value) => validators.setCpf(value!),
+                        label: 'CPF',
+                        helperText:
+                            "O CPF é necessário para conectar suas contas.",
+                        textInputType: TextInputType.number,
+                        validator: (value) => validators.isCpfValid(),
+                        onSaved: (String? value) {
+                          this.cpf = value!;
+                        },
+                      );
+                    })
                   ],
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 650, 16, 0.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BackButtonWidget(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ContinueForwardButton(
+                    onPressed: () {
+                      if (phoneCpfKey.currentState!.validate()) {
+                        Navigator.pushNamed(context, "/register_terms");
+                      }
+                    },
+                  ),
+                ],
               ),
             ),
           ],

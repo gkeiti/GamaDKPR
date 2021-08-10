@@ -14,11 +14,10 @@ class RegisterPageView extends StatefulWidget {
 }
 
 class _RegisterPageViewState extends State<RegisterPageView> {
-
-  final GlobalKey<FormState>? nameEmailKey = GlobalKey<FormState>();
-  final GlobalKey<FormState>? phoneCpfKey = GlobalKey<FormState>();
-  final GlobalKey<FormState>? termsKey = GlobalKey<FormState>();
-  final GlobalKey<FormState>? passwordKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> nameEmailKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> phoneCpfKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> termsKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +31,12 @@ class _RegisterPageViewState extends State<RegisterPageView> {
             controller: controller,
             children: [
               RegisterNameEmailPage(
-                key: nameEmailKey,
+                key: nameEmailKey, 
               ),
               RegisterPhoneCpfPage(
                 key: phoneCpfKey,
               ),
-              RegisterTermsPage(
-                key: termsKey,
-              ),
+              RegisterTermsPage(),
               RegisterPasswordPage(
                 key: passwordKey,
               ),
@@ -65,9 +62,11 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                     ),
                     ContinueForwardButton(
                       onPressed: () {
-                        controller.nextPage(
-                            duration: Duration(milliseconds: 400),
-                            curve: Curves.easeIn);
+                        
+                        if (controller.initialPage == 0 &&
+                            nameEmailKey.currentState!.validate()) {
+                          controller.animateToPage(1, duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+                        }
                       },
                     ),
                   ],

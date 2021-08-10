@@ -58,6 +58,9 @@ class InputValidators {
     } else if (value != value1) {
       return 'A senha não é igual!';
     }
+
+    
+
     String pattern = r'^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[!@#$&~]).{8,}$';
     RegExp regExp = RegExp(pattern);
     if (!regExp.hasMatch(value)) {

@@ -9,11 +9,13 @@ class InputText extends StatefulWidget {
   final TextInputType textInputType;
   final TextInputAction? textInputAction;
   final String label;
+  final String? Function()? errorText;
   final String? helperText;
   final String? Function(String? value)? validator;
   final ValueChanged<String?>? onChanged;
   final bool obscureText;
   final FocusNode? focusNode;
+  final String? Function(String? value)? onSaved;
 
   const InputText({
     Key? key,
@@ -21,11 +23,13 @@ class InputText extends StatefulWidget {
     this.textInputType = TextInputType.text,
     this.textInputAction,
     required this.label,
+    this.errorText,
     this.helperText,
     this.validator,
     this.onChanged,
     this.obscureText = false,
     this.focusNode,
+    this.onSaved,
   }) : super(key: key);
 
   @override
@@ -44,8 +48,11 @@ class _InputTextState extends State<InputText> {
       controller: widget.controller,
       keyboardType: widget.textInputType,
       onChanged: widget.onChanged,
+      onSaved: widget.onSaved,
+      validator: widget.validator,
       decoration: InputDecoration(
         labelText: widget.label,
+        errorText: widget.errorText == null ? null : widget.errorText!(),
         labelStyle: TextStyle(color: _colorText),
         helperText: widget.helperText,
         enabledBorder: UnderlineInputBorder(
