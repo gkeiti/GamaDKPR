@@ -18,36 +18,19 @@ class _LoginScreenState extends State<LoginScreen> {
   final email = TextEditingController();
   final senha = TextEditingController();
 
-  bool isLogin = true;
-  late String titulo;
-  late String actionButton;
-  late String toggleButton;
-
-  @override
-  void initState() {
-    super.initState();
-    setFormAction(true);
-  }
-
-  setFormAction(bool acao) {
-    setState(() {
-      isLogin = acao;
-      if (isLogin) {
-        titulo = 'Bem vindo';
-        actionButton = 'Login';
-        toggleButton = 'Ainda nao tem conta?';
-      } else {
-        titulo = 'Crie sua conta';
-        actionButton = 'Cadastrar';
-        toggleButton = 'Voltar ao login';
-      }
-    });
-  }
+// o código comentado é para fazer um progress indicator no botao de continue de lkogin
+  bool loading = false;
 
   login() async {
+    setState(() {
+      loading = true;
+    });
     try {
       await context.read<AuthService>().login(email.text, senha.text);
     } on AuthException catch (e) {
+      setState(() {
+        loading = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.message)),
       );
@@ -131,7 +114,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     left: 198,
                   ),
                   child: ContinueButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (loading) {
+                        Padding(
+                          padding: EdgeInsets.all(16),
+                          child: SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ),
                 Padding(
