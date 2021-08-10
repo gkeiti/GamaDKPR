@@ -6,7 +6,6 @@ abstract class ControlRepository {
   Future<void> addTransaction(TransactionsModel transaction);
   Future<void> addBalance(BalanceModel balance);
   Future<void> addBudget(String uid, double total);
-  //Stream<List> getAllTransactions(String uid, int month);
 }
 
 class ControlRepositoryImpl extends ControlRepository {
@@ -29,12 +28,6 @@ class ControlRepositoryImpl extends ControlRepository {
 
   @override
   Future<void> addBalance(BalanceModel balance) async {
-    /* final response = await FirebaseFirestore.instance
-        .collection('/balance')
-        .where(FieldPath.documentId, isEqualTo: balance.uid)
-        .where('uid', isEqualTo: balance.uid)
-        .where('month', isEqualTo: balance.month)
-        .get(); */
     final response = await FirebaseFirestore.instance
         .collection('/balance')
         .doc(balance.uid)
@@ -45,17 +38,6 @@ class ControlRepositoryImpl extends ControlRepository {
     if (response.docs.isNotEmpty) {
       List entrance = response.docs.map((e) => e['entrance']).toList();
       List out = response.docs.map((e) => e['out']).toList();
-      print('ENTRANCE: $entrance');
-      print('OUT: $out');
-      /* if (balance.type == 'in') {
-        entrance[0] += balance.entrance;
-        FirebaseFirestore.instance.collection('/balance').doc(balance.uid).set(
-            {'entrance': entrance[0], 'out': out[0]}, SetOptions(merge: true));
-      } else {
-        out[0] += balance.out;
-        FirebaseFirestore.instance.collection('/balance').doc(balance.uid).set(
-            {'entrance': entrance[0], 'out': out[0]}, SetOptions(merge: true));
-      } */
       if (balance.type == 'in') {
         entrance[0] += balance.entrance;
         FirebaseFirestore.instance
@@ -74,23 +56,9 @@ class ControlRepositoryImpl extends ControlRepository {
             .doc(balance.uid)
             .set({'entrance': entrance[0], 'out': out[0]},
                 SetOptions(merge: true));
-        /* FirebaseFirestore.instance.collection('/balance').doc(balance.uid).set(
-            {'entrance': entrance[0], 'out': out[0]}, SetOptions(merge: true)); */
       }
     } else {
       if (balance.type == 'in') {
-        /* FirebaseFirestore.instance.collection('/balance').doadd({
-          'entrance': balance.entrance,
-          'out': 0,
-          'uid': balance.uid,
-          'month': balance.month
-        }); */
-        /* FirebaseFirestore.instance.collection('/balance').doc(balance.uid).set({
-          'entrance': balance.entrance,
-          'out': 0,
-          'uid': balance.uid,
-          'month': balance.month
-        }); */
         FirebaseFirestore.instance
             .collection('/balance')
             .doc(balance.uid)
@@ -114,12 +82,6 @@ class ControlRepositoryImpl extends ControlRepository {
           'uid': balance.uid,
           'month': balance.month
         });
-        /* FirebaseFirestore.instance.collection('/balance').doc(balance.uid).set({
-          'entrance': 0,
-          'out': balance.out,
-          'uid': balance.uid,
-          'month': balance.month
-        }); */
       }
     }
   }
@@ -144,18 +106,4 @@ class ControlRepositoryImpl extends ControlRepository {
       });
     }
   }
-
-  /*  @override
-  Stream<List> getAllTransactions(String uid, int month) {
-    return FirebaseFirestore.instance
-        .collection('/balance')
-        .where(FieldPath.documentId, isEqualTo: uid)
-        .where('month', isEqualTo: month)
-        .snapshots()
-        .map((query) {
-      return query.docs.map((doc) {
-        return AllTransactionsModel.fromDocument(doc);
-      }).toList();
-    });
-  } */
 }
