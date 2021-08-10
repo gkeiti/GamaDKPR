@@ -29,17 +29,10 @@ class _ChartState extends State<Chart> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Saídas",
-                            style: TextStyles.black14w500Roboto,
-                          ),
-                          SizedBox(
-                            width: 1,
-                          ),
-                          Text(
-                            'R\$ $saida',
-                            style: TextStyles.black14w400Roboto,
-                          ),
+                          Text("Saídas", style: TextStyles.black14w500Roboto),
+                          SizedBox(width: 1),
+                          Text('R\$ $saida',
+                              style: TextStyles.black14w400Roboto),
                         ],
                       ),
                       Container(
@@ -72,17 +65,10 @@ class _ChartState extends State<Chart> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Entradas",
-                            style: TextStyles.black14w500Roboto,
-                          ),
-                          SizedBox(
-                            width: 1,
-                          ),
-                          Text(
-                            'R\$ $entrada',
-                            style: TextStyles.black14w400Roboto,
-                          ),
+                          Text("Entradas", style: TextStyles.black14w500Roboto),
+                          SizedBox(width: 1),
+                          Text('R\$ $entrada',
+                              style: TextStyles.black14w400Roboto),
                         ],
                       ),
                       Container(

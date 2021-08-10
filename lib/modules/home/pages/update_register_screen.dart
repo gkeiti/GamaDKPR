@@ -26,11 +26,7 @@ class _UpdateRegisterScreenState extends State<UpdateRegisterScreen> {
             Container(
               height: 395,
               child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 16.0,
-                  top: 16.0,
-                  right: 16.0,
-                ),
+                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
                 child: Card(
                   child: Padding(
                     padding: const EdgeInsets.all(35.0),
@@ -53,8 +49,7 @@ class _UpdateRegisterScreenState extends State<UpdateRegisterScreen> {
                     ),
                   ),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7.0),
-                  ),
+                      borderRadius: BorderRadius.circular(7.0)),
                 ),
               ),
             ),
@@ -68,16 +63,10 @@ class _UpdateRegisterScreenState extends State<UpdateRegisterScreen> {
           height: 50,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[
-                AppColors.cyan,
-                AppColors.purple,
-              ],
+              colors: <Color>[AppColors.cyan, AppColors.purple],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              stops: [
-                0.1,
-                0.7,
-              ],
+              stops: [0.1, 0.7],
               transform: GradientRotation((38 * 3.141592) / 180),
             ),
             borderRadius: BorderRadius.circular(34),
@@ -92,10 +81,8 @@ class _UpdateRegisterScreenState extends State<UpdateRegisterScreen> {
                     children: [
                       FittedBox(
                         fit: BoxFit.contain,
-                        child: Text(
-                          "SALVAR ALTERAÇÕES",
-                          style: TextStyles.white14w500Roboto,
-                        ),
+                        child: Text("SALVAR ALTERAÇÕES",
+                            style: TextStyles.white14w500Roboto),
                       ),
                     ],
                   ),
@@ -103,9 +90,8 @@ class _UpdateRegisterScreenState extends State<UpdateRegisterScreen> {
               ],
             ),
             disabledColor: Colors.grey,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(34),
-            ),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(34)),
           ),
         ),
       ),

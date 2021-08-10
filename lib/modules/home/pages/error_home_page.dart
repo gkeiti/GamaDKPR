@@ -10,10 +10,7 @@ class ErrorHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Olá, José',
-          style: TextStyles.white24w400Roboto,
-        ),
+        title: Text('Olá, José', style: TextStyles.white24w400Roboto),
         centerTitle: true,
         flexibleSpace: Container(
           alignment: Alignment.center,
@@ -21,10 +18,7 @@ class ErrorHomePage extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                AppColors.cyan,
-                AppColors.purple,
-              ],
+              colors: [AppColors.cyan, AppColors.purple],
               stops: [0.05, 0.6],
               transform: GradientRotation((45 * 3.1415) / 180),
             ),
@@ -33,8 +27,8 @@ class ErrorHomePage extends StatelessWidget {
       ),
       drawer: SideDrawer(),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(76.0),
+        child: Container(
+          padding: EdgeInsets.all(8.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,16 +46,10 @@ class ErrorHomePage extends StatelessWidget {
                 height: 36,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: <Color>[
-                      AppColors.cyan,
-                      AppColors.purple,
-                    ],
+                    colors: <Color>[AppColors.cyan, AppColors.purple],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    stops: [
-                      0.1,
-                      0.7,
-                    ],
+                    stops: [0.1, 0.7],
                     transform: GradientRotation((38 * 3.141592) / 180),
                   ),
                   borderRadius: BorderRadius.circular(34),
@@ -71,18 +59,13 @@ class ErrorHomePage extends StatelessWidget {
                   child: Row(
                     children: [
                       Flexible(
-                        child: Text(
-                          "TENTAR NOVAMENTE",
-                          style: TextStyles.continueButton,
-                        ),
+                        child: Text("TENTAR NOVAMENTE",
+                            style: TextStyles.continueButton),
                       ),
                     ],
                   ),
-                  disabledColor: Colors.grey,
-                  disabledTextColor: Colors.black,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(34),
-                  ),
+                      borderRadius: BorderRadius.circular(34)),
                 ),
               )
             ],
