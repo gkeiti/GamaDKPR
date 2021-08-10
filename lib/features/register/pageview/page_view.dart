@@ -14,7 +14,6 @@ class RegisterPageView extends StatefulWidget {
 }
 
 class _RegisterPageViewState extends State<RegisterPageView> {
-
   final GlobalKey<FormState>? nameEmailKey = GlobalKey<FormState>();
   final GlobalKey<FormState>? phoneCpfKey = GlobalKey<FormState>();
   final GlobalKey<FormState>? termsKey = GlobalKey<FormState>();

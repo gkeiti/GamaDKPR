@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:trabalho_final_dgpr/modules/control/control_controller.dart';
+import 'package:trabalho_final_dgpr/modules/control/model/balance_model.dart';
 import 'package:trabalho_final_dgpr/modules/control/model/transactions_model.dart';
-import 'package:trabalho_final_dgpr/modules/home/widgets/insert_button.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
+
+import 'insert_button.dart';
 
 // ignore: must_be_immutable
 class InTransactionCard extends StatefulWidget {
@@ -12,12 +14,14 @@ class InTransactionCard extends StatefulWidget {
       required this.controller,
       required this.valueController,
       required this.dropdownInValue,
-      required this.transactionNameController})
+      required this.transactionNameController,
+      required this.uid})
       : super(key: key);
   ControlController controller;
   TextEditingController valueController;
   String dropdownInValue;
   TextEditingController transactionNameController;
+  String uid;
 
   @override
   _InTransactionCardState createState() => _InTransactionCardState();
@@ -154,7 +158,7 @@ class _InTransactionCardState extends State<InTransactionCard> {
                             category: widget.dropdownInValue,
                             value:
                                 double.parse(widget.valueController.text) * 100,
-                            uid: 'IDUSUARIO',
+                            uid: widget.uid,
                             date: DateFormat('dd/MM/yyyy')
                                 .format(dateTime)
                                 .toString(),
@@ -163,8 +167,17 @@ class _InTransactionCardState extends State<InTransactionCard> {
                             name: widget.transactionNameController.text),
                       );
                       widget.controller.repository.addBalance(
-                          double.parse(widget.valueController.text) * 100,
-                          'in');
+                        BalanceModel(
+                          entrance:
+                              double.parse(widget.valueController.text) * 100,
+                          out: double.parse(widget.valueController.text) * 0,
+                          uid: widget.uid,
+                          month: DateFormat('M').format(dateTime),
+                          type: 'in',
+                        ),
+                      );
+                      widget.controller.repository.addBudget(widget.uid,
+                          double.parse(widget.valueController.text) * 100);
                       widget.valueController.clear();
                       widget.transactionNameController.clear();
                       throw ('Erro');

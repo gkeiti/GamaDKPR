@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:trabalho_final_dgpr/modules/control/model/balance_model.dart';
 import 'package:trabalho_final_dgpr/modules/control/model/transactions_model.dart';
 
 abstract class ControlRepository {
   Future<void> addTransaction(TransactionsModel transaction);
-  Future<void> addBalance(double value, String type);
+  Future<void> addBalance(BalanceModel balance);
+  Future<void> addBudget(String uid, double total);
 }
 
 class ControlRepositoryImpl extends ControlRepository {
@@ -25,41 +27,83 @@ class ControlRepositoryImpl extends ControlRepository {
   }
 
   @override
-  Future<void> addBalance(double value, type) async {
+  Future<void> addBalance(BalanceModel balance) async {
     final response = await FirebaseFirestore.instance
-        .collection('balance')
-        .where(FieldPath.documentId, isEqualTo: 'usuario')
+        .collection('/balance')
+        .doc(balance.uid)
+        .collection(balance.month)
+        .where('uid', isEqualTo: balance.uid)
+        .where('month', isEqualTo: balance.month)
         .get();
     if (response.docs.isNotEmpty) {
       List entrance = response.docs.map((e) => e['entrance']).toList();
       List out = response.docs.map((e) => e['out']).toList();
-      print('ENTRANCE: $entrance');
-      print('OUT: $out');
-      if (type == 'in') {
-        entrance[0] += value;
+      if (balance.type == 'in') {
+        entrance[0] += balance.entrance;
         FirebaseFirestore.instance
             .collection('/balance')
-            .doc('usuario')
-            .set({'entrance': entrance[0], 'out': out[0]});
+            .doc(balance.uid)
+            .collection(balance.month)
+            .doc(balance.uid)
+            .set({'entrance': entrance[0], 'out': out[0]},
+                SetOptions(merge: true));
       } else {
-        out[0] += value;
+        out[0] += balance.out;
         FirebaseFirestore.instance
             .collection('/balance')
-            .doc('usuario')
-            .set({'entrance': entrance[0], 'out': out[0]});
+            .doc(balance.uid)
+            .collection(balance.month)
+            .doc(balance.uid)
+            .set({'entrance': entrance[0], 'out': out[0]},
+                SetOptions(merge: true));
       }
     } else {
-      if (type == 'in') {
+      if (balance.type == 'in') {
         FirebaseFirestore.instance
             .collection('/balance')
-            .doc('usuario')
-            .set({'entrance': value, 'out': 0});
+            .doc(balance.uid)
+            .collection(balance.month)
+            .doc(balance.uid)
+            .set({
+          'entrance': balance.entrance,
+          'out': balance.out,
+          'uid': balance.uid,
+          'month': balance.month
+        });
       } else {
         FirebaseFirestore.instance
             .collection('/balance')
-            .doc('usuario')
-            .set({'entrance': 0, 'out': value});
+            .doc(balance.uid)
+            .collection(balance.month)
+            .doc(balance.uid)
+            .set({
+          'entrance': balance.entrance,
+          'out': balance.out,
+          'uid': balance.uid,
+          'month': balance.month
+        });
       }
+    }
+  }
+
+  @override
+  Future<void> addBudget(String uid, double total) async {
+    final response = await FirebaseFirestore.instance
+        .collection('/budget')
+        .where(FieldPath.documentId, isEqualTo: uid)
+        .get();
+    if (response.docs.isNotEmpty) {
+      List budget = response.docs.map((e) => e['budget']).toList();
+      print('BUDGET: $budget');
+      budget[0] += total;
+      FirebaseFirestore.instance
+          .collection('/budget')
+          .doc(uid)
+          .set({'budget': budget[0]}, SetOptions(merge: true));
+    } else {
+      FirebaseFirestore.instance.collection('/budget').doc(uid).set({
+        'budget': total,
+      });
     }
   }
 }
