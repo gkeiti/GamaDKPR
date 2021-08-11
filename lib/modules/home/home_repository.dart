@@ -1,12 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:trabalho_final_dgpr/modules/home/widgets/budget/budget_model.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/transactions.dart';
 
+import 'widgets/balance/dtd_model.dart';
+
 abstract class HomeRepository {
   List<Widget> getItems(AsyncSnapshot snapshot);
-  Future<String> getTotal();
+  Future<String> getTotal(String uid);
+  Stream<List<BudgetModel>> getBudget(String uid);
+  Stream<List<DtdModel>> getBalance(String uid, String month);
 }
 
 class HomeRepositoryImpl extends HomeRepository {
@@ -97,11 +102,11 @@ class HomeRepositoryImpl extends HomeRepository {
   }
 
   @override
-  Future<String> getTotal() async {
+  Future<String> getTotal(String uid) async {
     final response = await FirebaseFirestore.instance
         .collection('/transactions')
-        .limit(5)
-        .orderBy('createdAt', descending: true)
+        .limit(3)
+        .where('uid', isEqualTo: uid)
         .get();
     List values = response.docs.map((e) => e['value']).toList();
     double sum = 0;
@@ -109,5 +114,32 @@ class HomeRepositoryImpl extends HomeRepository {
       sum += values[i] / 100;
     }
     return sum.toStringAsFixed(2);
+  }
+
+  @override
+  Stream<List<BudgetModel>> getBudget(String uid) {
+    return FirebaseFirestore.instance
+        .collection('/budget')
+        .where(FieldPath.documentId, isEqualTo: uid)
+        .snapshots()
+        .map((query) {
+      return query.docs.map((doc) {
+        return BudgetModel.fromDocument(doc);
+      }).toList();
+    });
+  }
+
+  @override
+  Stream<List<DtdModel>> getBalance(String uid, String month) {
+    return FirebaseFirestore.instance
+        .collection('/balance')
+        .doc(uid)
+        .collection(month)
+        .snapshots()
+        .map((query) {
+      return query.docs.map((doc) {
+        return DtdModel.fromDocument(doc);
+      }).toList();
+    });
   }
 }
