@@ -19,10 +19,7 @@ class DrawerItem extends StatelessWidget {
         onTap: () {
           Navigator.pushNamed(context, route);
         },
-        child: Text(
-          itemName,
-          style: TextStyles.black87_16w500Roboto,
-        ),
+        child: Text(itemName, style: TextStyles.black87_16w500Roboto),
       ),
     );
   }

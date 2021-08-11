@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 
-class NewControlButton extends StatelessWidget {
-  const NewControlButton({Key? key}) : super(key: key);
+class InsertButton extends StatelessWidget {
+  const InsertButton(
+      {Key? key, required this.onPressed, required this.buttonEnabled})
+      : super(key: key);
+
+  final Future<void> Function() onPressed;
+  final buttonEnabled;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 182,
-      height: 40,
+      width: 123,
+      height: 50,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: <Color>[AppColors.cyan, AppColors.purple],
@@ -21,30 +27,21 @@ class NewControlButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(34),
       ),
       child: MaterialButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/home/transactions_control');
-        },
+        onPressed: buttonEnabled == true ? onPressed : null,
         child: Row(
           children: [
             Flexible(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                  FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text("NOVO CONTROLE",
-                        style: TextStyles.white14w500Roboto),
-                  ),
+                  Icon(Icons.add, color: Colors.white),
+                  Text("INSERIR", style: TextStyles.white14w500Roboto),
                 ],
               ),
             ),
           ],
         ),
+        disabledColor: Colors.grey,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(34)),
       ),
     );

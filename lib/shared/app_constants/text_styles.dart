@@ -227,4 +227,28 @@ class TextStyles {
     letterSpacing: 0.15,
     color: AppColors.purple,
   );
+  static const TextStyle white16w500Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 16.0,
+    letterSpacing: 0.15,
+    color: Colors.white,
+  );
+  static const TextStyle green14w500Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 14.0,
+    letterSpacing: 0.15,
+    color: Color(0xFF58B368),
+  );
+  static const TextStyle red14w500Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 14.0,
+    letterSpacing: 0.15,
+    color: Color(0xFFF44336),
+  );
 }

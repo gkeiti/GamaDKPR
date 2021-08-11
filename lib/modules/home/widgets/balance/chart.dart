@@ -3,15 +3,16 @@ import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 
 class Chart extends StatefulWidget {
-  const Chart({Key? key}) : super(key: key);
+  const Chart({Key? key, required this.entrance, required this.out})
+      : super(key: key);
+  final double entrance;
+  final double out;
 
   @override
   _ChartState createState() => _ChartState();
 }
 
 class _ChartState extends State<Chart> {
-  final int entrada = 10000;
-  final int saida = 50000;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,26 +30,19 @@ class _ChartState extends State<Chart> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Saídas",
-                            style: TextStyles.black14w500Roboto,
-                          ),
-                          SizedBox(
-                            width: 1,
-                          ),
-                          Text(
-                            'R\$ $saida',
-                            style: TextStyles.black14w400Roboto,
-                          ),
+                          Text("Saídas", style: TextStyles.black14w500Roboto),
+                          SizedBox(width: 1),
+                          Text('R\$ ' + (widget.out / 100).toStringAsFixed(2),
+                              style: TextStyles.black14w400Roboto),
                         ],
                       ),
                       Container(
                         height: 11,
-                        width: entrada <= saida
+                        width: widget.entrance <= widget.out
                             ? MediaQuery.of(context).size.width * 0.79
                             : (MediaQuery.of(context).size.width * 0.79) *
-                                saida /
-                                entrada,
+                                widget.out /
+                                widget.entrance,
                         decoration: BoxDecoration(
                           color: AppColors.cyan,
                           borderRadius: BorderRadius.circular(360),
@@ -72,26 +66,21 @@ class _ChartState extends State<Chart> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Text("Entradas", style: TextStyles.black14w500Roboto),
+                          SizedBox(width: 1),
                           Text(
-                            "Entradas",
-                            style: TextStyles.black14w500Roboto,
-                          ),
-                          SizedBox(
-                            width: 1,
-                          ),
-                          Text(
-                            'R\$ $entrada',
-                            style: TextStyles.black14w400Roboto,
-                          ),
+                              'R\$ ' +
+                                  (widget.entrance / 100).toStringAsFixed(2),
+                              style: TextStyles.black14w400Roboto),
                         ],
                       ),
                       Container(
                         height: 11,
-                        width: entrada >= saida
+                        width: widget.entrance >= widget.out
                             ? MediaQuery.of(context).size.width * 0.79
                             : (MediaQuery.of(context).size.width * 0.79) *
-                                entrada /
-                                saida,
+                                widget.entrance /
+                                widget.out,
                         decoration: BoxDecoration(
                           color: AppColors.yellow,
                           borderRadius: BorderRadius.circular(360),
