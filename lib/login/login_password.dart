@@ -28,25 +28,25 @@ class _LoginPasswordState extends State<LoginPassword> {
     } on AuthException catch (e) {}
   }
 
-  ReactionDisposer? disposer;
+  // ReactionDisposer? disposer;
 
-  @override
-  void initState() {
-    controller = context.read<LoginController>();
-    disposer = reaction(
-      (_) => controller!.state,
-      (s) {
-        if (s.runtimeType == LoginStateError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text((s as LoginStateError).errorMessage),
-            ),
-          );
-        }
-      },
-    );
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   controller = context.read<LoginController>();
+  //   disposer = reaction(
+  //     (_) => controller!.state,
+  //     (s) {
+  //       if (s.runtimeType == LoginStateError) {
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           SnackBar(
+  //             content: Text((s as LoginStateError).errorMessage),
+  //           ),
+  //         );
+  //       }
+  //     },
+  //   );
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +127,7 @@ class _LoginPasswordState extends State<LoginPassword> {
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             controller!.login(email.text, senha.text);
-                            // Navigator.pushNamed(context, '/home');
+                            Navigator.pushNamed(context, '/home');
                           }
                         },
                       ),

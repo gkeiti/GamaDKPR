@@ -41,19 +41,19 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
 
   @override
   void initState() {
-    controller = context.read<RegisterController>();
-    disposer = reaction(
-      (_) => controller!.state,
-      (s) {
-        if (s.runtimeType == RegisterStateError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text((s as RegisterStateError).errorMessage),
-            ),
-          );
-        }
-      },
-    );
+    // controller = context.read<RegisterController>();
+    // disposer = reaction(
+    //   (_) => controller!.state,
+    //   (s) {
+    //     if (s.runtimeType == RegisterStateError) {
+    //       ScaffoldMessenger.of(context).showSnackBar(
+    //         SnackBar(
+    //           content: Text((s as RegisterStateError).errorMessage),
+    //         ),
+    //       );
+    //     }
+    //   },
+    // );
     _focusNode = FocusNode();
     super.initState();
   }

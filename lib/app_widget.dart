@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:trabalho_final_dgpr/login/login_password.dart';
+import 'package:trabalho_final_dgpr/services/auth_service.dart';
 
 import 'login/login_screen.dart';
 import 'features/register/pageview/page_view.dart';
@@ -19,27 +21,34 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => AuthService(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => SplashScreen(),
+          '/login': (context) => LoginScreen(),
+          '/login_password': (context) => LoginPassword(),
+          '/home': (context) => HomePage(),
+          '/home/update_register': (context) => UpdateRegisterScreen(),
+          '/home/transactions_control': (context) => TransactionsControl(),
+          '/error_home_page': (context) => ErrorHomePage(),
+          '/register_pageview': (context) => RegisterPageView(),
+          '/register_name_email': (context) => RegisterNameEmailPage(),
+          '/register_tel_cpf': (context) => RegisterPhoneCpfPage(),
+          '/register_terms': (context) => RegisterTermsPage(),
+          '/register_password': (context) => RegisterPasswordPage(),
+          '/register_onboarding': (context) => RegisterOnboardingPage(),
+        },
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => SplashScreen(),
-        '/login': (context) => LoginScreen(),
-        '/login_password': (context) => LoginPassword(),
-        '/home': (context) => HomePage(),
-        '/home/update_register': (context) => UpdateRegisterScreen(),
-        '/home/transactions_control': (context) => TransactionsControl(),
-        '/error_home_page': (context) => ErrorHomePage(),
-        '/register_pageview': (context) => RegisterPageView(),
-        '/register_name_email': (context) => RegisterNameEmailPage(),
-        '/register_tel_cpf': (context) => RegisterPhoneCpfPage(),
-        '/register_terms': (context) => RegisterTermsPage(),
-        '/register_password': (context) => RegisterPasswordPage(),
-        '/register_onboarding': (context) => RegisterOnboardingPage(),
-      },
     );
   }
 }
