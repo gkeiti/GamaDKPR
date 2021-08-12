@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_controller.dart';
+part of 'last_transactions_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'home_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$HomeController on _HomeControllerBase, Store {
-  final _$totalAtom = Atom(name: '_HomeControllerBase.total');
+mixin _$LastTransactionsController on _LastTransactionsControllerBase, Store {
+  final _$totalAtom = Atom(name: '_LastTransactionsControllerBase.total');
 
   @override
   String? get total {
@@ -24,7 +24,8 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$repositoryCallAtom = Atom(name: '_HomeControllerBase.repositoryCall');
+  final _$repositoryCallAtom =
+      Atom(name: '_LastTransactionsControllerBase.repositoryCall');
 
   @override
   ObservableFuture<String>? get repositoryCall {
@@ -39,11 +40,12 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$getTotalAsyncAction = AsyncAction('_HomeControllerBase.getTotal');
+  final _$getTotalAsyncAction =
+      AsyncAction('_LastTransactionsControllerBase.getTotal');
 
   @override
-  Future<void> getTotal() {
-    return _$getTotalAsyncAction.run(() => super.getTotal());
+  Future<void> getTotal(String uid) {
+    return _$getTotalAsyncAction.run(() => super.getTotal(uid));
   }
 
   @override

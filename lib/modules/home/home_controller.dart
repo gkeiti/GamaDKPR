@@ -1,4 +1,4 @@
-import 'package:mobx/mobx.dart';
+/* import 'package:mobx/mobx.dart';
 
 import 'package:trabalho_final_dgpr/modules/home/home_repository.dart';
 
@@ -30,3 +30,4 @@ abstract class _HomeControllerBase with Store {
 class HomeController {
   final repository = HomeRepositoryImpl();
 } */
+ */

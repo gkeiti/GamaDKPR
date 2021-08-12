@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trabalho_final_dgpr/login/login_screen.dart';
@@ -21,7 +20,9 @@ class _AuthCheckState extends State<AuthCheck> {
     else if (auth.usuario == null)
       return LoginScreen();
     else
-      return HomePage();
+      return HomePage(
+        uid: '',
+      );
   }
 
   loading() {
