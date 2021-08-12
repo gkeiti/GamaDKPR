@@ -5,7 +5,7 @@ class AuthException implements Exception {
   String message;
   AuthException(this.message);
 }
-
+//mudar pra auth repository e tirar da pasta services
 class AuthService extends ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
   User? usuario;
@@ -31,7 +31,8 @@ class AuthService extends ChangeNotifier {
 
   registrar(String email, String senha) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: senha);
+      final response = await _auth.createUserWithEmailAndPassword(
+          email: email, password: senha);
       _getUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -39,6 +40,8 @@ class AuthService extends ChangeNotifier {
       } else if (e.code == 'email-already-in-use') {
         throw AuthException('Este email já está cadastrado');
       }
+    } catch (e) {
+      throw e;
     }
   }
 

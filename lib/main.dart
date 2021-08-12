@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:trabalho_final_dgpr/features/login_screen.dart';
+import 'package:trabalho_final_dgpr/app_widget.dart';
 import 'package:trabalho_final_dgpr/services/auth_service.dart';
 
 void main(List<String> args) async {
@@ -11,13 +11,11 @@ void main(List<String> args) async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<AuthService>(
+        ChangeNotifierProvider(
           create: (context) => AuthService(),
         ),
       ],
-      child: MaterialApp(
-        home: LoginScreen(),
-      ),
+      child: AppWidget(),
     ),
   );
 }

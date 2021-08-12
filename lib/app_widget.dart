@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:trabalho_final_dgpr/login/login_password.dart';
 
-import 'features/login_screen.dart';
+import 'login/login_screen.dart';
 import 'features/register/pageview/page_view.dart';
 import 'features/register/register_name_email/register_name_email.dart';
 import 'features/register/register_onboarding/register_onboarding_page.dart';
@@ -19,13 +20,15 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // initialRoute: '/',
+      initialRoute: '/',
       routes: {
         '/': (context) => SplashScreen(),
         '/login': (context) => LoginScreen(),
+        '/login_password': (context) => LoginPassword(),
         '/home': (context) => HomePage(),
         '/home/update_register': (context) => UpdateRegisterScreen(),
         '/home/transactions_control': (context) => TransactionsControl(),

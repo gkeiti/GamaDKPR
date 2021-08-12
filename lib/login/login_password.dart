@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
+import 'package:trabalho_final_dgpr/login/login_controller.dart';
+import 'package:trabalho_final_dgpr/login/login_state.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
@@ -17,41 +20,32 @@ class _LoginPasswordState extends State<LoginPassword> {
   final formKey = GlobalKey<FormState>();
   final email = TextEditingController();
   final senha = TextEditingController();
-
-  bool isLogin = true;
-  late String titulo;
-  late String actionButton;
-  late String toggleButton;
-
-  @override
-  void initState() {
-    super.initState();
-    setFormAction(true);
-  }
-
-  setFormAction(bool acao) {
-    setState(() {
-      isLogin = acao;
-      if (isLogin) {
-        titulo = 'Bem vindo';
-        actionButton = 'Login';
-        toggleButton = 'Ainda nao tem conta?';
-      } else {
-        titulo = 'Crie sua conta';
-        actionButton = 'Cadastrar';
-        toggleButton = 'Voltar ao login';
-      }
-    });
-  }
+  LoginController? controller;
 
   login() async {
     try {
       await context.read<AuthService>().login(email.text, senha.text);
-    } on AuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message)),
-      );
-    }
+    } on AuthException catch (e) {}
+  }
+
+  ReactionDisposer? disposer;
+
+  @override
+  void initState() {
+    controller = context.read<LoginController>();
+    disposer = reaction(
+      (_) => controller!.state,
+      (s) {
+        if (s.runtimeType == LoginStateError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text((s as LoginStateError).errorMessage),
+            ),
+          );
+        }
+      },
+    );
+    super.initState();
   }
 
   @override
@@ -78,7 +72,6 @@ class _LoginPasswordState extends State<LoginPassword> {
                     right: 112,
                   ),
                   child: Container(
-                    // width: 200,
                     height: 112,
                     child: Text(
                       'Insira sua senha',
@@ -132,7 +125,10 @@ class _LoginPasswordState extends State<LoginPassword> {
                       ),
                       child: ContinueButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/home');
+                          if (formKey.currentState!.validate()) {
+                            controller!.login(email.text, senha.text);
+                            // Navigator.pushNamed(context, '/home');
+                          }
                         },
                       ),
                     ),

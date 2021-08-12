@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:trabalho_final_dgpr/features/login_screen.dart';
+import 'package:trabalho_final_dgpr/login/login_screen.dart';
 import 'package:trabalho_final_dgpr/modules/home/pages/home_page.dart';
 import 'package:trabalho_final_dgpr/services/auth_service.dart';
 

@@ -43,6 +43,7 @@ class _InputTextState extends State<InputText> {
       obscureText: widget.obscureText,
       controller: widget.controller,
       keyboardType: widget.textInputType,
+      validator: widget.validator,
       onChanged: widget.onChanged,
       decoration: InputDecoration(
         labelText: widget.label,

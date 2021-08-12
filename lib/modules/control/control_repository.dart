@@ -10,7 +10,7 @@ class ControlRepositoryImpl extends ControlRepository {
   @override
   Future<void> addTransaction(TransactionsModel transaction) async {
     try {
-      FirebaseFirestore.instance.collection('/transactions').add({
+      await FirebaseFirestore.instance.collection('/transactions').add({
         'category': transaction.category,
         'value': transaction.value,
         'createdAt': FieldValue.serverTimestamp(),
@@ -21,6 +21,7 @@ class ControlRepositoryImpl extends ControlRepository {
       });
     } catch (e) {
       print(e);
+      throw (e);
     }
   }
 

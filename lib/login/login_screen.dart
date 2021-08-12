@@ -18,7 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final email = TextEditingController();
   final senha = TextEditingController();
 
-// o código comentado é para fazer um progress indicator no botao de continue de lkogin
   bool loading = false;
 
   login() async {
@@ -126,8 +125,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         );
-                      }else{
-                        Navigator.pushNamed(context, '/login');
+                      } else {
+                        Navigator.pushNamed(context, '/login_password');
                       }
                     },
                   ),

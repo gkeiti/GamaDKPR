@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
+import 'package:trabalho_final_dgpr/features/register/controller_register.dart';
+import 'package:trabalho_final_dgpr/features/register/register_state.dart';
 import 'package:trabalho_final_dgpr/services/auth_service.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/input_validators.dart';
@@ -24,23 +27,35 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
 
   final GlobalKey<FormState>? passwordKey = GlobalKey<FormState>();
   final formKey = GlobalKey<FormState>();
-  final confirmasenha = TextEditingController();
   final senha = TextEditingController();
-
-  @override
-  void initState() {
-    _focusNode = FocusNode();
-    super.initState();
-  }
+  final confirmaSenha = TextEditingController();
+  RegisterController? controller;
 
   registrar() async {
     try {
-      await context.read<AuthService>().registrar(senha.text, confirmasenha.text);
-    } on AuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message)),
-      );
-    }
+      await context.read<AuthService>().registrar(senha.text, confirmaSenha.text);
+    } on AuthException catch (e) {}
+  }
+
+  ReactionDisposer? disposer;
+
+  @override
+  void initState() {
+    controller = context.read<RegisterController>();
+    disposer = reaction(
+      (_) => controller!.state,
+      (s) {
+        if (s.runtimeType == RegisterStateError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text((s as RegisterStateError).errorMessage),
+            ),
+          );
+        }
+      },
+    );
+    _focusNode = FocusNode();
+    super.initState();
   }
 
   @override
