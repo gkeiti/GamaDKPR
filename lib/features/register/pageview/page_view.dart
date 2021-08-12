@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/features/register/register_name_email/register_name_email.dart';
+import 'package:trabalho_final_dgpr/features/register/register_onboarding/register_onboarding_page.dart';
 import 'package:trabalho_final_dgpr/features/register/register_password/register_password.dart';
 import 'package:trabalho_final_dgpr/features/register/register_phone_cpf/register_phone_cpf.dart';
 import 'package:trabalho_final_dgpr/features/register/register_terms/register_terms.dart';
@@ -14,17 +15,13 @@ class RegisterPageView extends StatefulWidget {
 }
 
 class _RegisterPageViewState extends State<RegisterPageView> {
-<<<<<<< HEAD
-  final GlobalKey<FormState> nameEmailKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> phoneCpfKey = GlobalKey<FormState>();
   final GlobalKey<FormState> termsKey = GlobalKey<FormState>();
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
-=======
-  final GlobalKey<FormState>? nameEmailKey = GlobalKey<FormState>();
-  final GlobalKey<FormState>? phoneCpfKey = GlobalKey<FormState>();
-  final GlobalKey<FormState>? termsKey = GlobalKey<FormState>();
-  final GlobalKey<FormState>? passwordKey = GlobalKey<FormState>();
->>>>>>> d9ee53fb75ceae58af21a91375b662a8fda9df73
+
+  int currentIndex = 0;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -33,20 +30,24 @@ class _RegisterPageViewState extends State<RegisterPageView> {
       body: Stack(
         children: [
           PageView(
+            onPageChanged: (index) => currentIndex = index,
             scrollDirection: Axis.horizontal,
             physics: NeverScrollableScrollPhysics(),
             controller: controller,
             children: [
               RegisterNameEmailPage(
-                key: nameEmailKey, 
+                key: formKey, 
               ),
               RegisterPhoneCpfPage(
                 key: phoneCpfKey,
               ),
-              RegisterTermsPage(),
+              RegisterTermsPage(
+                key: termsKey,
+              ),
               RegisterPasswordPage(
                 key: passwordKey,
               ),
+              RegisterOnboardingPage(),
             ],
           ),
           Visibility(
@@ -68,13 +69,11 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       },
                     ),
                     ContinueForwardButton(
-                      onPressed: () {
-                        
-                        if (controller.initialPage == 0 &&
-                            nameEmailKey.currentState!.validate()) {
-                          controller.animateToPage(1, duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+                      onPressed: () {                        
+                        controller.nextPage(
+                            duration: Duration(milliseconds: 400),
+                            curve: Curves.easeIn);
                         }
-                      },
                     ),
                   ],
                 ),

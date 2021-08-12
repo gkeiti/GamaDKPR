@@ -4,11 +4,9 @@ import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
-import 'package:trabalho_final_dgpr/shared/widgets/back_button_widget.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/comments.dart';
-import 'package:trabalho_final_dgpr/shared/widgets/continue_forward_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 
 class RegisterTermsPage extends StatefulWidget {
@@ -93,26 +91,26 @@ class _RegisterTermsPageState extends State<RegisterTermsPage> {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 650, 16, 0.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  BackButtonWidget(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ContinueForwardButton(
-                    onPressed: () {
-                      if (validators.terms == true) {
-                        Navigator.pushNamed(context, "/register_password");
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.fromLTRB(16, 650, 16, 0.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       BackButtonWidget(
+            //         onPressed: () {
+            //           Navigator.pop(context);
+            //         },
+            //       ),
+            //       ContinueForwardButton(
+            //         onPressed: () {
+            //           if (validators.terms == true) {
+            //             Navigator.pushNamed(context, "/register_password");
+            //           }
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),

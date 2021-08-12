@@ -14,7 +14,10 @@ import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 class RegisterNameEmailPage extends StatefulWidget {
   const RegisterNameEmailPage({
     Key? key,
+    
   }) : super(key: key);
+
+  
 
   @override
   _RegisterNameEmailPageState createState() => _RegisterNameEmailPageState();
@@ -25,13 +28,15 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
   TextEditingController _emailController = TextEditingController();
   FocusNode _myFocusNode = FocusNode();
 
-  final formKey = GlobalKey<FormState>();
 
   Validators validators = Validators();
 
   String text = "";
   String? name;
   String email = "";
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+ 
 
   void updateText(String newText) {
     setState(() {
@@ -116,26 +121,26 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 650, 16, 0.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  BackButtonWidget(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ContinueForwardButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        Navigator.pushNamed(context, "/register_tel_cpf");
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.fromLTRB(16, 650, 16, 0.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       BackButtonWidget(
+            //         onPressed: () {
+            //           Navigator.pop(context);
+            //         },
+            //       ),
+            //       ContinueForwardButton(
+            //         onPressed: () {
+            //           if (formKey.currentState!.validate()) {
+            //             Navigator.pushNamed(context, "/register_tel_cpf");
+            //           }
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
