@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/features/register/register_name_email/register_name_email.dart';
+import 'package:trabalho_final_dgpr/features/register/register_onboarding/register_onboarding_page.dart';
 import 'package:trabalho_final_dgpr/features/register/register_password/register_password.dart';
 import 'package:trabalho_final_dgpr/features/register/register_phone_cpf/register_phone_cpf.dart';
 import 'package:trabalho_final_dgpr/features/register/register_terms/register_terms.dart';
 import 'package:trabalho_final_dgpr/services/auth_service.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/back_button_widget.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_forward_button.dart';
-import 'package:provider/provider.dart';
 
 class RegisterPageView extends StatefulWidget {
   const RegisterPageView({Key? key}) : super(key: key);
@@ -23,6 +23,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   int currentIndex = 0;
   final email = TextEditingController();
   final senha = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final PageController controller = PageController(initialPage: 0);
@@ -36,7 +37,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
             controller: controller,
             children: [
               RegisterNameEmailPage(
-                key: nameEmailKey,
+                key: formKey,
               ),
               RegisterPhoneCpfPage(
                 key: phoneCpfKey,
@@ -47,6 +48,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
               RegisterPasswordPage(
                 key: passwordKey,
               ),
+              RegisterOnboardingPage(),
             ],
           ),
           Visibility(
@@ -68,17 +70,18 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       },
                     ),
                     ContinueForwardButton(
-                      onPressed: () async {
+                        // onPressed: () async {
                         // if (currentIndex == 3) {
                         //   await context
                         //       .read<AuthService>()
                         //       .registrar(senha.text, email.text);
                         // }
-                        controller.nextPage(
-                            duration: Duration(milliseconds: 400),
-                            curve: Curves.easeIn);
-                      },
-                    ),
+                        onPressed: () async {
+                      controller.nextPage(
+                          duration: Duration(milliseconds: 400),
+                          curve: Curves.easeIn);
+                      // }
+                    }),
                   ],
                 ),
               ),

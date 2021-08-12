@@ -3,12 +3,10 @@ import 'package:mobx/mobx.dart';
 import 'package:trabalho_final_dgpr/features/register/controller_register.dart';
 import 'package:trabalho_final_dgpr/features/register/register_state.dart';
 import 'package:trabalho_final_dgpr/services/auth_service.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
-import 'package:trabalho_final_dgpr/shared/app_constants/input_validators.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
-import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
-import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
-import 'package:trabalho_final_dgpr/shared/widgets/comments.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 import 'package:provider/provider.dart';
@@ -33,11 +31,17 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
 
   registrar() async {
     try {
-      await context.read<AuthService>().registrar(senha.text, confirmaSenha.text);
+      await context
+          .read<AuthService>()
+          .registrar(senha.text, confirmaSenha.text);
     } on AuthException catch (e) {}
   }
 
   ReactionDisposer? disposer;
+  Validators validators = Validators();
+
+  String password = "";
+  String confirmPassword = "";
 
   @override
   void initState() {
@@ -93,61 +97,63 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    BemVindoWidget(),
-                    BemVindoCommentWidget(
-                      label: "Agora crie sua senha contendo:",
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 45.0,
-                  top: 194.0,
-                  right: 45.0,
-                ),
-                child: CommentsWidget(
-                  text:
-                      "• Pelo menos oito caracteres; \n• Letras maiúsculas, letras minúsculas, números e símbolos.",
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 280.0, left: 48.0, right: 49.0),
-                child: Form(
-                  key: passwordKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InputText(
+                    Observer(builder: (_) {
+                      return InputText(
                         textInputAction: TextInputAction.next,
                         controller: _passwordController,
-                        onChanged: (value) => _passwordController.value,
+                        onChanged: (value) => validators.setPassword(value!),
                         label: 'Crie uma senha',
                         textInputType: TextInputType.text,
-                        validator: (String? password) {
-                          InputValidators().passwordValidator(password);
+                        validator: (value) => validators.isPasswordValid(),
+                        onSaved: (String? value) {
+                          this.password = value!;
                         },
-                      ),
-                      SizedBox(height: 32.0),
-                      InputText(
-                        focusNode: _focusNode,
-                        textInputAction: TextInputAction.done,
-                        controller: _confirmPasswordController,
-                        onChanged: (value) => _confirmPasswordController.value,
-                        label: 'Confirme sua senha',
-                        textInputType: TextInputType.text,
-                        validator: (String? value) {
-                          InputValidators().confirmPasswordValidator(
-                              _passwordController.text,
-                              _confirmPasswordController.text);
-                        },
-                      ),
-                    ],
-                  ),
+                      );
+                    }),
+                    SizedBox(height: 32.0),
+                    Observer(
+                      builder: (_) {
+                        return InputText(
+                          focusNode: _focusNode,
+                          textInputAction: TextInputAction.done,
+                          controller: _confirmPasswordController,
+                          onChanged: (value) =>
+                              validators.setConfirPassword(value!),
+                          label: 'Confirme sua senha',
+                          textInputType: TextInputType.text,
+                          validator: (value) => validators.setConfirmPassword(),
+                          onSaved: (String? value) {
+                            this.confirmPassword = value!;
+                          },
+                        );
+                      },
+                    )
+                  ],
                 ),
               ),
             ],
           ),
+          // Padding(
+          //   padding: const EdgeInsets.fromLTRB(16, 650, 16, 0.0),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       BackButtonWidget(
+          //         onPressed: () {
+          //           Navigator.pop(context);
+          //         },
+          //       ),
+          //       ContinueForwardButton(
+          //         onPressed: () {
+          //           if (passwordKey!.currentState!.validate()) {
+          //             Navigator.pushNamed(context, "/register_onboarding");
+
+          //           }
+          //         },
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ),
       ),
     );

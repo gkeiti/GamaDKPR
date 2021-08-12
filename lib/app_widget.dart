@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trabalho_final_dgpr/login/login_password.dart';
 import 'login/login_screen.dart';
 import 'features/register/pageview/page_view.dart';
 import 'features/register/register_name_email/register_name_email.dart';

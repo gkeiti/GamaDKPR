@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
-import 'package:trabalho_final_dgpr/shared/app_constants/input_validators.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
-import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
-import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -26,18 +25,23 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
 
   final GlobalKey<FormState>? phoneCpfKey = GlobalKey<FormState>();
   final formKey = GlobalKey<FormState>();
+  final phone = TextEditingController();
   final cpf = TextEditingController();
-  final nome = TextEditingController();
 
   registrar() async {
     try {
-      await context.read<AuthService>().registrar(nome.text, cpf.text);
+      await context.read<AuthService>().registrar(phone.text, cpf.text);
     } on AuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.message)),
       );
     }
   }
+
+  Validators validators = Validators();
+
+  String phone_validate = "";
+  String cpf_validate = "";
 
   @override
   void initState() {
@@ -61,65 +65,75 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
-          child: Stack(
-            children: [
-              Positioned(
-                top: 0.0,
-                left: 48.0,
-                child: LogoBudgetWidget(),
+          child: Stack(children: [
+            Positioned(
+              top: 0.0,
+              left: 48.0,
+              child: LogoBudgetWidget(),
+            ),
+            Positioned(
+              top: 70.0,
+              left: 48.0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Observer(builder: (_) {
+                    return InputText(
+                      textInputAction: TextInputAction.next,
+                      controller: _phoneController,
+                      onChanged: (value) => validators.setPhone(value!),
+                      label: 'Telefone',
+                      textInputType: TextInputType.phone,
+                      validator: (value) => validators.isPhoneValid(),
+                      onSaved: (String? value) {
+                        phone_validate = value!;
+                      },
+                    );
+                  }),
+                  SizedBox(height: 32.0),
+                  Observer(builder: (_) {
+                    return InputText(
+                      focusNode: _myFocusNode,
+                      textInputAction: TextInputAction.done,
+                      controller: _cpfController,
+                      onChanged: (value) => validators.setCpf(value!),
+                      label: 'CPF',
+                      helperText:
+                          "O CPF é necessário para conectar suas contas.",
+                      textInputType: TextInputType.number,
+                      validator: (value) => validators.isCpfValid(),
+                      onSaved: (String? value) {
+                        cpf_validate = value!;
+                      },
+                    );
+                  })
+                ],
               ),
-              Positioned(
-                top: 70.0,
-                left: 48.0,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    BemVindoWidget(),
-                    BemVindoCommentWidget(
-                      label: "Mais alguns dados.",
-                    ),
-                  ],
-                ),
+            ),
+          ]
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(16, 650, 16, 0.0),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       BackButtonWidget(
+              //         onPressed: () {
+              //           Navigator.pop(context);
+              //         },
+              //       ),
+              //       ContinueForwardButton(
+              //         onPressed: () {
+              //           if (phoneCpfKey.currentState!.validate()) {
+              //             Navigator.pushNamed(context, "/register_terms");
+              //           }
+              //         },
+              //       ),
+              //     ],
+              //   ),
+              // ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 280.0, left: 48.0, right: 49.0),
-                child: Form(
-                  key: phoneCpfKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InputText(
-                        textInputAction: TextInputAction.next,
-                        controller: _phoneController,
-                        onChanged: (value) => _phoneController.value,
-                        label: 'Telefone',
-                        textInputType: TextInputType.phone,
-                        validator: (String? phone) {
-                          InputValidators().phoneValidator(phone);
-                        },
-                      ),
-                      SizedBox(height: 32.0),
-                      InputText(
-                        focusNode: _myFocusNode,
-                        textInputAction: TextInputAction.done,
-                        controller: _cpfController,
-                        onChanged: (value) => _cpfController.value,
-                        label: 'CPF',
-                        helperText:
-                            "O CPF é necessário para conectar suas contas.",
-                        textInputType: TextInputType.number,
-                        validator: (String? cpf) {
-                          InputValidators().cpfValidator(cpf);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
