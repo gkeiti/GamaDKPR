@@ -10,19 +10,19 @@ abstract class _LoginControllerBase with Store {
 
   _LoginControllerBase(this.authService);
 
-  void login(String email, String senha) async {
-    try {
-      update(LoginStateLoading());
-      await authService.login(email, senha);
-      update(LoginStateSucess());
-    } catch (e) {
-      update(
-        LoginStateError(
-          errorMessage: e.toString(),
-        ),
-      );
-    }
-  }
+  // void login(String email, String senha) async {
+  //   try {
+  //     update(LoginStateLoading());
+  //     await authService.login(email, senha);
+  //     update(LoginStateSucess());
+  //   } catch (e) {
+  //     update(
+  //       LoginStateError(
+  //         errorMessage: e.toString(),
+  //       ),
+  //     );
+  //   }
+  // }
 
   @observable
   LoginState state = LoginStateEmpty();

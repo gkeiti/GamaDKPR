@@ -20,21 +20,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool loading = false;
 
-  login() async {
-    setState(() {
-      loading = true;
-    });
-    try {
-      await context.read<AuthService>().login(email.text, senha.text);
-    } on AuthException catch (e) {
-      setState(() {
-        loading = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message)),
-      );
-    }
-  }
+  // login() async {
+  //   setState(() {
+  //     loading = true;
+  //   });
+  //   try {
+  //     await context.read<AuthService>().login(email.text, senha.text);
+  //   } on AuthException catch (e) {
+  //     setState(() {
+  //       loading = false;
+  //     });
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text(e.message)),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

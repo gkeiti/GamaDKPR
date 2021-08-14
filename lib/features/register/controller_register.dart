@@ -10,19 +10,19 @@ abstract class _RegisterControllerBase with Store {
 
   _RegisterControllerBase(this.authService);
 
-  void registrar(String email, String nome) async {
-    try {
-      update(RegisterStateLoading());
-      await authService.registrar(email, nome);
-      update(RegisterStateSucess());
-    } catch (e) {
-      update(
-        RegisterStateError(
-          errorMessage: e.toString(),
-        ),
-      );
-    }
-  }
+  // void registrar(String email, String nome) async {
+  //   try {
+  //     update(RegisterStateLoading());
+  //     await authService.registrar(email, nome);
+  //     update(RegisterStateSucess());
+  //   } catch (e) {
+  //     update(
+  //       RegisterStateError(
+  //         errorMessage: e.toString(),
+  //       ),
+  //     );
+  //   }
+  // }
 
   @observable
   RegisterState state = RegisterStateEmpty();

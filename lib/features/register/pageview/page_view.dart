@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/features/register/register_name_email/register_name_email.dart';
+import 'package:trabalho_final_dgpr/features/register/register_onboarding/register_onboarding_page.dart';
 import 'package:trabalho_final_dgpr/features/register/register_password/register_password.dart';
 import 'package:trabalho_final_dgpr/features/register/register_phone_cpf/register_phone_cpf.dart';
 import 'package:trabalho_final_dgpr/features/register/register_terms/register_terms.dart';
@@ -47,6 +48,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
               RegisterPasswordPage(
                 key: passwordKey,
               ),
+              RegisterOnboardingPage(),
             ],
           ),
           Visibility(
@@ -71,8 +73,8 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       onPressed: () async {
                         if (currentIndex == 3) {
                           await context
-                              .read<AuthService>()
-                              .registrar(senha.text, email.text);
+                              .read<AuthService>();
+                              // .registrar(senha.text, email.text);
                         }
                         controller.nextPage(
                             duration: Duration(milliseconds: 400),

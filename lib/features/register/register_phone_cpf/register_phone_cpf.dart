@@ -29,15 +29,15 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
   final cpf = TextEditingController();
   final nome = TextEditingController();
 
-  registrar() async {
-    try {
-      await context.read<AuthService>().registrar(nome.text, cpf.text);
-    } on AuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message)),
-      );
-    }
-  }
+  // registrar() async {
+  //   try {
+  //     await context.read<AuthService>().registrar(nome.text, cpf.text);
+  //   } on AuthException catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text(e.message)),
+  //     );
+  //   }
+  // }
 
   @override
   void initState() {

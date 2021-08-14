@@ -31,11 +31,11 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
   final nome = TextEditingController();
   RegisterController? controller;
 
-  registrar() async {
-    try {
-      await context.read<AuthService>().registrar(email.text, nome.text);
-    } on AuthException catch (e) {}
-  }
+  // registrar() async {
+  //   try {
+  //     await context.read<AuthService>().registrar(email.text, nome.text);
+  //   } on AuthException catch (e) {}
+  // }
 
   @override
   void initState() {
@@ -89,7 +89,7 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
                     children: [
                       InputText(
                         textInputAction: TextInputAction.next,
-                        controller: _nameController,
+                        controller: nome,
                         onChanged: (value) => _nameController?.value,
                         label: 'Nome',
                         textInputType: TextInputType.name,
@@ -101,8 +101,8 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
                       InputText(
                         focusNode: _myFocusNode,
                         textInputAction: TextInputAction.done,
-                        controller: _emailController,
-                        onChanged: (value) => _emailController?.value,
+                        controller: email,
+                        onChanged: (value) => email.value,
                         label: 'E-mail',
                         textInputType: TextInputType.emailAddress,
                         validator: (String? email) {

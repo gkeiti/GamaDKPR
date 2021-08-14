@@ -31,11 +31,11 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
   final confirmaSenha = TextEditingController();
   RegisterController? controller;
 
-  registrar() async {
-    try {
-      await context.read<AuthService>().registrar(senha.text, confirmaSenha.text);
-    } on AuthException catch (e) {}
-  }
+  // registrar() async {
+  //   try {
+  //     await context.read<AuthService>().registrar(senha.text, confirmaSenha.text);
+  //   } on AuthException catch (e) {}
+  // }
 
   ReactionDisposer? disposer;
 
