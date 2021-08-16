@@ -48,7 +48,7 @@ class RegisterOnboardingPage extends StatelessWidget {
               bottom: 40.0,
               child: MaterialButton(
                 onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+                  Navigator.pushNamedAndRemoveUntil(context, "/login", (route) => false);
                 },
                 child: Text(
                   "VAMOS LÁ!",

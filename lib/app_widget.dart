@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'features/login_screen.dart';
 import 'features/register/pageview/page_view.dart';
-import 'features/register/register_name_email/register_name_email.dart';
 import 'features/register/register_onboarding/register_onboarding_page.dart';
-import 'features/register/register_password/register_password.dart';
-import 'features/register/register_phone_cpf/register_phone_cpf.dart';
-import 'features/register/register_terms/register_terms.dart';
 import 'features/splash/splash_screen.dart';
 import 'modules/control/all_transactions_page.dart';
 import 'modules/control/control_page.dart';
@@ -34,10 +30,6 @@ class AppWidget extends StatelessWidget {
         '/home/all_transactions': (context) => AllTransactionsPage(uid: uid),
         '/error_home_page': (context) => ErrorHomePage(),
         '/register_pageview': (context) => RegisterPageView(),
-        '/register_name_email': (context) => RegisterNameEmailPage(),
-        '/register_tel_cpf': (context) => RegisterPhoneCpfPage(),
-        '/register_terms': (context) => RegisterTermsPage(),
-        '/register_password': (context) => RegisterPasswordPage(),
         '/register_onboarding': (context) => RegisterOnboardingPage(),
       },
     );

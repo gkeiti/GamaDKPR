@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
-import 'package:trabalho_final_dgpr/shared/widgets/back_button_widget.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
-import 'package:trabalho_final_dgpr/shared/widgets/continue_forward_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 
 class RegisterNameEmailPage extends StatefulWidget {
+
+final GlobalKey<FormState> formKey;
+
   const RegisterNameEmailPage({
     Key? key,
-    
+    required this.formKey,
   }) : super(key: key);
-
-  
 
   @override
   _RegisterNameEmailPageState createState() => _RegisterNameEmailPageState();
@@ -28,15 +27,12 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
   TextEditingController _emailController = TextEditingController();
   FocusNode _myFocusNode = FocusNode();
 
-
-  Validators validators = Validators();
+  final Validator validator = Validator();
 
   String text = "";
   String? name;
   String email = "";
 
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
- 
 
   void updateText(String newText) {
     setState(() {
@@ -88,35 +84,29 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
             Padding(
               padding: EdgeInsets.only(top: 280.0, left: 48.0, right: 49.0),
               child: Form(
-                key: formKey,
+                key: widget.formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Observer(builder: (_) {
-                      return InputText(
-                        controller: _nameController,
-                        onChanged: (value) => validators.setName(value!),
-                        label: 'Nome',
-                        textInputType: TextInputType.name,
-                        validator: (value) => validators.validatorName(),
-                        onSaved: (String? value) {
-                          this.name = value!;
-                        },
-                      );
-                    }),
+                    InputText(
+                      controller: _nameController,
+                      label: 'Nome',
+                      textInputType: TextInputType.name,
+                      validator: (value) => validator.validatorName(value!),
+                      onSaved: (String? value) {
+                        this.name = value!;
+                      },
+                    ),
                     SizedBox(height: 32.0),
-                    Observer(builder: (_) {
-                      return InputText(
-                        controller: _emailController,
-                        onChanged: (value) => validators.setEmail(value!),
-                        label: 'E-mail',
-                        textInputType: TextInputType.emailAddress,
-                        validator: (value) => validators.isEmailValid(),
-                        onSaved: (String? value) {
-                          this.email = value!;
-                        },
-                      );
-                    })
+                    InputText(
+                      controller: _emailController,
+                      label: 'E-mail',
+                      textInputType: TextInputType.emailAddress,
+                      validator: (value) => validator.isEmailValid(value!),
+                      onSaved: (String? value) {
+                        this.email = value!;
+                      },
+                    ),
                   ],
                 ),
               ),

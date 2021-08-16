@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
@@ -10,16 +9,23 @@ import 'package:trabalho_final_dgpr/shared/widgets/comments.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 
 class RegisterTermsPage extends StatefulWidget {
-  const RegisterTermsPage({Key? key}) : super(key: key);
+  final GlobalKey<FormState> termsKey;
+
+  const RegisterTermsPage({
+    Key? key,
+    required this.termsKey,
+  }) : super(key: key);
 
   @override
   _RegisterTermsPageState createState() => _RegisterTermsPageState();
 }
 
-class _RegisterTermsPageState extends State<RegisterTermsPage> {
-  final GlobalKey<FormState> termsKey = GlobalKey<FormState>();
 
-  Validators validators = Validators();
+class _RegisterTermsPageState extends State<RegisterTermsPage> {
+  
+  Validator validator = Validator();
+
+  bool terms = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,48 +75,27 @@ class _RegisterTermsPageState extends State<RegisterTermsPage> {
                 left: 16.0,
                 right: 16.0,
               ),
-              child: Observer(
-                builder: (_) {
-                  return CheckboxListTile(
-                    key: termsKey,
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(
-                      "Eu li e aceito os termos e condições e a Política de privacidade do budget.",
-                      style: TextStyles.black16w400Roboto,
-                    ),
-                    activeColor: AppColors.minsk,
-                    checkColor: AppColors.white,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    value: validators.terms,
-                    onChanged: (value) {
-                      setState(() {
-                        validators.terms = !validators.terms;
-                      });
-                    },
-                  );
-                },
+              child: Form(
+                key: widget.termsKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: CheckboxListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    "Eu li e aceito os termos e condições e a Política de privacidade do budget.",
+                    style: TextStyles.black16w400Roboto,
+                  ),
+                  activeColor: AppColors.minsk,
+                  checkColor: AppColors.white,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: terms,
+                  onChanged: (value) {
+                    setState(() {
+                      terms = !terms;
+                    });
+                  },
+                ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(16, 650, 16, 0.0),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       BackButtonWidget(
-            //         onPressed: () {
-            //           Navigator.pop(context);
-            //         },
-            //       ),
-            //       ContinueForwardButton(
-            //         onPressed: () {
-            //           if (validators.terms == true) {
-            //             Navigator.pushNamed(context, "/register_password");
-            //           }
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),

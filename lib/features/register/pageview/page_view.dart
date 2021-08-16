@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/features/register/register_name_email/register_name_email.dart';
-import 'package:trabalho_final_dgpr/features/register/register_onboarding/register_onboarding_page.dart';
 import 'package:trabalho_final_dgpr/features/register/register_password/register_password.dart';
 import 'package:trabalho_final_dgpr/features/register/register_phone_cpf/register_phone_cpf.dart';
 import 'package:trabalho_final_dgpr/features/register/register_terms/register_terms.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/back_button_widget.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_forward_button.dart';
 
@@ -15,13 +15,14 @@ class RegisterPageView extends StatefulWidget {
 }
 
 class _RegisterPageViewState extends State<RegisterPageView> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> nameEmailKey = GlobalKey<FormState>();
   final GlobalKey<FormState> phoneCpfKey = GlobalKey<FormState>();
   final GlobalKey<FormState> termsKey = GlobalKey<FormState>();
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
 
   int currentIndex = 0;
-  
+
+  Validator validator = Validator();
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +37,17 @@ class _RegisterPageViewState extends State<RegisterPageView> {
             controller: controller,
             children: [
               RegisterNameEmailPage(
-                key: formKey, 
+                formKey: nameEmailKey,
               ),
               RegisterPhoneCpfPage(
-                key: phoneCpfKey,
+                phoneCpfKey: phoneCpfKey,
               ),
               RegisterTermsPage(
-                key: termsKey,
+                termsKey: termsKey,
               ),
               RegisterPasswordPage(
-                key: passwordKey,
+                passwordKey: passwordKey,
               ),
-              RegisterOnboardingPage(),
             ],
           ),
           Visibility(
@@ -69,11 +69,26 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       },
                     ),
                     ContinueForwardButton(
-                      onPressed: () {                        
-                        controller.nextPage(
-                            duration: Duration(milliseconds: 400),
-                            curve: Curves.easeIn);
+                      onPressed: () {
+                        if (currentIndex == 0 &&
+                            nameEmailKey.currentState!.validate()) {
+                          controller.animateToPage(1,
+                              duration: Duration(milliseconds: 400),
+                              curve: Curves.easeIn);
+                        } else if (currentIndex == 1 &&
+                            phoneCpfKey.currentState!.validate()) {
+                          controller.animateToPage(2,
+                              duration: Duration(milliseconds: 400),
+                              curve: Curves.easeIn);
+                        } else if (currentIndex == 2 && termsKey.currentState!.validate()) {
+                          controller.animateToPage(3,
+                              duration: Duration(milliseconds: 400),
+                              curve: Curves.easeIn);
+                        } else if (currentIndex == 3 &&
+                            passwordKey.currentState!.validate()) {
+                          Navigator.pushNamed(context, "/register_onboarding");
                         }
+                      },
                     ),
                   ],
                 ),
