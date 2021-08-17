@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 class RegisterUser {
-String? uid;
-String? name;
-String? email;
-String? password;
-String? confirmPassword;
-String? phone;
-String? cpf;
-bool checkTerms;
+  String? uid;
+  String? name;
+  String? email;
+  String? password;
+  String? confirmPassword;
+  String? phone;
+  String? cpf;
+  bool checkTerms;
   RegisterUser({
     this.uid,
     this.name,
@@ -70,7 +70,8 @@ bool checkTerms;
 
   String toJson() => json.encode(toMap());
 
-  factory RegisterUser.fromJson(String source) => RegisterUser.fromMap(json.decode(source));
+  factory RegisterUser.fromJson(String source) =>
+      RegisterUser.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -80,27 +81,27 @@ bool checkTerms;
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is RegisterUser &&
-      other.uid == uid &&
-      other.name == name &&
-      other.email == email &&
-      other.password == password &&
-      other.confirmPassword == confirmPassword &&
-      other.phone == phone &&
-      other.cpf == cpf &&
-      other.checkTerms == checkTerms;
+        other.uid == uid &&
+        other.name == name &&
+        other.email == email &&
+        other.password == password &&
+        other.confirmPassword == confirmPassword &&
+        other.phone == phone &&
+        other.cpf == cpf &&
+        other.checkTerms == checkTerms;
   }
 
   @override
   int get hashCode {
     return uid.hashCode ^
-      name.hashCode ^
-      email.hashCode ^
-      password.hashCode ^
-      confirmPassword.hashCode ^
-      phone.hashCode ^
-      cpf.hashCode ^
-      checkTerms.hashCode;
+        name.hashCode ^
+        email.hashCode ^
+        password.hashCode ^
+        confirmPassword.hashCode ^
+        phone.hashCode ^
+        cpf.hashCode ^
+        checkTerms.hashCode;
   }
 }

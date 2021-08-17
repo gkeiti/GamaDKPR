@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
@@ -12,10 +13,13 @@ import '../../user_repository.dart';
 
 class RegisterTermsPage extends StatefulWidget {
   final GlobalKey<FormState> termsKey;
+  final RegisterUser? user;
+ 
 
   const RegisterTermsPage({
     Key? key,
     required this.termsKey,
+    this.user,
   }) : super(key: key);
 
   @override
@@ -24,9 +28,9 @@ class RegisterTermsPage extends StatefulWidget {
 
 class _RegisterTermsPageState extends State<RegisterTermsPage> {
   Validator validator = Validator();
-
-  RegisterUser user = RegisterUser();
-
+  
+  final RegisterUser? user = RegisterUser();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,10 +91,10 @@ class _RegisterTermsPageState extends State<RegisterTermsPage> {
                   activeColor: AppColors.minsk,
                   checkColor: AppColors.white,
                   controlAffinity: ListTileControlAffinity.leading,
-                  value: user.checkTerms,
+                  value: user?.checkTerms,
                   onChanged: (value) {
                     setState(() {
-                      user.checkTerms = !user.checkTerms;
+                      user?.checkTerms = !user!.checkTerms;
                     });
                   },
                 ),

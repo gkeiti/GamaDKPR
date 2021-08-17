@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:trabalho_final_dgpr/features/user_repository.dart';
 
+import 'package:trabalho_final_dgpr/features/user_repository.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
@@ -12,9 +12,11 @@ import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 
 class RegisterPasswordPage extends StatefulWidget {
   final GlobalKey<FormState> passwordKey;
+  final RegisterUser? user;
   const RegisterPasswordPage({
     Key? key,
     required this.passwordKey,
+    this.user,
   }) : super(key: key);
 
   @override
@@ -27,7 +29,7 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
   FocusNode _focusNode = FocusNode();
 
   Validator validator = Validator();
-  RegisterUser user = RegisterUser();
+  final RegisterUser? user = RegisterUser();
 
   String password = "";
   String confirmPassword = "";
@@ -103,7 +105,7 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                       textInputType: TextInputType.text,
                       validator: (value) => validator.isPasswordValid(value!),
                       onSaved: (String? value) {
-                        user.password = value;
+                        user?.password = value;
                       },
                     ),
                     SizedBox(height: 32.0),
@@ -116,7 +118,7 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                       validator: (value) =>
                           validator.setConfirmPassword(value!, value),
                       onSaved: (String? value) {
-                        user.confirmPassword = value;
+                        user?.confirmPassword = value;
                       },
                     )
                   ],

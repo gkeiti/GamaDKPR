@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:trabalho_final_dgpr/features/user_repository.dart';
 
+import 'package:trabalho_final_dgpr/features/user_repository.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
@@ -12,9 +12,11 @@ import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 
 class RegisterPhoneCpfPage extends StatefulWidget {
   final GlobalKey<FormState> phoneCpfKey;
+  final RegisterUser? user;
   const RegisterPhoneCpfPage({
     Key? key,
     required this.phoneCpfKey,
+    this.user,
   }) : super(key: key);
 
   @override
@@ -27,10 +29,8 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
   MaskedTextController _cpfController =
       MaskedTextController(mask: "000.000.000-00");
   FocusNode _myFocusNode = FocusNode();
-
-
+  final RegisterUser? user = RegisterUser();
   Validator validator = Validator();
-  RegisterUser user = RegisterUser();
 
   String phone = "";
   String cpf = "";
@@ -91,7 +91,7 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
                       textInputType: TextInputType.phone,
                       validator: (value) => validator.isPhoneValid(value!),
                       onSaved: (String? value) {
-                        user.phone = value;
+                        user?.phone = value;
                       },
                     ),
                     SizedBox(height: 32.0),
@@ -105,7 +105,7 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
                       textInputType: TextInputType.number,
                       validator: (value) => validator.isCpfValid(value!),
                       onSaved: (String? value) {
-                        user.cpf = value;
+                        user?.cpf = value;
                       },
                     ),
                   ],

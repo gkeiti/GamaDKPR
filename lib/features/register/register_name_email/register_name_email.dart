@@ -12,12 +12,13 @@ import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 import '../../user_repository.dart';
 
 class RegisterNameEmailPage extends StatefulWidget {
-
-final GlobalKey<FormState> formKey;
+  final GlobalKey<FormState> formKey;
+  final RegisterUser? user;
 
   const RegisterNameEmailPage({
     Key? key,
     required this.formKey,
+    this.user,
   }) : super(key: key);
 
   @override
@@ -31,10 +32,7 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
 
   final Validator validator = Validator();
 
-RegisterUser user = RegisterUser();
-
-
-
+  final RegisterUser? user = RegisterUser();
 
   @override
   void initState() {
@@ -90,7 +88,7 @@ RegisterUser user = RegisterUser();
                       textInputType: TextInputType.name,
                       validator: (value) => validator.validatorName(value!),
                       onSaved: (String? value) {
-                        user.name = value;
+                        user?.name = _nameController.text;
                       },
                     ),
                     SizedBox(height: 32.0),
@@ -100,7 +98,7 @@ RegisterUser user = RegisterUser();
                       textInputType: TextInputType.emailAddress,
                       validator: (value) => validator.isEmailValid(value!),
                       onSaved: (String? value) {
-                        user.email = value;
+                        user?.email = _emailController.text;
                       },
                     ),
                   ],
