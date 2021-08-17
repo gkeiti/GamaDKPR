@@ -1,18 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:trabalho_final_dgpr/login/login_controller.dart';
-import 'package:trabalho_final_dgpr/login/login_state.dart';
-import 'package:trabalho_final_dgpr/modules/home/pages/home_page.dart';
-import 'package:trabalho_final_dgpr/services/auth_wrapper.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:provider/provider.dart';
 import 'package:trabalho_final_dgpr/services/auth_service.dart';
-
-import 'login_screen.dart';
+import 'login_get_email.dart';
 
 class LoginPassword extends StatefulWidget {
   const LoginPassword({Key? key}) : super(key: key);
@@ -25,39 +20,21 @@ class _LoginPasswordState extends State<LoginPassword> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  // LoginController? controller;
+  LoginController? controller;
 
-  // login() async {
-  //   try {
-  //     await context.read<AuthService>().login(email.text, senha.text);
-  //     print('LOGADO');
-  //     print('email: ${email.text}');
-  //     print('senha: ${senha.text}');
-  //   } on AuthException catch (e) {}
-  // }
+  _LoginPasswordState() {
+    controller = LoginController(repository: LoginRepositoryImpl());
+  }
 
   ReactionDisposer? disposer;
 
-  // @override
-  // void initState() {
-  //   controller = context.read<LoginController>();
-  //   disposer = reaction(
-  //     (_) => controller!.state,
-  //     (s) {
-  //       if (s.runtimeType == LoginStateError) {
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //           SnackBar(
-  //             content: Text((s as LoginStateError).errorMessage),
-  //           ),
-  //         );
-  //       }
-  //     },
-  //   );
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
+    final arguments = ModalRoute.of(context)!.settings.arguments;
+    if (arguments != null) {
+      emailController.text = arguments.toString();
+      print(emailController.text);
+    }
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -133,13 +110,17 @@ class _LoginPasswordState extends State<LoginPassword> {
                         top: 16.0,
                       ),
                       child: ContinueButton(
-                        onPressed: () {
-                          context.read<AuthService>().signIn(
-                                email: emailController.text.trim(),
-                                password: passwordController.text.trim(),
-                              );
-                              print('email é esse ${emailController.text}');
-                          Navigator.pushNamed(context, '/auth_wrapper');
+                        onPressed: () async {
+                          // CircularProgressIndicator();
+                          var response =
+                              await context.read<AuthService>().signIn(
+                                    email: emailController.text.trim(),
+                                    password: passwordController.text.trim(),
+                                  );
+                          print('email é esse ${emailController.text}');
+                          if (response == 'Positivo') {
+                            Navigator.pushNamed(context, '/home');
+                          }
                         },
                       ),
                     ),

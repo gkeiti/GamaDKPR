@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:trabalho_final_dgpr/services/auth_service.dart';
+import 'package:trabalho_final_dgpr/login/login_get_email.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
+import 'login_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,26 +15,13 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
-  final email = TextEditingController();
-  final senha = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  late LoginController controller;
 
-  bool loading = false;
-
-  // login() async {
-  //   setState(() {
-  //     loading = true;
-  //   });
-  //   try {
-  //     await context.read<AuthService>().login(email.text, senha.text);
-  //   } on AuthException catch (e) {
-  //     setState(() {
-  //       loading = false;
-  //     });
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text(e.message)),
-  //     );
-  //   }
-  // }
+  _LoginScreenState() {
+    controller = LoginController(repository: LoginRepositoryImpl());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 48),
                   child: InputText(
-                    controller: email,
+                    controller: emailController,
                     label: 'Insira seu e-mail',
                     obscureText: false,
                     textInputType: TextInputType.emailAddress,
@@ -113,20 +100,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     left: 198,
                   ),
                   child: ContinueButton(
-                    onPressed: () {
-                      if (loading) {
-                        Padding(
-                          padding: EdgeInsets.all(16),
-                          child: SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                            ),
-                          ),
-                        );
+                    onPressed: () async {
+                      bool result = await controller.repository
+                          .getEmail(emailController.text);
+                      if (result == false) {
+                        print('Email errado');
                       } else {
-                        Navigator.pushNamed(context, '/login_password');
+                        Navigator.pushNamed(context, '/login_password',
+                            arguments: emailController.text);
                       }
                     },
                   ),

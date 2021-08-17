@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:trabalho_final_dgpr/modules/home/pages/home_page.dart';
 import 'package:trabalho_final_dgpr/services/auth_service.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
@@ -12,6 +14,7 @@ class SideDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User? firebaseUser;
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.85,
       child: Drawer(
@@ -96,6 +99,10 @@ class SideDrawer extends StatelessWidget {
               child: FloatingActionButton(
                 onPressed: () {
                   context.read<AuthService>().signOut();
+                  if (firebaseUser == null) {
+                    Navigator.pushReplacementNamed(context, '/login');
+                    
+                  }
                 },
                 child: Text('sair'),
               ),
