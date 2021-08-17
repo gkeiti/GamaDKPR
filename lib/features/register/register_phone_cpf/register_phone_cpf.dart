@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:trabalho_final_dgpr/features/user_repository.dart';
 
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
@@ -29,6 +30,7 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
 
 
   Validator validator = Validator();
+  RegisterUser user = RegisterUser();
 
   String phone = "";
   String cpf = "";
@@ -89,7 +91,7 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
                       textInputType: TextInputType.phone,
                       validator: (value) => validator.isPhoneValid(value!),
                       onSaved: (String? value) {
-                        this.phone = value!;
+                        user.phone = value;
                       },
                     ),
                     SizedBox(height: 32.0),
@@ -103,33 +105,13 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
                       textInputType: TextInputType.number,
                       validator: (value) => validator.isCpfValid(value!),
                       onSaved: (String? value) {
-                        this.cpf = value!;
+                        user.cpf = value;
                       },
                     ),
                   ],
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(16, 650, 16, 0.0),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       BackButtonWidget(
-            //         onPressed: () {
-            //           Navigator.pop(context);
-            //         },
-            //       ),
-            //       ContinueForwardButton(
-            //         onPressed: () {
-            //           if (phoneCpfKey.currentState!.validate()) {
-            //             Navigator.pushNamed(context, "/register_terms");
-            //           }
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),

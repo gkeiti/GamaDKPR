@@ -13,6 +13,8 @@ import 'modules/home/pages/update_register_screen.dart';
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
   final String uid = '654321';
+
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trabalho_final_dgpr/features/user_repository.dart';
 
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
@@ -26,6 +27,7 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
   FocusNode _focusNode = FocusNode();
 
   Validator validator = Validator();
+  RegisterUser user = RegisterUser();
 
   String password = "";
   String confirmPassword = "";
@@ -101,7 +103,7 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                       textInputType: TextInputType.text,
                       validator: (value) => validator.isPasswordValid(value!),
                       onSaved: (String? value) {
-                        this.password = value!;
+                        user.password = value;
                       },
                     ),
                     SizedBox(height: 32.0),
@@ -114,34 +116,13 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                       validator: (value) =>
                           validator.setConfirmPassword(value!, value),
                       onSaved: (String? value) {
-                        this.confirmPassword = value!;
+                        user.confirmPassword = value;
                       },
                     )
                   ],
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(16, 650, 16, 0.0),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       BackButtonWidget(
-            //         onPressed: () {
-            //           Navigator.pop(context);
-            //         },
-            //       ),
-            //       ContinueForwardButton(
-            //         onPressed: () {
-            //           if (passwordKey!.currentState!.validate()) {
-            //             Navigator.pushNamed(context, "/register_onboarding");
-
-            //           }
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),

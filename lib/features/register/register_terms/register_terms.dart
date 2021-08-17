@@ -8,6 +8,8 @@ import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/comments.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 
+import '../../user_repository.dart';
+
 class RegisterTermsPage extends StatefulWidget {
   final GlobalKey<FormState> termsKey;
 
@@ -20,12 +22,10 @@ class RegisterTermsPage extends StatefulWidget {
   _RegisterTermsPageState createState() => _RegisterTermsPageState();
 }
 
-
 class _RegisterTermsPageState extends State<RegisterTermsPage> {
-  
   Validator validator = Validator();
 
-  bool terms = false;
+  RegisterUser user = RegisterUser();
 
   @override
   Widget build(BuildContext context) {
@@ -87,10 +87,10 @@ class _RegisterTermsPageState extends State<RegisterTermsPage> {
                   activeColor: AppColors.minsk,
                   checkColor: AppColors.white,
                   controlAffinity: ListTileControlAffinity.leading,
-                  value: terms,
+                  value: user.checkTerms,
                   onChanged: (value) {
                     setState(() {
-                      terms = !terms;
+                      user.checkTerms = !user.checkTerms;
                     });
                   },
                 ),

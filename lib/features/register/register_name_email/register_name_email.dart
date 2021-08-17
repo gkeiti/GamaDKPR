@@ -9,6 +9,8 @@ import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 
+import '../../user_repository.dart';
+
 class RegisterNameEmailPage extends StatefulWidget {
 
 final GlobalKey<FormState> formKey;
@@ -29,16 +31,10 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
 
   final Validator validator = Validator();
 
-  String text = "";
-  String? name;
-  String email = "";
+RegisterUser user = RegisterUser();
 
 
-  void updateText(String newText) {
-    setState(() {
-      text = newText;
-    });
-  }
+
 
   @override
   void initState() {
@@ -94,7 +90,7 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
                       textInputType: TextInputType.name,
                       validator: (value) => validator.validatorName(value!),
                       onSaved: (String? value) {
-                        this.name = value!;
+                        user.name = value;
                       },
                     ),
                     SizedBox(height: 32.0),
@@ -104,33 +100,13 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
                       textInputType: TextInputType.emailAddress,
                       validator: (value) => validator.isEmailValid(value!),
                       onSaved: (String? value) {
-                        this.email = value!;
+                        user.email = value;
                       },
                     ),
                   ],
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(16, 650, 16, 0.0),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       BackButtonWidget(
-            //         onPressed: () {
-            //           Navigator.pop(context);
-            //         },
-            //       ),
-            //       ContinueForwardButton(
-            //         onPressed: () {
-            //           if (formKey.currentState!.validate()) {
-            //             Navigator.pushNamed(context, "/register_tel_cpf");
-            //           }
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),
