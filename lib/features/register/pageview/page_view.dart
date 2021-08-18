@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:trabalho_final_dgpr/features/register/register_name_email/register_name_email.dart';
 import 'package:trabalho_final_dgpr/features/register/register_password/register_password.dart';
 import 'package:trabalho_final_dgpr/features/register/register_phone_cpf/register_phone_cpf.dart';
@@ -28,10 +29,9 @@ class _RegisterPageViewState extends State<RegisterPageView> {
 
   int currentIndex = 0;
 
-  Validator validator = Validator();
   RegisterControlRepository? repository;
+  Validator validator = Validator();
   RegisterUser? user = RegisterUser();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +57,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 termsKey: termsKey,
                 user: user,
               ),
-              RegisterPasswordPage(
-                passwordKey: passwordKey,
-                user: user
-              ),
+              RegisterPasswordPage(passwordKey: passwordKey, user: user),
             ],
           ),
           Visibility(
@@ -82,28 +79,37 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       },
                     ),
                     ContinueForwardButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (currentIndex == 0 &&
                             nameEmailKey.currentState!.validate()) {
-                          print(user);
                           controller.animateToPage(1,
                               duration: Duration(milliseconds: 400),
                               curve: Curves.easeIn);
                         } else if (currentIndex == 1 &&
                             phoneCpfKey.currentState!.validate()) {
-                              print(user);
                           controller.animateToPage(2,
                               duration: Duration(milliseconds: 400),
                               curve: Curves.easeIn);
                         } else if (currentIndex == 2 &&
                             termsKey.currentState!.validate()) {
-                              print(user);
                           controller.animateToPage(3,
                               duration: Duration(milliseconds: 400),
                               curve: Curves.easeIn);
                         } else if (currentIndex == 3 &&
                             passwordKey.currentState!.validate()) {
-                          repository?.createAccount(user!);
+                          // repository?.createAccount(user!);
+                          final response = await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                                  email: user!.email!,
+                                  password: user!.password!);
+
+                          final _user = response.user;
+                          Map<String, dynamic> _userMap = user!.toMap();
+
+                          await FirebaseFirestore.instance
+                              .collection("/user")
+                              .doc(_user!.uid)
+                              .set(_userMap);
                           print(user);
                           Navigator.pushNamed(context, "/register_onboarding");
                         }

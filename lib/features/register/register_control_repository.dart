@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../user_repository.dart';
 
@@ -7,19 +8,20 @@ abstract class RegisterControlRepository {
 }
 
 class RegisterControlRepositoryImpl extends RegisterControlRepository {
+
   @override
   Future<void> createAccount(RegisterUser user) async {
     try {
-      await FirebaseFirestore.instance.collection('/user').add({
-        'uid': user.uid,
-        'name': user.name,
-        'email': user.email,
-        'phone': user.phone,
-        'cpf': user.cpf,
-        'terms': user.checkTerms,
-        'password': user.password,
-        'confirmPassword': user.confirmPassword,
-      });
+      final response = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: user.email!, password: user.password!);
+      final _user = response.user;
+      Map<String, dynamic> _userMap = user.toMap();
+
+      await FirebaseFirestore.instance
+          .collection("/user")
+          .doc(_user!.uid)
+          .set(_userMap);
     } catch (e) {
       print(e);
     }
