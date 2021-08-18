@@ -15,6 +15,7 @@ class RegisterTermsPage extends StatefulWidget {
   final GlobalKey<FormState> termsKey;
   final RegisterUser? user;
  
+ RegisterUser? get getUser => this.user;
 
   const RegisterTermsPage({
     Key? key,
@@ -91,10 +92,10 @@ class _RegisterTermsPageState extends State<RegisterTermsPage> {
                   activeColor: AppColors.minsk,
                   checkColor: AppColors.white,
                   controlAffinity: ListTileControlAffinity.leading,
-                  value: user?.checkTerms,
+                  value: widget.user?.checkTerms,
                   onChanged: (value) {
                     setState(() {
-                      user?.checkTerms = !user!.checkTerms;
+                      widget.user?.checkTerms = !widget.user!.checkTerms;
                     });
                   },
                 ),

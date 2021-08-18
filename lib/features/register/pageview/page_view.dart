@@ -12,10 +12,8 @@ import 'package:trabalho_final_dgpr/shared/widgets/continue_forward_button.dart'
 import '../register_control_repository.dart';
 
 class RegisterPageView extends StatefulWidget {
-  final RegisterUser? user;
   const RegisterPageView({
     Key? key,
-    this.user,
   }) : super(key: key);
 
   @override
@@ -29,10 +27,11 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
 
   int currentIndex = 0;
-  
+
   Validator validator = Validator();
   RegisterControlRepository? repository;
-  RegisterUser? user;
+  RegisterUser? user = RegisterUser();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -48,15 +47,19 @@ class _RegisterPageViewState extends State<RegisterPageView> {
             children: [
               RegisterNameEmailPage(
                 formKey: nameEmailKey,
+                user: user,
               ),
               RegisterPhoneCpfPage(
                 phoneCpfKey: phoneCpfKey,
+                user: user,
               ),
               RegisterTermsPage(
                 termsKey: termsKey,
+                user: user,
               ),
               RegisterPasswordPage(
                 passwordKey: passwordKey,
+                user: user
               ),
             ],
           ),
@@ -82,22 +85,26 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       onPressed: () {
                         if (currentIndex == 0 &&
                             nameEmailKey.currentState!.validate()) {
+                          print(user);
                           controller.animateToPage(1,
                               duration: Duration(milliseconds: 400),
                               curve: Curves.easeIn);
                         } else if (currentIndex == 1 &&
                             phoneCpfKey.currentState!.validate()) {
+                              print(user);
                           controller.animateToPage(2,
                               duration: Duration(milliseconds: 400),
                               curve: Curves.easeIn);
                         } else if (currentIndex == 2 &&
                             termsKey.currentState!.validate()) {
+                              print(user);
                           controller.animateToPage(3,
                               duration: Duration(milliseconds: 400),
                               curve: Curves.easeIn);
                         } else if (currentIndex == 3 &&
                             passwordKey.currentState!.validate()) {
                           repository?.createAccount(user!);
+                          print(user);
                           Navigator.pushNamed(context, "/register_onboarding");
                         }
                       },

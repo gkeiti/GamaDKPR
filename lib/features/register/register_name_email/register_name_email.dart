@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
@@ -32,7 +31,6 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
 
   final Validator validator = Validator();
 
-  final RegisterUser? user = RegisterUser();
 
   @override
   void initState() {
@@ -87,8 +85,8 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
                       label: 'Nome',
                       textInputType: TextInputType.name,
                       validator: (value) => validator.validatorName(value!),
-                      onSaved: (String? value) {
-                        user?.name = _nameController.text;
+                      onChanged: (String? value) {
+                        widget.user?.name = value;
                       },
                     ),
                     SizedBox(height: 32.0),
@@ -97,8 +95,8 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
                       label: 'E-mail',
                       textInputType: TextInputType.emailAddress,
                       validator: (value) => validator.isEmailValid(value!),
-                      onSaved: (String? value) {
-                        user?.email = _emailController.text;
+                      onChanged: (String? value) {
+                        widget.user?.email = value;
                       },
                     ),
                   ],

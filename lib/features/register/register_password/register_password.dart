@@ -29,10 +29,7 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
   FocusNode _focusNode = FocusNode();
 
   Validator validator = Validator();
-  final RegisterUser? user = RegisterUser();
 
-  String password = "";
-  String confirmPassword = "";
 
   @override
   void initState() {
@@ -104,8 +101,8 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                       label: 'Crie uma senha',
                       textInputType: TextInputType.text,
                       validator: (value) => validator.isPasswordValid(value!),
-                      onSaved: (String? value) {
-                        user?.password = value;
+                      onChanged: (String? value) {
+                        widget.user?.password = value;
                       },
                     ),
                     SizedBox(height: 32.0),
@@ -117,14 +114,35 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                       textInputType: TextInputType.text,
                       validator: (value) =>
                           validator.setConfirmPassword(value!, value),
-                      onSaved: (String? value) {
-                        user?.confirmPassword = value;
+                      onChanged: (String? value) {
+                        widget.user?.confirmPassword = value;
                       },
                     )
                   ],
                 ),
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.fromLTRB(16, 650, 16, 0.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       BackButtonWidget(
+            //         onPressed: () {
+            //           Navigator.pop(context);
+            //         },
+            //       ),
+            //       ContinueForwardButton(
+            //         onPressed: () {
+            //           if (passwordKey!.currentState!.validate()) {
+            //             Navigator.pushNamed(context, "/register_onboarding");
+
+            //           }
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),

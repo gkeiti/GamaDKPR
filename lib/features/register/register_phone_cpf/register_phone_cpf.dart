@@ -90,8 +90,8 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
                       label: 'Telefone',
                       textInputType: TextInputType.phone,
                       validator: (value) => validator.isPhoneValid(value!),
-                      onSaved: (String? value) {
-                        user?.phone = value;
+                      onChanged: (String? value) {
+                        widget.user?.phone = value;
                       },
                     ),
                     SizedBox(height: 32.0),
@@ -104,8 +104,8 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
                           "O CPF é necessário para conectar suas contas.",
                       textInputType: TextInputType.number,
                       validator: (value) => validator.isCpfValid(value!),
-                      onSaved: (String? value) {
-                        user?.cpf = value;
+                      onChanged: (String? value) {
+                        widget.user?.cpf = value;
                       },
                     ),
                   ],
