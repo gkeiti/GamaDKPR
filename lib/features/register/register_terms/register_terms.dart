@@ -1,24 +1,36 @@
 import 'package:flutter/material.dart';
+
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/comments.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 
+import '../../user_repository.dart';
+
 class RegisterTermsPage extends StatefulWidget {
-  const RegisterTermsPage({Key? key}) : super(key: key);
+  final GlobalKey<FormState> termsKey;
+  final RegisterUser? user;
+
+  RegisterUser? get getUser => this.user;
+
+  const RegisterTermsPage({
+    Key? key,
+    required this.termsKey,
+    this.user,
+  }) : super(key: key);
 
   @override
   _RegisterTermsPageState createState() => _RegisterTermsPageState();
 }
 
 class _RegisterTermsPageState extends State<RegisterTermsPage> {
-  bool? _checked = false;
+  Validator validator = Validator();
 
-    final GlobalKey<FormState>? termsKey = GlobalKey<FormState>();
-
+  final RegisterUser? user = RegisterUser();
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +70,8 @@ class _RegisterTermsPageState extends State<RegisterTermsPage> {
                 right: 27.0,
               ),
               child: CommentsWidget(
-                text: "Lorem Ipsum neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Ipsum neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Nque porro  est qui dolorem ipsum quia dolor sit amet, , adipisci velit. Quisquam est qui dolorem ipsum.",
+                text:
+                    "Lorem Ipsum neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Ipsum neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Nque porro  est qui dolorem ipsum quia dolor sit amet, , adipisci velit. Quisquam est qui dolorem ipsum.",
               ),
             ),
             Padding(
@@ -67,21 +80,25 @@ class _RegisterTermsPageState extends State<RegisterTermsPage> {
                 left: 16.0,
                 right: 16.0,
               ),
-              child: CheckboxListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Text(
-                  "Eu li e aceito os termos e condições e a Política de privacidade do budget.",
-                  style: TextStyles.black16w400Roboto,
+              child: Form(
+                key: widget.termsKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: CheckboxListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    "Eu li e aceito os termos e condições e a Política de privacidade do budget.",
+                    style: TextStyles.black16w400Roboto,
+                  ),
+                  activeColor: AppColors.minsk,
+                  checkColor: AppColors.white,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: widget.user?.checkTerms,
+                  onChanged: (value) {
+                    setState(() {
+                      widget.user?.checkTerms = !widget.user!.checkTerms;
+                    });
+                  },
                 ),
-                value: _checked,
-                controlAffinity: ListTileControlAffinity.leading,
-                onChanged: (value) {
-                  setState(() {
-                    _checked = value;
-                  });
-                },
-                activeColor: AppColors.minsk,
-                checkColor: AppColors.white,
               ),
             ),
           ],

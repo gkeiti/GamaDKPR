@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:trabalho_final_dgpr/modules/home/home_controller.dart';
-import 'package:trabalho_final_dgpr/modules/home/home_repository.dart';
-import 'package:trabalho_final_dgpr/modules/home/widgets/balance_card.dart';
-import 'package:trabalho_final_dgpr/modules/home/widgets/day_to_day_card.dart';
-import 'package:trabalho_final_dgpr/modules/home/widgets/last_transactions_card.dart';
+import 'package:trabalho_final_dgpr/modules/home/widgets/balance/balance_card.dart';
+import 'package:trabalho_final_dgpr/modules/home/widgets/budget/budget_card.dart';
+import 'package:trabalho_final_dgpr/modules/home/widgets/last_transactions/last_transactions_card.dart';
 import 'package:trabalho_final_dgpr/modules/home/widgets/new_control_button.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/side_drawer.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+  const HomePage({
+    Key? key,
+    required this.uid,
+  }) : super(key: key);
+  final String uid;
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final controller = HomeController(repository: HomeRepositoryImpl());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,11 +43,14 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              BalanceCard(),
+              BudgetCard(uid: widget.uid),
               SizedBox(height: 16),
-              DayToDayCard(),
+              GestureDetector(
+                  child: BalanceCard(uid: widget.uid),
+                  onTap: () =>
+                      Navigator.pushNamed(context, '/home/all_transactions')),
               SizedBox(height: 16),
-              LastTransactionsCard(controller: controller),
+              LastTransactionsCard(uid: widget.uid),
             ],
           ),
         ),

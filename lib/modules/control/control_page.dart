@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:trabalho_final_dgpr/modules/control/control_controller.dart';
+import 'package:trabalho_final_dgpr/modules/control/control_repository.dart';
 import 'package:trabalho_final_dgpr/modules/control/widget/in_transaction.dart';
 import 'package:trabalho_final_dgpr/modules/control/widget/out_transaction.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
@@ -7,22 +9,31 @@ import 'package:trabalho_final_dgpr/shared/widgets/extended_gradient_container.d
 import 'package:trabalho_final_dgpr/shared/widgets/side_drawer.dart';
 
 class TransactionsControl extends StatefulWidget {
-  const TransactionsControl({Key? key}) : super(key: key);
+  const TransactionsControl({
+    Key? key,
+    required this.uid,
+  }) : super(key: key);
+  final String uid;
 
   @override
-  _TransactionsControlState createState() => _TransactionsControlState();
+  _TransactionsControlState createState() => _TransactionsControlState(uid);
 }
 
 class _TransactionsControlState extends State<TransactionsControl> {
-  final controller = ControlController();
   DateTime dateTime = DateTime.now();
   TextEditingController valueController = TextEditingController();
   TextEditingController transactionNameController = TextEditingController();
+  final String uid;
+  late ControlController controller;
 
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'Entrada'),
     Tab(text: 'Saída'),
   ];
+
+  _TransactionsControlState(this.uid) {
+    controller = ControlController(uid, '8', ControlRepositoryImpl());
+  }
 
   @override
   void dispose() {
@@ -33,8 +44,8 @@ class _TransactionsControlState extends State<TransactionsControl> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
+    return Scaffold(
+      body: DefaultTabController(
         length: myTabs.length,
         child: Scaffold(
           appBar: AppBar(
@@ -66,6 +77,7 @@ class _TransactionsControlState extends State<TransactionsControl> {
                         valueController: valueController,
                         dropdownInValue: 'Dinheiro',
                         transactionNameController: transactionNameController,
+                        uid: uid,
                       ),
                       OutTransactionCard(
                         controller: controller,
@@ -73,6 +85,7 @@ class _TransactionsControlState extends State<TransactionsControl> {
                         //dateTime: dateTime,
                         dropdownOutValue: 'Educação',
                         transactionNameController: transactionNameController,
+                        uid: uid,
                       )
                     ],
                   ),
