@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback(
       (timeStamp) {
         Future.delayed(Duration(seconds: 3)).then(
-          (value) => Navigator.of(context).pushNamed('/login'),
+          (value) => Navigator.of(context).pushNamed('/home'),
         );
       },
     );

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:trabalho_final_dgpr/modules/home/home_repository.dart';
 import 'package:trabalho_final_dgpr/modules/home/widgets/last_transactions/last_transactions_controller.dart';
+import 'package:trabalho_final_dgpr/modules/home/widgets/last_transactions/last_transactions_model.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 
@@ -26,14 +27,6 @@ class _LastTransactionsCardState extends State<LastTransactionsCard> {
   _LastTransactionsCardState(this.uid) {
     controller = LastTransactionsController(HomeRepositoryImpl(), uid);
   }
-
-  @override
-  void initState() {
-    super.initState();
-    timer = Timer.periodic(
-        Duration(seconds: 10), (Timer t) => controller.getTotal(uid));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,14 +61,33 @@ class _LastTransactionsCardState extends State<LastTransactionsCard> {
                         children: [
                           Observer(
                             builder: (_) {
-                              if (controller.total!.isEmpty) {
-                                return Text("data");
+                              List<LastTransactionsModel>? lastTransactions =
+                                  controller.lastTransactionsTotal!.data;
+                              if (lastTransactions == null) {
+                                return CircularProgressIndicator();
                               }
-                              return Text(
-                                  'R\$ ${controller.total!.replaceAll('.', ',')}',
-                                  style: TextStyles.black54_24w400Roboto);
+
+                              if (lastTransactions.isEmpty) {
+                                return Text(
+                                  "Sem valores cadastrados",
+                                  style: TextStyles.black24w400Roboto,
+                                );
+                              } else {
+                                double result = 0;
+                                for (var i = 0;
+                                    i < lastTransactions.length;
+                                    i++) {
+                                  result += lastTransactions[i].value / 100;
+                                }
+                                return Text(
+                                    'R\$ ' +
+                                        result
+                                            .toStringAsFixed(2)
+                                            .replaceAll('.', ','),
+                                    style: TextStyles.black54_24w400Roboto);
+                              }
                             },
-                          )
+                          ),
                         ],
                       ),
                       Row(

@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
 
 import '../../home_repository.dart';
+import 'last_transactions_model.dart';
 
 part 'last_transactions_controller.g.dart';
 
@@ -15,18 +16,18 @@ abstract class _LastTransactionsControllerBase with Store {
     this.repository,
     this.uid,
   ) {
-    getTotal(uid);
+    getLastTransactionsTotal(uid);
   }
+  @observable
+  double? total;
 
   @observable
-  String? total;
-
-  @observable
-  ObservableFuture<String>? repositoryCall;
+  ObservableStream<List<LastTransactionsModel>>? lastTransactionsTotal;
 
   @action
-  Future<void> getTotal(String uid) async {
-    repositoryCall = ObservableFuture(repository.getTotal(uid));
-    total = (await repositoryCall)!;
+  getLastTransactionsTotal(String uid) {
+    total = 0;
+    lastTransactionsTotal =
+        repository.getLastTransactionsTotal(uid).asObservable();
   }
 }

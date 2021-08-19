@@ -49,7 +49,10 @@ class _BudgetCardState extends State<BudgetCard> {
             Row(
               children: [
                 Observer(builder: (_) {
-                  List<BudgetModel> budget = controller.budget!.data;
+                  List<BudgetModel>? budget = controller.budget!.data;
+                  if (budget == null) {
+                    return CircularProgressIndicator();
+                  }
                   if (budget.isEmpty) {
                     return Text(
                       "Sem valores cadastrados",

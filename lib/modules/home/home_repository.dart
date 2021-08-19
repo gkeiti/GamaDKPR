@@ -6,12 +6,14 @@ import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/transactions.dart';
 
 import 'widgets/balance/dtd_model.dart';
+import 'widgets/last_transactions/last_transactions_model.dart';
 
 abstract class HomeRepository {
   List<Widget> getItems(AsyncSnapshot snapshot);
-  Future<String> getTotal(String uid);
+  //Future<String> getTotal(String uid);
   Stream<List<BudgetModel>> getBudget(String uid);
   Stream<List<DtdModel>> getBalance(String uid, String month);
+  Stream<List<LastTransactionsModel>> getLastTransactionsTotal(String uid);
 }
 
 class HomeRepositoryImpl extends HomeRepository {
@@ -102,18 +104,18 @@ class HomeRepositoryImpl extends HomeRepository {
   }
 
   @override
-  Future<String> getTotal(String uid) async {
-    final response = await FirebaseFirestore.instance
+  Stream<List<LastTransactionsModel>> getLastTransactionsTotal(String uid) {
+    return FirebaseFirestore.instance
         .collection('/transactions')
         .limit(3)
+        .orderBy('createdAt', descending: true)
         .where('uid', isEqualTo: uid)
-        .get();
-    List values = response.docs.map((e) => e['value']).toList();
-    double sum = 0;
-    for (var i = 0; i < values.length; i++) {
-      sum += values[i] / 100;
-    }
-    return sum.toStringAsFixed(2);
+        .snapshots()
+        .map((query) {
+      return query.docs.map((doc) {
+        return LastTransactionsModel.fromDocument(doc);
+      }).toList();
+    });
   }
 
   @override
