@@ -71,8 +71,8 @@ class _BalanceCardState extends State<BalanceCard> {
                   ),
                   child: DropdownButton(
                     value: dropdownValue,
-                    dropdownColor: AppColors.purple,
-                    menuMaxHeight: 400,
+                    dropdownColor: AppColors.blue,
+                    menuMaxHeight: 200,
                     underline: Container(color: Colors.black),
                     onChanged: (String? newValue) {
                       setState(() {
@@ -92,9 +92,9 @@ class _BalanceCardState extends State<BalanceCard> {
               ],
             ),
             Observer(builder: (_) {
-              List<DtdModel> balance = controller.balance!.data;
-              // ignore: unnecessary_null_comparison
-              if (controller.balance!.status == null) {
+              List<DtdModel>? balance = controller.balance!.data;
+
+              if (balance == null) {
                 return CircularProgressIndicator();
               }
               if (balance.isEmpty) {
@@ -145,7 +145,10 @@ class _BalanceCardState extends State<BalanceCard> {
             }),
             SizedBox(height: 16.0),
             Observer(builder: (_) {
-              List<DtdModel> balance = controller.balance!.data;
+              List<DtdModel>? balance = controller.balance!.data;
+              if (balance == null) {
+                return CircularProgressIndicator();
+              }
               if (balance.isEmpty) {
                 return Row(
                   children: [
@@ -154,7 +157,7 @@ class _BalanceCardState extends State<BalanceCard> {
                 );
               } else {
                 if (balance[0].entrance == 0.0 || balance[0].out == 0.0) {
-                  return Text("Gráfico");
+                  return Text('Inserir mais dados para gerar gráfico');
                 } else {
                   return Chart(
                     entrance: balance[0].entrance,

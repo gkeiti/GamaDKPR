@@ -12,47 +12,56 @@ mixin _$LastTransactionsController on _LastTransactionsControllerBase, Store {
   final _$totalAtom = Atom(name: '_LastTransactionsControllerBase.total');
 
   @override
-  String? get total {
+  double? get total {
     _$totalAtom.reportRead();
     return super.total;
   }
 
   @override
-  set total(String? value) {
+  set total(double? value) {
     _$totalAtom.reportWrite(value, super.total, () {
       super.total = value;
     });
   }
 
-  final _$repositoryCallAtom =
-      Atom(name: '_LastTransactionsControllerBase.repositoryCall');
+  final _$lastTransactionsTotalAtom =
+      Atom(name: '_LastTransactionsControllerBase.lastTransactionsTotal');
 
   @override
-  ObservableFuture<String>? get repositoryCall {
-    _$repositoryCallAtom.reportRead();
-    return super.repositoryCall;
+  ObservableStream<List<LastTransactionsModel>>? get lastTransactionsTotal {
+    _$lastTransactionsTotalAtom.reportRead();
+    return super.lastTransactionsTotal;
   }
 
   @override
-  set repositoryCall(ObservableFuture<String>? value) {
-    _$repositoryCallAtom.reportWrite(value, super.repositoryCall, () {
-      super.repositoryCall = value;
+  set lastTransactionsTotal(
+      ObservableStream<List<LastTransactionsModel>>? value) {
+    _$lastTransactionsTotalAtom.reportWrite(value, super.lastTransactionsTotal,
+        () {
+      super.lastTransactionsTotal = value;
     });
   }
 
-  final _$getTotalAsyncAction =
-      AsyncAction('_LastTransactionsControllerBase.getTotal');
+  final _$_LastTransactionsControllerBaseActionController =
+      ActionController(name: '_LastTransactionsControllerBase');
 
   @override
-  Future<void> getTotal(String uid) {
-    return _$getTotalAsyncAction.run(() => super.getTotal(uid));
+  dynamic getLastTransactionsTotal(String uid) {
+    final _$actionInfo =
+        _$_LastTransactionsControllerBaseActionController.startAction(
+            name: '_LastTransactionsControllerBase.getLastTransactionsTotal');
+    try {
+      return super.getLastTransactionsTotal(uid);
+    } finally {
+      _$_LastTransactionsControllerBaseActionController.endAction(_$actionInfo);
+    }
   }
 
   @override
   String toString() {
     return '''
 total: ${total},
-repositoryCall: ${repositoryCall}
+lastTransactionsTotal: ${lastTransactionsTotal}
     ''';
   }
 }

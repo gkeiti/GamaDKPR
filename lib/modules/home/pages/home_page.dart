@@ -18,8 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //final controller = HomeController(repository: HomeRepositoryImpl());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
