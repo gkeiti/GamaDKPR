@@ -7,8 +7,6 @@ import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:provider/provider.dart';
-import 'package:trabalho_final_dgpr/services/auth_service.dart';
 
 class RegisterPhoneCpfPage extends StatefulWidget {
   const RegisterPhoneCpfPage({Key? key}) : super(key: key);
@@ -29,15 +27,6 @@ class _RegisterPhoneCpfPageState extends State<RegisterPhoneCpfPage> {
   final cpf = TextEditingController();
   final nome = TextEditingController();
 
-  // registrar() async {
-  //   try {
-  //     await context.read<AuthService>().registrar(nome.text, cpf.text);
-  //   } on AuthException catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text(e.message)),
-  //     );
-  //   }
-  // }
 
   @override
   void initState() {

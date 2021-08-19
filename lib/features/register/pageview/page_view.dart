@@ -72,9 +72,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                     ContinueForwardButton(
                       onPressed: () async {
                         if (currentIndex == 3) {
-                          await context
-                              .read<AuthService>();
-                              // .registrar(senha.text, email.text);
+                          context.read<AuthService>();
                         }
                         controller.nextPage(
                             duration: Duration(milliseconds: 400),

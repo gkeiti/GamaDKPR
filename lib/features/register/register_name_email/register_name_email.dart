@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'package:trabalho_final_dgpr/features/register/controller_register.dart';
-import 'package:trabalho_final_dgpr/services/auth_service.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/input_validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
@@ -31,11 +29,6 @@ class _RegisterNameEmailPageState extends State<RegisterNameEmailPage> {
   final nome = TextEditingController();
   RegisterController? controller;
 
-  // registrar() async {
-  //   try {
-  //     await context.read<AuthService>().registrar(email.text, nome.text);
-  //   } on AuthException catch (e) {}
-  // }
 
   @override
   void initState() {

@@ -16,31 +16,4 @@ mixin _$LoginController on _LoginControllerBase, Store {
     ''';
   }
 
-//   @override
-//   set state(LoginState value) {
-//     _$stateAtom.reportWrite(value, super.state, () {
-//       super.state = value;
-//     });
-//   }
-
-//   final _$_LoginControllerBaseActionController =
-//       ActionController(name: '_LoginControllerBase');
-
-//   @override
-//   void update(LoginState _state) {
-//     final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
-//         name: '_LoginControllerBase.update');
-//     try {
-//       return super.update(_state);
-//     } finally {
-//       _$_LoginControllerBaseActionController.endAction(_$actionInfo);
-//     }
-//   }
-
-//   @override
-//   String toString() {
-//     return '''
-// state: ${state}
-//     ''';
-  // }
 }

@@ -1,4 +1,5 @@
 import 'package:animated_card/animated_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
@@ -16,9 +17,13 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback(
       (timeStamp) {
-        Future.delayed(Duration(seconds: 3)).then(
-          (value) => Navigator.of(context).pushNamed('/login'),
-        );
+        Future.delayed(Duration(seconds: 3)).then((value) {
+          if (FirebaseAuth.instance.currentUser == null) {
+            Navigator.of(context).pushNamed('/login');
+          } else {
+            Navigator.of(context).pushNamed('/home');
+          }
+        });
       },
     );
     super.initState();

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:trabalho_final_dgpr/features/register/controller_register.dart';
-import 'package:trabalho_final_dgpr/features/register/register_state.dart';
-import 'package:trabalho_final_dgpr/services/auth_service.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/input_validators.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
@@ -11,7 +9,6 @@ import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/comments.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
-import 'package:provider/provider.dart';
 
 class RegisterPasswordPage extends StatefulWidget {
   const RegisterPasswordPage({Key? key}) : super(key: key);
@@ -31,29 +28,11 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
   final confirmaSenha = TextEditingController();
   RegisterController? controller;
 
-  // registrar() async {
-  //   try {
-  //     await context.read<AuthService>().registrar(senha.text, confirmaSenha.text);
-  //   } on AuthException catch (e) {}
-  // }
 
   ReactionDisposer? disposer;
 
   @override
   void initState() {
-    // controller = context.read<RegisterController>();
-    // disposer = reaction(
-    //   (_) => controller!.state,
-    //   (s) {
-    //     if (s.runtimeType == RegisterStateError) {
-    //       ScaffoldMessenger.of(context).showSnackBar(
-    //         SnackBar(
-    //           content: Text((s as RegisterStateError).errorMessage),
-    //         ),
-    //       );
-    //     }
-    //   },
-    // );
     _focusNode = FocusNode();
     super.initState();
   }

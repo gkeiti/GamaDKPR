@@ -1,5 +1,4 @@
 import 'package:trabalho_final_dgpr/login/login_get_email.dart';
-import 'package:trabalho_final_dgpr/services/auth_service.dart';
 import 'package:mobx/mobx.dart';
 part 'login_controller.g.dart';
 

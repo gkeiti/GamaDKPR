@@ -62,7 +62,6 @@ class _InTransactionCardState extends State<InTransactionCard> {
                           children: [
                             Text('Entrada',
                                 style: TextStyles.purple20w500Roboto),
-                            //Substituir os TextField pelos customizados
                             Padding(
                               padding: const EdgeInsets.only(bottom: 20.0),
                               child: TextField(

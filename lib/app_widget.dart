@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:trabalho_final_dgpr/login/login_password.dart';
-import 'package:trabalho_final_dgpr/main.dart';
-import 'package:trabalho_final_dgpr/services/auth_service.dart';
-import 'package:trabalho_final_dgpr/services/auth_wrapper.dart';
-
 import 'login/login_screen.dart';
 import 'features/register/pageview/page_view.dart';
 import 'features/register/register_name_email/register_name_email.dart';
@@ -32,7 +27,7 @@ class AppWidget extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => SplashScreen(),
-        '/auth_wrapper': (context) => AuthWrapper(),
+        // '/auth_wrapper': (context) => AuthWrapper(),
         '/login': (context) => LoginScreen(),
         '/login_password': (context) => LoginPassword(),
         '/home': (context) => HomePage(),

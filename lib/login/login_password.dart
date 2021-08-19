@@ -111,7 +111,6 @@ class _LoginPasswordState extends State<LoginPassword> {
                       ),
                       child: ContinueButton(
                         onPressed: () async {
-                          // CircularProgressIndicator();
                           var response =
                               await context.read<AuthService>().signIn(
                                     email: emailController.text.trim(),
@@ -135,6 +134,3 @@ class _LoginPasswordState extends State<LoginPassword> {
   }
 }
 
-
-// print('email ${emailController.text.trim()}');
-//                           print(passwordController.text);

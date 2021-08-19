@@ -1,8 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:trabalho_final_dgpr/login/login_controller.dart';
-import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth;
