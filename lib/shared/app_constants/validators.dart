@@ -65,8 +65,8 @@ class Validator {
     } else if (confirmPassword != password) {
       return 'A senha não é igual!';
     }
-    String pattern = r'^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[!@#$&~]).{8,}$';
-    RegExp regExp = RegExp(pattern);
+    String aux = r'^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[!@#$&~]).{8,}$';
+    RegExp regExp = RegExp(aux);
     if (!regExp.hasMatch(confirmPassword)) {
       if (password.length < 8)
         return "Insira uma senha com 8 ou mais caracteres!";

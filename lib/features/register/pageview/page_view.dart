@@ -97,12 +97,12 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                               curve: Curves.easeIn);
                         } else if (currentIndex == 3 &&
                             passwordKey.currentState!.validate()) {
-                          // repository?.createAccount(user!);
+                          CircularProgressIndicator();
+
                           final response = await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                                   email: user!.email!,
                                   password: user!.password!);
-
                           final _user = response.user;
                           Map<String, dynamic> _userMap = user!.toMap();
 
@@ -110,8 +110,10 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                               .collection("/user")
                               .doc(_user!.uid)
                               .set(_userMap);
-                          print(user);
-                          Navigator.pushNamed(context, "/register_onboarding");
+                              
+                          Future.delayed(Duration(seconds: 3)).then((value) =>
+                              Navigator.pushNamed(
+                                  context, "/register_onboarding"));
                         }
                       },
                     ),
