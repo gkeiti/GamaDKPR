@@ -107,7 +107,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                           Map<String, dynamic> _userMap = user!.toMap();
 
                           await FirebaseFirestore.instance
-                              .collection("/user")
+                              .collection("/users")
                               .doc(_user!.uid)
                               .set(_userMap);
                               

@@ -14,8 +14,8 @@ import '../../user_repository.dart';
 class RegisterTermsPage extends StatefulWidget {
   final GlobalKey<FormState> termsKey;
   final RegisterUser? user;
- 
- RegisterUser? get getUser => this.user;
+
+  RegisterUser? get getUser => this.user;
 
   const RegisterTermsPage({
     Key? key,
@@ -29,9 +29,9 @@ class RegisterTermsPage extends StatefulWidget {
 
 class _RegisterTermsPageState extends State<RegisterTermsPage> {
   Validator validator = Validator();
-  
+
   final RegisterUser? user = RegisterUser();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -5,7 +5,6 @@ import 'package:trabalho_final_dgpr/modules/control/control_repository.dart';
 import 'package:trabalho_final_dgpr/modules/control/model/all_transactions_model.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
-import 'package:trabalho_final_dgpr/shared/widgets/add_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/extended_gradient_container.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/side_drawer.dart';
 

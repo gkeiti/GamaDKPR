@@ -30,7 +30,6 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
 
   Validator validator = Validator();
 
-
   @override
   void initState() {
     _focusNode = FocusNode();
@@ -122,27 +121,6 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(16, 650, 16, 0.0),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       BackButtonWidget(
-            //         onPressed: () {
-            //           Navigator.pop(context);
-            //         },
-            //       ),
-            //       ContinueForwardButton(
-            //         onPressed: () {
-            //           if (passwordKey!.currentState!.validate()) {
-            //             Navigator.pushNamed(context, "/register_onboarding");
-
-            //           }
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),

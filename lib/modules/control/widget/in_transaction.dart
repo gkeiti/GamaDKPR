@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:trabalho_final_dgpr/modules/control/control_controller.dart';
 import 'package:trabalho_final_dgpr/modules/control/model/balance_model.dart';
 import 'package:trabalho_final_dgpr/modules/control/model/transactions_model.dart';
-import 'package:trabalho_final_dgpr/modules/home/pages/home_page.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 
 import 'insert_button.dart';

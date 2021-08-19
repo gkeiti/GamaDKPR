@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'features/login_screen.dart';
+import 'package:trabalho_final_dgpr/login/login_password.dart';
+import 'login/login_screen.dart';
 import 'features/register/pageview/page_view.dart';
 import 'features/register/register_onboarding/register_onboarding_page.dart';
 import 'features/splash/splash_screen.dart';
@@ -18,6 +18,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -25,6 +26,7 @@ class AppWidget extends StatelessWidget {
       routes: {
         '/': (context) => SplashScreen(),
         '/login': (context) => LoginScreen(),
+        '/login_password': (context) => LoginPassword(),
         '/home': (context) => HomePage(uid: uid),
         '/home/update_register': (context) => UpdateRegisterScreen(),
         '/home/transactions_control': (context) =>

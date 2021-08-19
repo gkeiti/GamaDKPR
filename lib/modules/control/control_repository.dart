@@ -35,6 +35,7 @@ class ControlRepositoryImpl extends ControlRepository {
       });
     } catch (e) {
       print(e);
+      throw (e);
     }
   }
 
