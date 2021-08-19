@@ -73,9 +73,13 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                   children: [
                     BackButtonWidget(
                       onPressed: () {
-                        controller.previousPage(
-                            duration: Duration(milliseconds: 400),
-                            curve: Curves.easeIn);
+                        if (currentIndex == 0) {
+                          Navigator.pushReplacementNamed(context, "/login");
+                        } else {
+                          controller.previousPage(
+                              duration: Duration(milliseconds: 400),
+                              curve: Curves.easeIn);
+                        }
                       },
                     ),
                     ContinueForwardButton(
@@ -97,8 +101,6 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                               curve: Curves.easeIn);
                         } else if (currentIndex == 3 &&
                             passwordKey.currentState!.validate()) {
-                          CircularProgressIndicator();
-
                           final response = await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                                   email: user!.email!,
@@ -110,7 +112,8 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                               .collection("/users")
                               .doc(_user!.uid)
                               .set(_userMap);
-                              
+
+                          CircularProgressIndicator();
                           Future.delayed(Duration(seconds: 3)).then((value) =>
                               Navigator.pushNamed(
                                   context, "/register_onboarding"));
