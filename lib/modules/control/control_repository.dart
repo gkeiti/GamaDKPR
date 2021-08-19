@@ -18,7 +18,7 @@ class ControlRepositoryImpl extends ControlRepository {
         'createdAt': FieldValue.serverTimestamp(),
         'uid': transaction.uid,
         'type': transaction.type,
-        'date': transaction.date,
+        'date': transaction.date, 
         'month': transaction.month
       });
     } catch (e) {
