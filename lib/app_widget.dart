@@ -9,14 +9,18 @@ import 'modules/control/control_page.dart';
 import 'modules/home/pages/error_home_page.dart';
 import 'modules/home/pages/home_page.dart';
 import 'modules/home/pages/update_register_screen.dart';
+import 'package:flutter/services.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
   final String uid = '654321';
 
-  
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

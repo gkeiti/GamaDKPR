@@ -34,7 +34,7 @@ class ContinueForwardButton extends StatelessWidget {
       ),
       child: MaterialButton(
         padding: EdgeInsets.only(
-          left: 4.0,
+          left: 6.0,
           top: 4.0,
           bottom: 4.0,
           right: 6.0,
@@ -49,7 +49,7 @@ class ContinueForwardButton extends StatelessWidget {
             ),
             Icon(
               Icons.arrow_forward,
-              size: 20.0,
+              size: 18.0,
               color: AppColors.white,
             ),
           ],
