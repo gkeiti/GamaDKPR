@@ -101,7 +101,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                               duration: Duration(milliseconds: 400),
                               curve: Curves.easeIn);
                         } else if (currentIndex == 2 &&
-                            termsKey.currentState!.validate()) {
+                            termsKey.currentState!.validate() == true) {
                           controller.animateToPage(3,
                               duration: Duration(milliseconds: 400),
                               curve: Curves.easeIn);

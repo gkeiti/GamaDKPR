@@ -2,7 +2,7 @@ class Validator {
   String? validatorName(String name) {
     if (name.isEmpty) {
       return "Campo vazio, insira um nome válido";
-    } else if (!RegExp(r"^[A-Z a-z]{3,16}$").hasMatch(name)) {
+    } else if (!RegExp(r"^[a-zà-úA-ZÀ-Ú]{3,16}$").hasMatch(name)) {
       return "Insira um nome válido!";
     }
     return null;
