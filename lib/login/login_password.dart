@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:trabalho_final_dgpr/features/user_repository.dart';
 import 'package:trabalho_final_dgpr/login/login_controller.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +19,12 @@ class LoginPassword extends StatefulWidget {
 }
 
 class _LoginPasswordState extends State<LoginPassword> {
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   LoginController? controller;
+  Validator validator = Validator();
+  RegisterUser? user = RegisterUser();
 
   _LoginPasswordState() {
     controller = LoginController(repository: LoginRepositoryImpl());
@@ -57,7 +61,7 @@ class _LoginPasswordState extends State<LoginPassword> {
                     right: 112,
                   ),
                   child: Container(
-                    height: 112,
+                    // height: 112,
                     child: Text(
                       'Insira sua senha',
                       style: TextStyle(
@@ -72,10 +76,15 @@ class _LoginPasswordState extends State<LoginPassword> {
                   padding: EdgeInsets.only(
                       left: 48, right: 48, bottom: 50, top: 100),
                   child: InputText(
+                    controller: emailController,
                     label: 'Insira seu e-mail',
                     obscureText: false,
                     textInputType: TextInputType.emailAddress,
-                    controller: emailController,
+                    validator: (String? value) =>
+                        validator.isEmailValidLogin(value!),
+                    onChanged: (String? value) {
+                      user?.email = value;
+                    },
                   ),
                 ),
                 Container(
@@ -85,13 +94,10 @@ class _LoginPasswordState extends State<LoginPassword> {
                     controller: passwordController,
                     obscureText: true,
                     textInputType: TextInputType.text,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Informe sua senha!';
-                      } else if (value.length < 6) {
-                        return 'Sua senha deve conter no mínimo 6 caracteres';
-                      }
-                      return null;
+                    validator: (String? value) =>
+                        validator.isPasswordValidLogin(value!),
+                    onChanged: (String? value) {
+                      user?.email = value;
                     },
                   ),
                 ),
@@ -117,7 +123,10 @@ class _LoginPasswordState extends State<LoginPassword> {
                                     password: passwordController.text.trim(),
                                   );
                           print('email é esse ${emailController.text}');
-                          if (response == 'Positivo') {
+                          print('senha é essa ${passwordController.text}');
+                          if (response != 'Positivo') {
+                            formKey.currentState!.validate();
+                          } else if (response == 'Positivo') {
                             Navigator.pushNamed(context, '/home');
                           }
                         },
@@ -133,4 +142,3 @@ class _LoginPasswordState extends State<LoginPassword> {
     );
   }
 }
-
