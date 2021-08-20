@@ -12,7 +12,6 @@ import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/back_button_widget.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_forward_button.dart';
 
-
 class RegisterPageView extends StatefulWidget {
   const RegisterPageView({
     Key? key,
@@ -22,30 +21,16 @@ class RegisterPageView extends StatefulWidget {
   _RegisterPageViewState createState() => _RegisterPageViewState();
 }
 
-class _RegisterPageViewState extends State<RegisterPageView>
-    with TickerProviderStateMixin {
+class _RegisterPageViewState extends State<RegisterPageView> {
   final GlobalKey<FormState> nameEmailKey = GlobalKey<FormState>();
   final GlobalKey<FormState> phoneCpfKey = GlobalKey<FormState>();
   final GlobalKey<FormState> termsKey = GlobalKey<FormState>();
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
-  late AnimationController _animationController;
 
   int currentIndex = 0;
 
   Validator validator = Validator();
   RegisterUser? user = RegisterUser();
-
-  @override
-  void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 3),
-    )..addListener(() {
-        setState(() {});
-      });
-    _animationController.repeat(reverse: false);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,25 +107,33 @@ class _RegisterPageViewState extends State<RegisterPageView>
                               curve: Curves.easeIn);
                         } else if (currentIndex == 3 &&
                             passwordKey.currentState!.validate()) {
-                          final response = await FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
-                                  email: user!.email!,
-                                  password: user!.password!);
-                          final _user = response.user;
-                          Map<String, dynamic> _userMap = user!.toMap();
+                          showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (context) => Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.cyan,
+                                strokeWidth: 4.0,
+                              ),
+                            ),
+                          );
 
-                          await FirebaseFirestore.instance
-                              .collection("/users")
-                              .doc(_user!.uid)
-                              .set(_userMap);
+                          // final response = await FirebaseAuth.instance
+                          //     .createUserWithEmailAndPassword(
+                          //         email: user!.email!,
+                          //         password: user!.password!);
+                          // final _user = response.user;
+                          // Map<String, dynamic> _userMap = user!.toMap();
 
-                          CircularProgressIndicator(
-                            value: _animationController.value,
-                            color: AppColors.minsk,
-                          ).hashCode;
+                          // await FirebaseFirestore.instance
+                          //     .collection("/users")
+                          //     .doc(_user!.uid)
+                          //     .set(_userMap);
+
                           Future.delayed(Duration(seconds: 3)).then((value) =>
                               Navigator.pushNamed(
                                   context, "/register_onboarding"));
+
                         }
                       },
                     ),
