@@ -3,7 +3,7 @@ import 'package:trabalho_final_dgpr/features/user_repository.dart';
 import 'package:trabalho_final_dgpr/login/login_get_email.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
-import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/validate_login.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'login_controller.dart';
@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   late LoginController controller;
-  Validator validator = Validator();
+  ValidateLogin validateLogin = ValidateLogin();
   RegisterUser? user = RegisterUser();
 
   _LoginScreenState() {
@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: false,
                       textInputType: TextInputType.emailAddress,
                       validator: (String? value) =>
-                          validator.isEmailValid(value!),
+                          validateLogin.isEmailValidLogin(value!),
                       onChanged: (String? value) {
                         user?.email = value;
                       }),
