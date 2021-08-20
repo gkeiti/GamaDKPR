@@ -12,9 +12,10 @@ class AuthService {
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
-
+  
   Future<UserData?> signIn(
       {required String email, required String password}) async {
+
     try {
       final response = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);

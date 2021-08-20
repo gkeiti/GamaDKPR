@@ -12,6 +12,7 @@ class ContinueButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // width: 114,
       height: 36,
       decoration: BoxDecoration(
         gradient: LinearGradient(
