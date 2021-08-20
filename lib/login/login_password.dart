@@ -60,7 +60,6 @@ class _LoginPasswordState extends State<LoginPassword> {
                     right: 112,
                   ),
                   child: Container(
-                    height: 112,
                     child: Text(
                       'Insira sua senha',
                       style: TextStyle(

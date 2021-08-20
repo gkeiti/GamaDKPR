@@ -12,7 +12,6 @@ class ContinueButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 114,
       height: 36,
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -32,15 +31,9 @@ class ContinueButton extends StatelessWidget {
       ),
       child: MaterialButton(
         onPressed: this.onPressed,
-        child: Row(
-          children: [
-            Flexible(
-              child: Text(
-                "CONTINUAR",
-                style: TextStyles.continueButton,
-              ),
-            ),
-          ],
+        child: Text(
+          "CONTINUAR",
+          style: TextStyles.continueButton,
         ),
         disabledColor: Colors.grey,
         shape: RoundedRectangleBorder(
