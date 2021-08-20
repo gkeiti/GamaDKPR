@@ -4,7 +4,7 @@ import 'package:trabalho_final_dgpr/features/user_repository.dart';
 import 'package:trabalho_final_dgpr/login/login_controller.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
-import 'package:trabalho_final_dgpr/shared/app_constants/validate_login.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +23,7 @@ class _LoginPasswordState extends State<LoginPassword> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   LoginController? controller;
-  ValidateLogin validateLogin = ValidateLogin();
+  Validator validator = Validator();
   RegisterUser? user = RegisterUser();
 
   _LoginPasswordState() {
@@ -81,7 +81,7 @@ class _LoginPasswordState extends State<LoginPassword> {
                     obscureText: false,
                     textInputType: TextInputType.emailAddress,
                     validator: (String? value) =>
-                        validateLogin.isEmailValidLogin(value!),
+                        validator.isEmailValidLogin(value!),
                     onChanged: (String? value) {
                       user?.email = value;
                     },
@@ -95,7 +95,7 @@ class _LoginPasswordState extends State<LoginPassword> {
                     obscureText: true,
                     textInputType: TextInputType.text,
                     validator: (String? value) =>
-                        validateLogin.isPasswordValidLogin(value!),
+                        validator.isPasswordValidLogin(value!),
                     onChanged: (String? value) {
                       user?.email = value;
                     },
@@ -123,6 +123,7 @@ class _LoginPasswordState extends State<LoginPassword> {
                                     password: passwordController.text.trim(),
                                   );
                           print('email é esse ${emailController.text}');
+                          print('senha é essa ${passwordController.text}');
                           if (response != 'Positivo') {
                             formKey.currentState!.validate();
                           } else if (response == 'Positivo') {
