@@ -1,3 +1,7 @@
+import 'package:trabalho_final_dgpr/features/user_repository.dart';
+
+RegisterUser? user = RegisterUser();
+
 class Validator {
   String? validatorName(String name) {
     if (name.isEmpty) {
@@ -11,6 +15,8 @@ class Validator {
   String? isEmailValid(String email) {
     if (email.isEmpty) {
       return "Campo vazio, insira um email válido";
+    } else if (email != user!.email) {
+      return 'Email incorreto';
     } else if (!RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email)) {
       return "Insira um email válido";
     }
@@ -43,7 +49,6 @@ class Validator {
   bool isTermsValid(bool terms) {
     return terms = true;
   }
-  
 
   String? isPasswordValid(String password) {
     if (password.length < 8)
