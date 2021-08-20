@@ -4,12 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:trabalho_final_dgpr/services/auth_service.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
+import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/drawer_items.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({
     Key? key,
+    required this.user,
   }) : super(key: key);
+  final UserData? user;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,8 @@ class SideDrawer extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.only(left: 25.0, top: 44.0),
-                child: Text("Olá, José", style: TextStyles.white26w700Roboto),
+                child: Text("Olá, ${user!.name}",
+                    style: TextStyles.white26w700Roboto),
               ),
             ),
             Container(
@@ -44,7 +48,10 @@ class SideDrawer extends StatelessWidget {
                 children: [
                   Text('Perfil', style: TextStyles.black54_14w400Roboto),
                   DrawerItem(
-                      itemName: 'Cadastro', route: '/home/update_register'),
+                    itemName: 'Cadastro',
+                    route: '/home/update_register',
+                    user: user,
+                  ),
                 ],
               ),
               decoration: BoxDecoration(
@@ -61,8 +68,15 @@ class SideDrawer extends StatelessWidget {
                 children: [
                   Text('Conta', style: TextStyles.black54_14w400Roboto),
                   DrawerItem(
-                      route: '/error_home_page', itemName: 'Gerenciar cartões'),
-                  DrawerItem(route: '', itemName: 'Investimentos'),
+                    route: '/error_home_page',
+                    itemName: 'Gerenciar cartões',
+                    user: null,
+                  ),
+                  DrawerItem(
+                    route: '',
+                    itemName: 'Investimentos',
+                    user: null,
+                  ),
                 ],
               ),
               decoration: BoxDecoration(
@@ -78,7 +92,7 @@ class SideDrawer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Segurança', style: TextStyles.black54_14w400Roboto),
-                  DrawerItem(route: '', itemName: 'Alterar senha')
+                  DrawerItem(route: '', itemName: 'Alterar senha', user: null)
                 ],
               ),
               decoration: BoxDecoration(
@@ -90,7 +104,7 @@ class SideDrawer extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(left: 27.0),
               width: double.infinity,
-              child: DrawerItem(route: '', itemName: 'Ajuda'),
+              child: DrawerItem(route: '', itemName: 'Ajuda', user: null),
             ),
             Container(
               padding: EdgeInsets.only(left: 27.0),
@@ -100,7 +114,6 @@ class SideDrawer extends StatelessWidget {
                   context.read<AuthService>().signOut();
                   if (firebaseUser == null) {
                     Navigator.pushReplacementNamed(context, '/login');
-                    
                   }
                 },
                 child: Text('sair'),

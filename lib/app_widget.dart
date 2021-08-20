@@ -13,7 +13,6 @@ import 'package:flutter/services.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
-  final String uid = '654321';
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +30,10 @@ class AppWidget extends StatelessWidget {
         '/': (context) => SplashScreen(),
         '/login': (context) => LoginScreen(),
         '/login_password': (context) => LoginPassword(),
-        '/home': (context) => HomePage(uid: uid),
+        '/home': (context) => HomePage(),
         '/home/update_register': (context) => UpdateRegisterScreen(),
-        '/home/transactions_control': (context) =>
-            TransactionsControl(uid: uid),
-        '/home/all_transactions': (context) => AllTransactionsPage(uid: uid),
+        '/home/transactions_control': (context) => TransactionsControl(),
+        '/home/all_transactions': (context) => AllTransactionsPage(),
         '/error_home_page': (context) => ErrorHomePage(),
         '/register_pageview': (context) => RegisterPageView(),
         '/register_onboarding': (context) => RegisterOnboardingPage(),

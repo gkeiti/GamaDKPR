@@ -106,6 +106,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                                   email: user!.email!,
                                   password: user!.password!);
                           final _user = response.user;
+                          user!.uid = response.user!.uid;
                           Map<String, dynamic> _userMap = user!.toMap();
 
                           await FirebaseFirestore.instance

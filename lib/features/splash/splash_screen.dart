@@ -1,9 +1,11 @@
 import 'package:animated_card/animated_card.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
+import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,11 +19,21 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback(
       (timeStamp) {
-        Future.delayed(Duration(seconds: 3)).then((value) {
+        Future.delayed(Duration(seconds: 5)).then((value) async {
           if (FirebaseAuth.instance.currentUser == null) {
             Navigator.of(context).pushNamed('/login');
           } else {
-            Navigator.of(context).pushNamed('/home');
+            String uid = FirebaseAuth.instance.currentUser!.uid;
+            final user = await FirebaseFirestore.instance
+                .collection('/users')
+                .doc(uid)
+                .get();
+            if (user.data() != null) {
+              UserData currentUser = UserData.fromMap(user.data()!);
+              Navigator.of(context).pushNamed('/home', arguments: currentUser);
+            } else {
+              return null;
+            }
           }
         });
       },
