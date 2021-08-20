@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
-import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';

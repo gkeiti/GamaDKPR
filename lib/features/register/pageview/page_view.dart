@@ -6,11 +6,12 @@ import 'package:trabalho_final_dgpr/features/register/register_password/register
 import 'package:trabalho_final_dgpr/features/register/register_phone_cpf/register_phone_cpf.dart';
 import 'package:trabalho_final_dgpr/features/register/register_terms/register_terms.dart';
 import 'package:trabalho_final_dgpr/features/user_repository.dart';
-import 'package:trabalho_final_dgpr/shared/app_constants/validators.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/back_button_widget.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_forward_button.dart';
 
-import '../register_control_repository.dart';
 
 class RegisterPageView extends StatefulWidget {
   const RegisterPageView({
@@ -21,17 +22,30 @@ class RegisterPageView extends StatefulWidget {
   _RegisterPageViewState createState() => _RegisterPageViewState();
 }
 
-class _RegisterPageViewState extends State<RegisterPageView> {
+class _RegisterPageViewState extends State<RegisterPageView>
+    with TickerProviderStateMixin {
   final GlobalKey<FormState> nameEmailKey = GlobalKey<FormState>();
   final GlobalKey<FormState> phoneCpfKey = GlobalKey<FormState>();
   final GlobalKey<FormState> termsKey = GlobalKey<FormState>();
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
+  late AnimationController _animationController;
 
   int currentIndex = 0;
 
-  RegisterControlRepository? repository;
   Validator validator = Validator();
   RegisterUser? user = RegisterUser();
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..addListener(() {
+        setState(() {});
+      });
+    _animationController.repeat(reverse: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +71,10 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 termsKey: termsKey,
                 user: user,
               ),
-              RegisterPasswordPage(passwordKey: passwordKey, user: user),
+              RegisterPasswordPage(
+                passwordKey: passwordKey,
+                user: user,
+              ),
             ],
           ),
           Visibility(
@@ -81,6 +98,10 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                               curve: Curves.easeIn);
                         }
                       },
+                    ),
+                    Text(
+                      "${currentIndex + 1}/4",
+                      style: TextStyles.black87_14w400Roboto,
                     ),
                     ContinueForwardButton(
                       onPressed: () async {
@@ -113,7 +134,10 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                               .doc(_user!.uid)
                               .set(_userMap);
 
-                          CircularProgressIndicator();
+                          CircularProgressIndicator(
+                            value: _animationController.value,
+                            color: AppColors.minsk,
+                          ).hashCode;
                           Future.delayed(Duration(seconds: 3)).then((value) =>
                               Navigator.pushNamed(
                                   context, "/register_onboarding"));

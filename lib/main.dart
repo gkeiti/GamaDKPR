@@ -24,22 +24,3 @@ Future<void> main(List<String> args) async {
     ),
   );
 }
-
-// class AuthWrapper extends StatelessWidget {
-//   const AuthWrapper({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final firebaseUser = context.watch<User>();
-//     if (firebaseUser != null) {
-//       return HomePage();
-//     }
-//     return LoginScreen();
-//   }
-// }
-
-
-
-// BOTAR BOTAO DE LOGOUT NO DRAWER
-// TESTAR LOGICA DE LOGIN E REGISTER
-// TESTAR CIRCULAR INDICATOR DO BOTAO NA LOGIN E REPLICAR NAS OUTRAS TELAS!
