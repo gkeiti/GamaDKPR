@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:trabalho_final_dgpr/features/user_repository.dart';
 import 'package:trabalho_final_dgpr/login/login_controller.dart';
+import 'package:trabalho_final_dgpr/services/auth_service.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
+import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
-import 'package:provider/provider.dart';
-import 'package:trabalho_final_dgpr/services/auth_service.dart';
+
 import 'login_get_email.dart';
 
 class LoginPassword extends StatefulWidget {
@@ -117,18 +119,27 @@ class _LoginPasswordState extends State<LoginPassword> {
                       ),
                       child: ContinueButton(
                         onPressed: () async {
-                          var response =
+                          UserData? user =
                               await context.read<AuthService>().signIn(
                                     email: emailController.text.trim(),
                                     password: passwordController.text.trim(),
                                   );
-                          print('email é esse ${emailController.text}');
-                          print('senha é essa ${passwordController.text}');
-                          if (response != 'Positivo') {
-                            formKey.currentState!.validate();
-                          } else if (response == 'Positivo') {
-                            Navigator.pushNamed(context, '/home');
-                          }
+                          user != null
+                              ? Navigator.pushNamed(context, '/home',
+                                  arguments: user)
+                              : AlertDialog(
+                                  title: Text('Erro ao fazer login'),
+                                  content: Text(
+                                    'Tente novamente mais tarde',
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text('Ok'))
+                                  ],
+                                );
                         },
                       ),
                     ),
