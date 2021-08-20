@@ -51,8 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     right: 112,
                   ),
                   child: Container(
-                    width: 200,
-                    height: 112,
+                    // width: 200,
+                    // height: 112,
                     child: Text(
                       'Vamos começar!',
                       style: TextStyle(
