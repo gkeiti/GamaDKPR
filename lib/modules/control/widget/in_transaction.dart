@@ -184,7 +184,7 @@ class _InTransactionCardState extends State<InTransactionCard> {
                             double.parse(widget.valueController.text) * 100);
                         widget.valueController.clear();
                         widget.transactionNameController.clear();
-                        Navigator.popAndPushNamed(context, '/home');
+                        //Navigator.popAndPushNamed(context, '/home', arguments: );
                         throw ('Erro');
                       },
                       buttonEnabled:
