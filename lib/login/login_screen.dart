@@ -109,11 +109,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: ContinueButton(
                     onPressed: () async {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Carregando informações'),
+                            content: LinearProgressIndicator(),
+                          );
+                        },
+                      );
                       bool result = await controller.repository
                           .getEmail(emailController.text);
                       if (result == false) {
-                        formKey.currentState!.validate();
+                        Future.delayed(Duration(seconds: 1))
+                            .then((value) async {
+                          Navigator.pop(context);
+                          formKey.currentState!.validate();
+                        });
                       } else {
+                        Navigator.pop(context);
                         Navigator.pushNamed(context, '/login_password',
                             arguments: emailController.text);
                       }
