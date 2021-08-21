@@ -109,7 +109,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: ContinueButton(
                     onPressed: () async {
-                      CircularProgressIndicator();
                       bool result = await controller.repository
                           .getEmail(emailController.text);
                       if (result == false) {
