@@ -127,19 +127,7 @@ class _LoginPasswordState extends State<LoginPassword> {
                           user != null
                               ? Navigator.pushNamed(context, '/home',
                                   arguments: user)
-                              : AlertDialog(
-                                  title: Text('Erro ao fazer login'),
-                                  content: Text(
-                                    'Tente novamente mais tarde',
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text('Ok'))
-                                  ],
-                                );
+                              : formKey.currentState!.validate();
                         },
                       ),
                     ),

@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 
 class NewControlButton extends StatelessWidget {
-  const NewControlButton({Key? key, required this.user}) : super(key: key);
+  const NewControlButton({
+    Key? key,
+    this.user,
+    required this.initialPage,
+  }) : super(key: key);
   final UserData? user;
+  final int initialPage;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +30,11 @@ class NewControlButton extends StatelessWidget {
       ),
       child: MaterialButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/home/transactions_control',
-              arguments: user);
+          Navigator.pushNamed(
+            context,
+            '/home/transactions_control',
+            arguments: {'user': user, 'initialPage': initialPage},
+          );
         },
         child: Row(
           children: [

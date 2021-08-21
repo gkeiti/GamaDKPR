@@ -30,6 +30,7 @@ class HomeRepositoryImpl extends HomeRepository {
             value: (e['value'] / 100),
             url: getIcon(e['category']),
             backgroundColor: getColor(e['category']),
+            name: e['name'],
           ),
         )
         .toList();

@@ -31,10 +31,10 @@ class ControlRepositoryImpl extends ControlRepository {
         'uid': transaction.uid,
         'type': transaction.type,
         'date': transaction.date,
-        'month': transaction.month
+        'month': transaction.month,
+        'name': transaction.name,
       });
     } catch (e) {
-      print(e);
       throw (e);
     }
   }
@@ -51,8 +51,6 @@ class ControlRepositoryImpl extends ControlRepository {
     if (response.docs.isNotEmpty) {
       List entrance = response.docs.map((e) => e['entrance']).toList();
       List out = response.docs.map((e) => e['out']).toList();
-      print('ENTRANCE: $entrance');
-      print('OUT: $out');
       if (balance.type == 'in') {
         entrance[0] += balance.entrance;
         FirebaseFirestore.instance
@@ -109,7 +107,6 @@ class ControlRepositoryImpl extends ControlRepository {
         .get();
     if (response.docs.isNotEmpty) {
       List budget = response.docs.map((e) => e['budget']).toList();
-      print('BUDGET: $budget');
       budget[0] += total;
       FirebaseFirestore.instance
           .collection('/budget')
@@ -147,6 +144,7 @@ class ControlRepositoryImpl extends ControlRepository {
             value: (e['value'] / 100),
             url: getIcon(e['category']),
             backgroundColor: getColor(e['category']),
+            name: e['name'],
           ),
         )
         .toList();

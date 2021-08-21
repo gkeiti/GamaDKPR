@@ -68,7 +68,7 @@ class SideDrawer extends StatelessWidget {
                 children: [
                   Text('Conta', style: TextStyles.black54_14w400Roboto),
                   DrawerItem(
-                    route: '/error_home_page',
+                    route: '',
                     itemName: 'Gerenciar cartões',
                     user: null,
                   ),
@@ -106,7 +106,32 @@ class SideDrawer extends StatelessWidget {
               width: double.infinity,
               child: DrawerItem(route: '', itemName: 'Ajuda', user: null),
             ),
-            Container(
+            Expanded(
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: double.infinity,
+                  child: TextButton(
+                    onPressed: () {
+                      context.read<AuthService>().signOut();
+                      if (firebaseUser == null) {
+                        Navigator.pushReplacementNamed(context, '/login');
+                      }
+                    },
+                    child: Text(
+                      'Sair',
+                      style: TextStyles.purple16w500Roboto,
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: AppColors.drawerItemBorder),
+                    ),
+                  ),
+                ),
+              ),
+            )
+            /* Container(
               padding: EdgeInsets.only(left: 27.0),
               width: double.infinity,
               child: FloatingActionButton(
@@ -118,7 +143,7 @@ class SideDrawer extends StatelessWidget {
                 },
                 child: Text('sair'),
               ),
-            ),
+            ), */
           ],
         ),
       ),

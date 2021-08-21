@@ -4,8 +4,8 @@ import 'login/login_screen.dart';
 import 'features/register/pageview/page_view.dart';
 import 'features/register/register_onboarding/register_onboarding_page.dart';
 import 'features/splash/splash_screen.dart';
-import 'modules/control/all_transactions_page.dart';
-import 'modules/control/control_page.dart';
+import 'modules/control/pages/all_transactions_page.dart';
+import 'modules/control/pages/control_page.dart';
 import 'modules/home/pages/error_home_page.dart';
 import 'modules/home/pages/home_page.dart';
 import 'modules/home/pages/update_register_screen.dart';
@@ -33,7 +33,10 @@ class AppWidget extends StatelessWidget {
         '/home': (context) => HomePage(),
         '/home/update_register': (context) => UpdateRegisterScreen(),
         '/home/transactions_control': (context) => TransactionsControl(),
-        '/home/all_transactions': (context) => AllTransactionsPage(),
+        '/transactions_control': (context) => TransactionsControl(),
+        '/all_transactions': (context) => AllTransactionsPage(),
+        '/all_transactions/transactions_control': (context) =>
+            TransactionsControl(),
         '/error_home_page': (context) => ErrorHomePage(),
         '/register_pageview': (context) => RegisterPageView(),
         '/register_onboarding': (context) => RegisterOnboardingPage(),
