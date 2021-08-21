@@ -17,10 +17,8 @@ import 'package:trabalho_final_dgpr/shared/widgets/continue_forward_button.dart'
 import 'page_view_controller.dart';
 
 class RegisterPageView extends StatefulWidget {
-  final PageViewController? indexController;
   const RegisterPageView({
     Key? key,
-    this.indexController,
   }) : super(key: key);
 
   @override
@@ -34,7 +32,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   final GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
   final TextEditingController passwordController = TextEditingController();
 
-  int currentIndex = 0;
+  final indexController = PageViewController();
 
   Validator validator = Validator();
   RegisterUser? user = RegisterUser();
@@ -44,7 +42,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
     final PageController controller = PageController(initialPage: 0);
     return Scaffold(
       body: PageView(
-        onPageChanged: (index) => currentIndex = index,
+        onPageChanged: (index) => indexController.currentIndex = index,
         scrollDirection: Axis.horizontal,
         physics: NeverScrollableScrollPhysics(),
         controller: controller,
@@ -69,127 +67,121 @@ class _RegisterPageViewState extends State<RegisterPageView> {
         ],
       ),
       bottomSheet: Visibility(
-                visible: MediaQuery.of(context).viewInsets.bottom == 0,
-                child: Positioned(
-                  bottom: 0.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        BackButtonWidget(
-                          onPressed: () {
-                            if (currentIndex == 0) {
-                              Navigator.pushReplacementNamed(context, "/login");
-                            } else {
-                              controller.previousPage(
-                                  duration: Duration(milliseconds: 400),
-                                  curve: Curves.easeIn);
-                            }
-                          },
-                        ),
-                        // Observer(builder: (_) {
-                        //   return Container(
-                        //     height: 20.0,
-                        //     width: 22.0,
-                        //     child: Text(
-                        //       "${widget.indexController!.updateIndex}/4",
-                        //       style: TextStyles.black87_14w400Roboto,
-                        //     ),
-                        //   );
-                        // }),
-                        Text(
-                          "${currentIndex + 1}/4",
-                          style: TextStyles.black87_14w400Roboto,
-                        ),
-                        ContinueForwardButton(
-                          onPressed: () async {
-                            if (currentIndex == 0 &&
-                                nameEmailKey.currentState!.validate()) {
-                              // final response = await FirebaseAuth.instance
-                              //     .createUserWithEmailAndPassword(
-                              //         email: user!.email!,
-                              //         password: user!.password!);
-
-                              // final _user = response.user;
-                              // user!.uid = response.user!.uid;
-                              // Map<String, dynamic> _userMap = user!.toMap();
-
-                              // await FirebaseFirestore.instance
-                              //     .collection("/users")
-                              //     .doc(_user!.uid)
-                              //     .set(_userMap);
-
-                              showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) => Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(48.0),
-                                    child: LinearProgressIndicator(
-                                      color: AppColors.cyan,
-                                      minHeight: 4.0,
-                                    ),
-                                  ),
-                                ),
-                              );
-
-                              Future.delayed(Duration(seconds: 3))
-                                  .then((value) => Navigator.pop(context))
-                                  .then((value) => controller.animateToPage(1,
-                                      duration: Duration(milliseconds: 400),
-                                      curve: Curves.easeIn));
-                            } else if (currentIndex == 1 &&
-                                phoneCpfKey.currentState!.validate()) {
-                              controller.animateToPage(2,
-                                  duration: Duration(milliseconds: 400),
-                                  curve: Curves.easeIn);
-                            } else if (currentIndex == 2 &&
-                                termsKey.currentState!.validate() == true) {
-                              controller.animateToPage(3,
-                                  duration: Duration(milliseconds: 400),
-                                  curve: Curves.easeIn);
-                            } else if (currentIndex == 3 &&
-                                passwordKey.currentState!.validate()) {
-                              showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) => Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(48.0),
-                                    child: LinearProgressIndicator(
-                                      color: AppColors.cyan,
-                                      minHeight: 4.0,
-                                    ),
-                                  ),
-                                ),
-                              );
-
-                              final response = await FirebaseAuth.instance
-                                  .createUserWithEmailAndPassword(
-                                      email: user!.email!,
-                                      password: passwordController.text);
-
-                              final _user = response.user;
-                              user!.uid = response.user!.uid;
-                              Map<String, dynamic> _userMap = user!.toMap();
-
-                              await FirebaseFirestore.instance
-                                  .collection("/users")
-                                  .doc(_user!.uid)
-                                  .set(_userMap);
-
-                              Future.delayed(Duration(seconds: 3)).then(
-                                  (value) => Navigator.pushNamed(
-                                      context, "/register_onboarding"));
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+        visible: MediaQuery.of(context).viewInsets.bottom == 0,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              BackButtonWidget(
+                onPressed: () {
+                  if (indexController.currentIndex == 0) {
+                    Navigator.pushReplacementNamed(context, "/login");
+                  } else {
+                    controller.previousPage(
+                        duration: Duration(milliseconds: 400),
+                        curve: Curves.easeIn);
+                  }
+                },
               ),
+              Container(
+                height: 20.0,
+                width: 28.0,
+                child: Observer(builder: (_) {
+                  return Text(
+                    "${indexController.updateIndex(indexController.currentIndex)}",
+                    style: TextStyles.black87_14w400Roboto,
+                  );
+                }),
+              ),
+              ContinueForwardButton(
+                onPressed: () async {
+                  if (indexController.currentIndex == 0 &&
+                      nameEmailKey.currentState!.validate()) {
+                    // final response = await FirebaseAuth.instance
+                    //     .createUserWithEmailAndPassword(
+                    //         email: user!.email!,
+                    //         password: user!.password!);
+
+                    // final _user = response.user;
+                    // user!.uid = response.user!.uid;
+                    // Map<String, dynamic> _userMap = user!.toMap();
+
+                    // await FirebaseFirestore.instance
+                    //     .collection("/users")
+                    //     .doc(_user!.uid)
+                    //     .set(_userMap);
+
+                    showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) => Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(48.0),
+                          child: LinearProgressIndicator(
+                            color: AppColors.cyan,
+                            minHeight: 4.0,
+                          ),
+                        ),
+                      ),
+                    );
+
+                    Future.delayed(Duration(seconds: 3))
+                        .then((value) => Navigator.pop(context))
+                        .then((value) => controller.animateToPage(1,
+                            duration: Duration(milliseconds: 400),
+                            curve: Curves.easeIn));
+
+                  } else if (indexController.currentIndex == 1 &&
+                      phoneCpfKey.currentState!.validate()) {
+                    controller.animateToPage(2,
+                        duration: Duration(milliseconds: 400),
+                        curve: Curves.easeIn);
+                  } else if (indexController.currentIndex == 2 &&
+                      termsKey.currentState!.validate() == true) {
+                    controller.animateToPage(3,
+                        duration: Duration(milliseconds: 400),
+                        curve: Curves.easeIn);
+                  } else if (indexController.currentIndex == 3 &&
+                      passwordKey.currentState!.validate()) {
+                    showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) => Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(48.0),
+                          child: LinearProgressIndicator(
+                            color: AppColors.cyan,
+                            minHeight: 4.0,
+                          ),
+                        ),
+                      ),
+                    );
+
+                    final response = await FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                      email: user!.email!,
+                      password: passwordController.text,
+                    );
+
+                    final _user = response.user;
+                    user!.uid = response.user!.uid;
+                    Map<String, dynamic> _userMap = user!.toMap();
+
+                    await FirebaseFirestore.instance
+                        .collection("/users")
+                        .doc(_user!.uid)
+                        .set(_userMap);
+
+                    Future.delayed(Duration(seconds: 3)).then((value) =>
+                        Navigator.pushNamed(context, "/register_onboarding"));
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -9,18 +9,18 @@ part of 'page_view_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$PageViewController on _PageViewControllerBase, Store {
-  final _$stateAtom = Atom(name: '_PageViewControllerBase.state');
+  final _$currentIndexAtom = Atom(name: '_PageViewControllerBase.currentIndex');
 
   @override
-  RegisterPageView get state {
-    _$stateAtom.reportRead();
-    return super.state;
+  int get currentIndex {
+    _$currentIndexAtom.reportRead();
+    return super.currentIndex;
   }
 
   @override
-  set state(RegisterPageView value) {
-    _$stateAtom.reportWrite(value, super.state, () {
-      super.state = value;
+  set currentIndex(int value) {
+    _$currentIndexAtom.reportWrite(value, super.currentIndex, () {
+      super.currentIndex = value;
     });
   }
 
@@ -28,11 +28,11 @@ mixin _$PageViewController on _PageViewControllerBase, Store {
       ActionController(name: '_PageViewControllerBase');
 
   @override
-  dynamic updateIndex(int page) {
+  dynamic updateIndex(int state) {
     final _$actionInfo = _$_PageViewControllerBaseActionController.startAction(
         name: '_PageViewControllerBase.updateIndex');
     try {
-      return super.updateIndex(page);
+      return super.updateIndex(state);
     } finally {
       _$_PageViewControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -41,7 +41,7 @@ mixin _$PageViewController on _PageViewControllerBase, Store {
   @override
   String toString() {
     return '''
-state: ${state}
+currentIndex: ${currentIndex}
     ''';
   }
 }
