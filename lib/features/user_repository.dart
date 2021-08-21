@@ -6,16 +6,14 @@ class RegisterUser {
   String? phone;
   String? cpf;
   bool checkTerms;
-  String? password;
-  String? confirmPassword;
+  String? uid;
   RegisterUser({
     this.name,
     this.email,
     this.phone,
     this.cpf,
     this.checkTerms = false,
-    this.password,
-    this.confirmPassword,
+    this.uid,
   });
 
   RegisterUser copyWith({
@@ -24,8 +22,7 @@ class RegisterUser {
     String? phone,
     String? cpf,
     bool? checkTerms,
-    String? password,
-    String? confirmPassword,
+    String? uid,
   }) {
     return RegisterUser(
       name: name ?? this.name,
@@ -33,8 +30,7 @@ class RegisterUser {
       phone: phone ?? this.phone,
       cpf: cpf ?? this.cpf,
       checkTerms: checkTerms ?? this.checkTerms,
-      password: password ?? this.password,
-      confirmPassword: confirmPassword ?? this.confirmPassword,
+      uid: uid ?? this.uid,
     );
   }
 
@@ -45,8 +41,7 @@ class RegisterUser {
       'phone': phone,
       'cpf': cpf,
       'checkTerms': checkTerms,
-      'password': password,
-      'confirmPassword': confirmPassword,
+      'uid': uid,
     };
   }
 
@@ -57,8 +52,7 @@ class RegisterUser {
       phone: map['phone'],
       cpf: map['cpf'],
       checkTerms: map['checkTerms'],
-      password: map['password'],
-      confirmPassword: map['confirmPassword'],
+      uid: map['uid'],
     );
   }
 
@@ -69,7 +63,7 @@ class RegisterUser {
 
   @override
   String toString() {
-    return 'RegisterUser(name: $name, email: $email, phone: $phone, cpf: $cpf, checkTerms: $checkTerms, password: $password, confirmPassword: $confirmPassword)';
+    return 'RegisterUser(name: $name, email: $email, phone: $phone, cpf: $cpf, checkTerms: $checkTerms, uid: $uid)';
   }
 
   @override
@@ -82,8 +76,7 @@ class RegisterUser {
       other.phone == phone &&
       other.cpf == cpf &&
       other.checkTerms == checkTerms &&
-      other.password == password &&
-      other.confirmPassword == confirmPassword;
+      other.uid == uid;
   }
 
   @override
@@ -93,7 +86,6 @@ class RegisterUser {
       phone.hashCode ^
       cpf.hashCode ^
       checkTerms.hashCode ^
-      password.hashCode ^
-      confirmPassword.hashCode;
+      uid.hashCode;
   }
 }

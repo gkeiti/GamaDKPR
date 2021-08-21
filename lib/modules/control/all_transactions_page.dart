@@ -5,6 +5,7 @@ import 'package:trabalho_final_dgpr/modules/control/control_repository.dart';
 import 'package:trabalho_final_dgpr/modules/control/model/all_transactions_model.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
+import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/extended_gradient_container.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/side_drawer.dart';
 
@@ -13,12 +14,10 @@ import 'control_controller.dart';
 class AllTransactionsPage extends StatefulWidget {
   const AllTransactionsPage({
     Key? key,
-    required this.uid,
   }) : super(key: key);
-  final String uid;
 
   @override
-  _AllTransactionsPageState createState() => _AllTransactionsPageState(uid);
+  _AllTransactionsPageState createState() => _AllTransactionsPageState();
 }
 
 class _AllTransactionsPageState extends State<AllTransactionsPage> {
@@ -44,14 +43,22 @@ class _AllTransactionsPageState extends State<AllTransactionsPage> {
   ];
   String month = '8';
   late ControlController controller;
-  final String uid;
+  UserData? user;
+  //late String uid;
 
-  _AllTransactionsPageState(this.uid) {
+  /* _AllTransactionsPageState() {
     controller = ControlController(uid, month, ControlRepositoryImpl());
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
+    final UserData? arguments =
+        ModalRoute.of(context)!.settings.arguments as UserData?;
+    if (arguments != null) {
+      user = arguments;
+      String uid = user!.uid;
+      controller = ControlController(uid, month, ControlRepositoryImpl());
+    }
     return MaterialApp(
       home: DefaultTabController(
         length: myTabs.length,
@@ -69,7 +76,7 @@ class _AllTransactionsPageState extends State<AllTransactionsPage> {
                   setState(() {
                     dropdownValue = newValue!;
                     month = (months.indexOf(dropdownValue) + 1).toString();
-                    controller.getAllTransactionsValue(uid, month);
+                    controller.getAllTransactionsValue(user!.uid, month);
                   });
                 },
                 items: months.map((e) {
@@ -88,7 +95,7 @@ class _AllTransactionsPageState extends State<AllTransactionsPage> {
             ],
           ),
           extendBodyBehindAppBar: true,
-          drawer: SideDrawer(),
+          drawer: SideDrawer(user: user),
           body: Column(
             children: [
               Stack(
@@ -139,7 +146,7 @@ class _AllTransactionsPageState extends State<AllTransactionsPage> {
                         Expanded(
                           child: StreamBuilder(
                             stream: controller.repository.transactions
-                                .where('uid', isEqualTo: widget.uid)
+                                .where('uid', isEqualTo: user!.uid)
                                 .where('month', isEqualTo: month.toString())
                                 .orderBy('date', descending: true)
                                 .snapshots(),
@@ -228,7 +235,7 @@ class _AllTransactionsPageState extends State<AllTransactionsPage> {
                         Expanded(
                           child: StreamBuilder(
                             stream: controller.repository.transactions
-                                .where('uid', isEqualTo: widget.uid)
+                                .where('uid', isEqualTo: user!.uid)
                                 .where('month', isEqualTo: month.toString())
                                 .where('type', isEqualTo: 'out')
                                 .orderBy('date', descending: true)
@@ -318,7 +325,7 @@ class _AllTransactionsPageState extends State<AllTransactionsPage> {
                         Expanded(
                           child: StreamBuilder(
                             stream: controller.repository.transactions
-                                .where('uid', isEqualTo: widget.uid)
+                                .where('uid', isEqualTo: user!.uid)
                                 .where('month', isEqualTo: month.toString())
                                 .where('type', isEqualTo: 'in')
                                 .orderBy('date', descending: true)

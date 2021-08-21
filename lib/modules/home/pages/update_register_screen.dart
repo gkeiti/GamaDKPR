@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
+import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/extended_gradient_container.dart';
+import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 
 class UpdateRegisterScreen extends StatefulWidget {
   const UpdateRegisterScreen({Key? key}) : super(key: key);
@@ -11,8 +14,23 @@ class UpdateRegisterScreen extends StatefulWidget {
 }
 
 class _UpdateRegisterScreenState extends State<UpdateRegisterScreen> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController cpfController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final Validator validator = Validator();
+  UserData? user;
   @override
   Widget build(BuildContext context) {
+    final UserData? arguments =
+        ModalRoute.of(context)!.settings.arguments as UserData?;
+    if (arguments != null) {
+      user = arguments;
+      nameController.text = user!.name;
+      cpfController.text = user!.cpf;
+      emailController.text = user!.email;
+      phoneController.text = user!.phone;
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -33,17 +51,42 @@ class _UpdateRegisterScreenState extends State<UpdateRegisterScreen> {
                     child: Column(
                       children: [
                         //Substituir os TextField pelos customizados
-                        TextField(
-                          decoration: InputDecoration(labelText: 'Nome'),
+                        InputText(
+                          controller: nameController,
+                          label: 'Nome',
+                          textInputType: TextInputType.name,
+                          validator: (value) => validator.validatorName(value!),
+                          onChanged: (String? value) {
+                            nameController.text = value!;
+                          },
                         ),
-                        TextField(
-                          decoration: InputDecoration(labelText: 'CPF'),
+                        InputText(
+                          controller: cpfController,
+                          label: 'CPF',
+                          textInputType: TextInputType.number,
+                          validator: (value) => validator.isCpfValid(value!),
+                          onChanged: (String? value) {
+                            cpfController.text = value!;
+                          },
                         ),
-                        TextField(
-                          decoration: InputDecoration(labelText: 'E-mail'),
+                        InputText(
+                          controller: emailController,
+                          label: 'E-mail',
+                          textInputType: TextInputType.emailAddress,
+                          validator: (value) => validator.isEmailValid(value!),
+                          onChanged: (String? value) {
+                            emailController.text = value!;
+                          },
                         ),
-                        TextField(
-                          decoration: InputDecoration(labelText: 'Celular'),
+                        InputText(
+                          textInputAction: TextInputAction.next,
+                          controller: phoneController,
+                          label: 'Telefone',
+                          textInputType: TextInputType.phone,
+                          validator: (value) => validator.isPhoneValid(value!),
+                          onChanged: (String? value) {
+                            phoneController.text = value!;
+                          },
                         ),
                       ],
                     ),

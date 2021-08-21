@@ -25,7 +25,9 @@ class ErrorHomePage extends StatelessWidget {
           ),
         ),
       ),
-      drawer: SideDrawer(),
+      drawer: SideDrawer(
+        user: null,
+      ),
       body: Center(
         child: Container(
           padding: EdgeInsets.all(8.0),

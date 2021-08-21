@@ -228,6 +228,15 @@ class TextStyles {
     color: AppColors.black54,
   );
 
+  static const TextStyle black54_13w500Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    fontSize: 13.0,
+    letterSpacing: 0.46,
+    color: AppColors.black54,
+  );
+
   static const TextStyle purple20w600Roboto = TextStyle(
     fontFamily: 'Roboto',
     fontSize: 20,
@@ -258,5 +267,14 @@ class TextStyles {
     fontSize: 14.0,
     letterSpacing: 0.15,
     color: Color(0xFFF44336),
+  );
+
+  static const white13w500Roboto = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 13.0,
+    color: AppColors.white,
+    letterSpacing: 0.46,
   );
 }

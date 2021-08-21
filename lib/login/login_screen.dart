@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   late LoginController controller;
-  Validator validator = Validator();
+   Validator validator = Validator();
   RegisterUser? user = RegisterUser();
 
   _LoginScreenState() {
@@ -51,8 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     right: 112,
                   ),
                   child: Container(
-                    width: 200,
-                    height: 112,
+                    // width: 200,
+                    // height: 112,
                     child: Text(
                       'Vamos começar!',
                       style: TextStyle(
@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: false,
                       textInputType: TextInputType.emailAddress,
                       validator: (String? value) =>
-                          validator.isEmailValid(value!),
+                          validator.isEmailValidLogin(value!),
                       onChanged: (String? value) {
                         user?.email = value;
                       }),
@@ -136,11 +136,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: SizedBox.expand(
                     child: MaterialButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                       onPressed: () {},
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Image.asset('assets/images/continue_google.png'),
+                          Image.asset('assets/images/google_icon.png'),
+                          Text(
+                            'CONTINUAR COM O GOOGLE',
+                            style: TextStyles.black54_13w500Roboto,
+                          ),
+                          // Image.asset('assets/images/continue_google.png'),
                         ],
                       ),
                     ),
@@ -158,12 +166,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     child: SizedBox.expand(
                       child: MaterialButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                         onPressed: () {},
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Image.asset('assets/images/facebook_logo.png'),
-                            Image.asset('assets/images/continue_facebook.png'),
+                            Text(
+                              'CONTINUAR COM O FACEBOOK',
+                              style: TextStyles.white13w500Roboto,
+                            ),
+                            // Image.asset('assets/images/continue_facebook.png'),
                           ],
                         ),
                       ),
