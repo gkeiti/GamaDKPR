@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   late LoginController controller;
-   Validator validator = Validator();
+  Validator validator = Validator();
   RegisterUser? user = RegisterUser();
 
   _LoginScreenState() {
@@ -109,6 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: ContinueButton(
                     onPressed: () async {
+                      CircularProgressIndicator();
                       bool result = await controller.repository
                           .getEmail(emailController.text);
                       if (result == false) {
