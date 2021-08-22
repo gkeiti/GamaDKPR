@@ -46,7 +46,6 @@ class _TransactionsControlState extends State<TransactionsControl> {
       controller = ControlController(user!.uid, '8', ControlRepositoryImpl());
     }
     int initialPage = arguments['initialPage'];
-    //int initialPage = int.parse(arguments['initialPage']);
     return Scaffold(
       body: DefaultTabController(
         initialIndex: initialPage,

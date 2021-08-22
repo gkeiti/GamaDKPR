@@ -42,11 +42,7 @@ class NewControlButton extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 20,
-                  ),
+                  Icon(Icons.add, color: Colors.white, size: 20),
                   FittedBox(
                     fit: BoxFit.contain,
                     child: Text("NOVO CONTROLE",

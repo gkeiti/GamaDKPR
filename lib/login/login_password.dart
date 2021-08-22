@@ -10,6 +10,7 @@ import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
 import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import 'login_get_email.dart';
 
@@ -92,6 +93,7 @@ class _LoginPasswordState extends State<LoginPassword> {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 48),
                   child: InputText(
+                    maxLines: 1,
                     label: 'Senha',
                     controller: passwordController,
                     obscureText: true,
@@ -119,15 +121,23 @@ class _LoginPasswordState extends State<LoginPassword> {
                       ),
                       child: ContinueButton(
                         onPressed: () async {
-                          UserData? user =
-                              await context.read<AuthService>().signIn(
-                                    email: emailController.text.trim(),
-                                    password: passwordController.text.trim(),
-                                  );
-                          user != null
-                              ? Navigator.pushNamed(context, '/home',
-                                  arguments: user)
-                              : formKey.currentState!.validate();
+                          var connectivityResult =
+                              await (Connectivity().checkConnectivity());
+                          if (connectivityResult == ConnectivityResult.wifi ||
+                              connectivityResult == ConnectivityResult.mobile) {
+                            UserData? user =
+                                await context.read<AuthService>().signIn(
+                                      email: emailController.text.trim(),
+                                      password: passwordController.text.trim(),
+                                    );
+                            user != null
+                                ? Navigator.pushNamedAndRemoveUntil(
+                                    context, '/home', (route) => false,
+                                    arguments: user)
+                                : formKey.currentState!.validate();
+                          } else {
+                            Navigator.pushNamed(context, '/error_home_page');
+                          }
                         },
                       ),
                     ),

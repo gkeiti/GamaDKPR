@@ -130,20 +130,7 @@ class SideDrawer extends StatelessWidget {
                   ),
                 ),
               ),
-            )
-            /* Container(
-              padding: EdgeInsets.only(left: 27.0),
-              width: double.infinity,
-              child: FloatingActionButton(
-                onPressed: () {
-                  context.read<AuthService>().signOut();
-                  if (firebaseUser == null) {
-                    Navigator.pushReplacementNamed(context, '/login');
-                  }
-                },
-                child: Text('sair'),
-              ),
-            ), */
+            ),
           ],
         ),
       ),

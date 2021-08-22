@@ -165,7 +165,7 @@ class ControlRepositoryImpl extends ControlRepository {
       case 'Educação':
         url = 'assets/logos/educação.png';
         break;
-      case 'Pagementos':
+      case 'Pagamentos':
         url = 'assets/logos/pagamentos.png';
         break;
       case 'Outros':

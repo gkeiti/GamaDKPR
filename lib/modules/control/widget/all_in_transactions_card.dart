@@ -116,10 +116,7 @@ class _AllInTransactionsCardState extends State<AllInTransactionsCard> {
           ],
         ),
       ),
-      floatingActionButton: AddButton(
-        user: widget.user,
-        initialPage: 0,
-      ),
+      floatingActionButton: AddButton(user: widget.user, initialPage: 0),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

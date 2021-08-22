@@ -4,7 +4,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:trabalho_final_dgpr/modules/control/model/all_transactions_model.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
-import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
 import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/add_button.dart';
 
@@ -116,10 +115,7 @@ class _AllOutTransactionsCardState extends State<AllOutTransactionsCard> {
           ],
         ),
       ),
-      floatingActionButton: AddButton(
-        user: widget.user,
-        initialPage: 1,
-      ),
+      floatingActionButton: AddButton(user: widget.user, initialPage: 1),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

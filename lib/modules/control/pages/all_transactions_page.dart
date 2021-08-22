@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:trabalho_final_dgpr/modules/control/control_repository.dart';
-import 'package:trabalho_final_dgpr/modules/control/model/all_transactions_model.dart';
+import 'package:trabalho_final_dgpr/modules/control/widget/all_in_transactions_card.dart';
 import 'package:trabalho_final_dgpr/modules/control/widget/all_out_transactions_card.dart';
 import 'package:trabalho_final_dgpr/modules/control/widget/all_transactions_card.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
@@ -10,7 +8,6 @@ import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/extended_gradient_container.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/side_drawer.dart';
-import 'package:trabalho_final_dgpr/modules/control/widget/all_in_transactions_card.dart';
 
 import '../control_controller.dart';
 
@@ -47,12 +44,6 @@ class _AllTransactionsPageState extends State<AllTransactionsPage> {
   String month = '8';
   late ControlController controller;
   UserData? user;
-  //late String uid;
-
-  /* _AllTransactionsPageState() {
-    controller = ControlController(uid, month, ControlRepositoryImpl());
-  } */
-
   @override
   Widget build(BuildContext context) {
     final UserData? arguments =
