@@ -27,6 +27,3 @@ class DrawerItem extends StatelessWidget {
     );
   }
 }
-//implementar botao de logout no drawer
-// LogoutButton()
-//import 'package:trabalho_final_dgpr/shared/widgets/logout_button.dart';

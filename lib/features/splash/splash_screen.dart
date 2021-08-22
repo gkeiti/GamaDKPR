@@ -1,5 +1,6 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,20 +20,27 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback(
       (timeStamp) {
-        Future.delayed(Duration(seconds: 5)).then((value) async {
+        Future.delayed(Duration(seconds: 3)).then((value) async {
           if (FirebaseAuth.instance.currentUser == null) {
-            Navigator.of(context).pushNamed('/login');
+            Navigator.of(context).pushReplacementNamed('/login');
           } else {
-            String uid = FirebaseAuth.instance.currentUser!.uid;
-            final user = await FirebaseFirestore.instance
-                .collection('/users')
-                .doc(uid)
-                .get();
-            if (user.data() != null) {
-              UserData currentUser = UserData.fromMap(user.data()!);
-              Navigator.of(context).pushNamed('/home', arguments: currentUser);
+            var connectivityResult = await (Connectivity().checkConnectivity());
+            if (connectivityResult == ConnectivityResult.wifi ||
+                connectivityResult == ConnectivityResult.mobile) {
+              String uid = FirebaseAuth.instance.currentUser!.uid;
+              final user = await FirebaseFirestore.instance
+                  .collection('/users')
+                  .doc(uid)
+                  .get();
+              if (user.data() != null) {
+                UserData currentUser = UserData.fromMap(user.data()!);
+                Navigator.of(context)
+                    .pushReplacementNamed('/home', arguments: currentUser);
+              } else {
+                return null;
+              }
             } else {
-              return null;
+              Navigator.pushReplacementNamed(context, '/error_home_page');
             }
           }
         });

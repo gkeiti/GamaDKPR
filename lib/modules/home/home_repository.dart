@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:trabalho_final_dgpr/modules/home/widgets/budget/budget_model.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
+import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/transactions.dart';
 
 import 'widgets/balance/dtd_model.dart';
@@ -14,6 +16,7 @@ abstract class HomeRepository {
   Stream<List<BudgetModel>> getBudget(String uid);
   Stream<List<DtdModel>> getBalance(String uid, String month);
   Stream<List<LastTransactionsModel>> getLastTransactionsTotal(String uid);
+  Future<void> updateRegister(UserData user);
 }
 
 class HomeRepositoryImpl extends HomeRepository {
@@ -30,6 +33,7 @@ class HomeRepositoryImpl extends HomeRepository {
             value: (e['value'] / 100),
             url: getIcon(e['category']),
             backgroundColor: getColor(e['category']),
+            name: e['name'],
           ),
         )
         .toList();
@@ -50,7 +54,7 @@ class HomeRepositoryImpl extends HomeRepository {
       case 'Educação':
         url = 'assets/logos/educação.png';
         break;
-      case 'Pagementos':
+      case 'Pagamentos':
         url = 'assets/logos/pagamentos.png';
         break;
       case 'Outros':
@@ -143,5 +147,17 @@ class HomeRepositoryImpl extends HomeRepository {
         return DtdModel.fromDocument(doc);
       }).toList();
     });
+  }
+
+  @override
+  Future<void> updateRegister(UserData user) async {
+    await FirebaseFirestore.instance.collection('/users').doc(user.uid).update({
+      'name': user.name,
+      'cpf': user.cpf,
+      'email': user.email,
+      'phone': user.phone
+    });
+    await FirebaseAuth.instance.currentUser!.updateEmail(user.email);
+    await FirebaseAuth.instance.signOut();
   }
 }

@@ -15,6 +15,9 @@ class InputText extends StatefulWidget {
   final ValueChanged<String?>? onChanged;
   final bool obscureText;
   final FocusNode? focusNode;
+  final Text? prefix;
+  final int? maxLength;
+  final int? maxLines;
 
   const InputText({
     Key? key,
@@ -28,6 +31,9 @@ class InputText extends StatefulWidget {
     this.onChanged,
     this.obscureText = false,
     this.focusNode,
+    this.prefix,
+    this.maxLength,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -47,8 +53,12 @@ class _InputTextState extends State<InputText> {
       keyboardType: widget.textInputType,
       validator: widget.validator,
       onChanged: widget.onChanged,
+      maxLength: widget.maxLength,
+      maxLines: widget.maxLines,
       decoration: InputDecoration(
         labelText: widget.label,
+        counterText: '',
+        prefix: widget.prefix,
         errorText: widget.errorText == null ? null : widget.errorText!(),
         labelStyle: TextStyle(color: _colorText),
         helperText: widget.helperText,

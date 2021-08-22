@@ -3,7 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:trabalho_final_dgpr/modules/control/control_controller.dart';
 import 'package:trabalho_final_dgpr/modules/control/model/balance_model.dart';
 import 'package:trabalho_final_dgpr/modules/control/model/transactions_model.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
+import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 
 import 'insert_button.dart';
 
@@ -66,19 +68,26 @@ class _OutTransactionCardState extends State<OutTransactionCard> {
                         child: Column(
                           children: [
                             Text('Saída', style: TextStyles.purple20w500Roboto),
-                            //Substituir os TextField pelos customizados
                             Padding(
                               padding: const EdgeInsets.only(bottom: 20.0),
-                              child: TextField(
+                              child: InputText(
+                                label: 'Valor',
+                                prefix: Text('R\$'),
+                                maxLength: 15,
+                                maxLines: 1,
                                 controller: widget.valueController,
-                                decoration:
-                                    InputDecoration(labelText: 'Valor em R\$'),
-                                style: TextStyles.black54_16w400Roboto,
+                                textInputType: TextInputType.number,
+                                textInputAction: TextInputAction.done,
                               ),
                             ),
                             InputDecorator(
                               decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.all(0)),
+                                contentPadding: EdgeInsets.all(0),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: AppColors.black54, width: 2.0),
+                                ),
+                              ),
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
                                   value: widget.dropdownOutValue,
@@ -107,11 +116,12 @@ class _OutTransactionCardState extends State<OutTransactionCard> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
-                              child: TextField(
+                              child: InputText(
+                                label: 'Nome da Saída',
+                                maxLength: 20,
+                                maxLines: 1,
                                 controller: widget.transactionNameController,
-                                decoration: InputDecoration(
-                                  labelText: 'Nome da Saída',
-                                ),
+                                textInputAction: TextInputAction.done,
                               ),
                             ),
                             Container(
@@ -120,8 +130,8 @@ class _OutTransactionCardState extends State<OutTransactionCard> {
                                   showDatePicker(
                                           context: context,
                                           initialDate: DateTime.now(),
-                                          firstDate: DateTime(2000),
-                                          lastDate: DateTime(2050))
+                                          firstDate: DateTime(2020),
+                                          lastDate: DateTime(2022))
                                       .then((date) {
                                     setState(() {
                                       dateTime = date!;
@@ -152,40 +162,74 @@ class _OutTransactionCardState extends State<OutTransactionCard> {
                   ),
                 ),
                 InsertButton(
-                    onPressed: () {
-                      widget.controller.repository.addTransaction(
-                        TransactionsModel(
-                            category: widget.dropdownOutValue,
-                            value:
-                                double.parse(widget.valueController.text) * 100,
+                    onPressed: () async {
+                      try {
+                        await widget.controller.repository.addTransaction(
+                          TransactionsModel(
+                              category: widget.dropdownOutValue,
+                              value: double.parse(widget.valueController.text
+                                      .replaceAll(',', '.')) *
+                                  100,
+                              uid: widget.uid,
+                              date: DateFormat('dd/MM/yyyy')
+                                  .format(dateTime)
+                                  .toString(),
+                              type: 'out',
+                              month: DateFormat('M').format(dateTime),
+                              name: widget.transactionNameController.text),
+                        );
+                        await widget.controller.repository.addBalance(
+                          BalanceModel(
+                            entrance: double.parse(widget.valueController.text
+                                    .replaceAll(',', '.')) *
+                                0,
+                            out: double.parse(widget.valueController.text
+                                    .replaceAll(',', '.')) *
+                                100,
                             uid: widget.uid,
-                            date: DateFormat('dd/MM/yyyy')
-                                .format(dateTime)
-                                .toString(),
-                            type: 'out',
                             month: DateFormat('M').format(dateTime),
-                            name: widget.transactionNameController.text),
-                      );
-                      widget.controller.repository.addBalance(
-                        BalanceModel(
-                          entrance:
-                              double.parse(widget.valueController.text) * 0,
-                          out: double.parse(widget.valueController.text) * 100,
-                          uid: widget.uid,
-                          month: DateFormat('M').format(dateTime),
-                          type: 'out',
-                        ),
-                      );
-                      widget.controller.repository.addBudget(widget.uid,
-                          double.parse(widget.valueController.text) * -100);
-                      widget.valueController.clear();
-                      widget.transactionNameController.clear();
-                      throw ('Erro');
+                            type: 'out',
+                          ),
+                        );
+                        await widget.controller.repository.addBudget(
+                            widget.uid,
+                            double.parse(widget.valueController.text
+                                    .replaceAll(',', '.')) *
+                                -100);
+                        widget.valueController.clear();
+                        widget.transactionNameController.clear();
+                        Navigator.pop(context);
+                      } catch (e) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(
+                                'Erro ao realizar a ação',
+                                style: TextStyles.black24w400Roboto,
+                              ),
+                              content: Text(
+                                'Tente novamente mais tarde',
+                                style: TextStyles.black14w400Roboto,
+                              ),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('OK'))
+                              ],
+                            );
+                          },
+                        );
+                      }
                     },
-                    buttonEnabled:
-                        double.tryParse(widget.valueController.text) != null
-                            ? true
-                            : false)
+                    buttonEnabled: double.tryParse(widget.valueController.text
+                                .replaceAll(',', '.')) !=
+                            null
+                        ? true
+                        : false)
               ],
             ),
           ],
