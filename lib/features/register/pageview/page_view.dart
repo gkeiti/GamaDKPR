@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-
 import 'package:trabalho_final_dgpr/features/register/register_name_email/register_name_email.dart';
 import 'package:trabalho_final_dgpr/features/register/register_password/register_password.dart';
 import 'package:trabalho_final_dgpr/features/register/register_phone_cpf/register_phone_cpf.dart';
@@ -13,7 +12,6 @@ import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/back_button_widget.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_forward_button.dart';
-
 import 'page_view_controller.dart';
 
 class RegisterPageView extends StatefulWidget {
@@ -130,10 +128,10 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                         context: context,
                         builder: (context) => Center(
                           child: Padding(
-                            padding: const EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.all(4.0),
                             child: AlertDialog(
                               title: Text(
-                                "Email já Cadastrado",
+                                "Email já Cadastrado, \npor favor inserir outro!",
                                 style: TextStyles.minsk20w500Roboto,
                               ),
                             ),

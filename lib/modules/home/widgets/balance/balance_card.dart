@@ -108,7 +108,7 @@ class _BalanceCardState extends State<BalanceCard> {
                   return Row(
                     children: [
                       Text(
-                        'R\$' +
+                        'R\$ ' +
                             ((0 - balance[0].out) / 100)
                                 .toStringAsFixed(2)
                                 .replaceAll('.', ','),

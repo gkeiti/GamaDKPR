@@ -14,20 +14,13 @@ class ContinueForwardButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: 116,
       height: 32,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            AppColors.cyan,
-            AppColors.purple,
-          ],
+          colors: <Color>[AppColors.cyan, AppColors.purple],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          stops: [
-            0.1,
-            0.7,
-          ],
+          stops: [0.1, 0.7],
           transform: GradientRotation((38 * 3.141592) / 180),
         ),
         borderRadius: BorderRadius.circular(34),
@@ -43,15 +36,8 @@ class ContinueForwardButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "CONTINUAR",
-              style: TextStyles.continueButton,
-            ),
-            Icon(
-              Icons.arrow_forward,
-              size: 18.0,
-              color: AppColors.white,
-            ),
+            Text("CONTINUAR", style: TextStyles.continueButton),
+            Icon(Icons.arrow_forward, size: 18.0, color: AppColors.white),
           ],
         ),
         disabledColor: Colors.grey,

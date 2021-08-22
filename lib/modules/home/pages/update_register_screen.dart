@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:trabalho_final_dgpr/modules/home/home_controller.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
@@ -14,12 +16,26 @@ class UpdateRegisterScreen extends StatefulWidget {
 }
 
 class _UpdateRegisterScreenState extends State<UpdateRegisterScreen> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController cpfController = TextEditingController();
+  final TextEditingController cpfController =
+      MaskedTextController(mask: '000.000.000-00');
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController phoneController =
+      MaskedTextController(mask: "(00)00000-0000");
+  final HomeController controller = HomeController();
   final Validator validator = Validator();
   UserData? user;
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    cpfController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final UserData? arguments =
@@ -41,58 +57,57 @@ class _UpdateRegisterScreenState extends State<UpdateRegisterScreen> {
         child: Column(
           children: [
             ExtendedGradientContainer(pageTitle: 'Cadastro'),
-            Container(
-              height: 395,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
-                child: Card(
+            Form(
+              key: formKey,
+              child: SingleChildScrollView(
+                child: Container(
+                  height: 395,
                   child: Padding(
-                    padding: const EdgeInsets.all(35.0),
-                    child: Column(
-                      children: [
-                        //Substituir os TextField pelos customizados
-                        InputText(
-                          controller: nameController,
-                          label: 'Nome',
-                          textInputType: TextInputType.name,
-                          validator: (value) => validator.validatorName(value!),
-                          onChanged: (String? value) {
-                            nameController.text = value!;
-                          },
+                    padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(35.0),
+                        child: Column(
+                          children: [
+                            InputText(
+                              controller: nameController,
+                              textInputAction: TextInputAction.next,
+                              label: 'Nome',
+                              textInputType: TextInputType.name,
+                              validator: (value) =>
+                                  validator.validatorName(value!),
+                            ),
+                            InputText(
+                              controller: cpfController,
+                              textInputAction: TextInputAction.next,
+                              label: 'CPF',
+                              textInputType: TextInputType.number,
+                              validator: (value) =>
+                                  validator.isCpfValid(value!),
+                            ),
+                            InputText(
+                              controller: emailController,
+                              textInputAction: TextInputAction.next,
+                              label: 'E-mail',
+                              textInputType: TextInputType.emailAddress,
+                              validator: (value) =>
+                                  validator.isEmailValid(value!),
+                            ),
+                            InputText(
+                              textInputAction: TextInputAction.done,
+                              controller: phoneController,
+                              label: 'Telefone',
+                              textInputType: TextInputType.phone,
+                              validator: (value) =>
+                                  validator.isPhoneValid(value!),
+                            ),
+                          ],
                         ),
-                        InputText(
-                          controller: cpfController,
-                          label: 'CPF',
-                          textInputType: TextInputType.number,
-                          validator: (value) => validator.isCpfValid(value!),
-                          onChanged: (String? value) {
-                            cpfController.text = value!;
-                          },
-                        ),
-                        InputText(
-                          controller: emailController,
-                          label: 'E-mail',
-                          textInputType: TextInputType.emailAddress,
-                          validator: (value) => validator.isEmailValid(value!),
-                          onChanged: (String? value) {
-                            emailController.text = value!;
-                          },
-                        ),
-                        InputText(
-                          textInputAction: TextInputAction.next,
-                          controller: phoneController,
-                          label: 'Telefone',
-                          textInputType: TextInputType.phone,
-                          validator: (value) => validator.isPhoneValid(value!),
-                          onChanged: (String? value) {
-                            phoneController.text = value!;
-                          },
-                        ),
-                      ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7.0)),
                     ),
                   ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7.0)),
                 ),
               ),
             ),
@@ -102,7 +117,6 @@ class _UpdateRegisterScreenState extends State<UpdateRegisterScreen> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 16.0),
         child: Container(
-          width: 192,
           height: 50,
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -115,7 +129,19 @@ class _UpdateRegisterScreenState extends State<UpdateRegisterScreen> {
             borderRadius: BorderRadius.circular(34),
           ),
           child: MaterialButton(
-            onPressed: null,
+            onPressed: () async {
+              if (formKey.currentState!.validate()) {
+                await controller.repository.updateRegister(
+                  UserData(
+                      email: emailController.text,
+                      cpf: cpfController.text,
+                      uid: user!.uid,
+                      phone: phoneController.text,
+                      name: nameController.text),
+                );
+                Navigator.pushReplacementNamed(context, '/login');
+              }
+            },
             child: Row(
               children: [
                 Flexible(

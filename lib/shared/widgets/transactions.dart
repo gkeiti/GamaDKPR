@@ -10,6 +10,7 @@ class Transactions extends StatelessWidget {
     required this.value,
     required this.url,
     required this.backgroundColor,
+    required this.name,
   }) : super(key: key);
 
   final String category;
@@ -17,6 +18,7 @@ class Transactions extends StatelessWidget {
   final double value;
   final String url;
   final Color backgroundColor;
+  final String? name;
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +47,22 @@ class Transactions extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(category, style: TextStyles.purple16w500Roboto),
+                      Row(
+                        children: [
+                          Text(category, style: TextStyles.purple16w500Roboto),
+                          name!.isEmpty == false
+                              ? Text(' - $name',
+                                  style: TextStyles.purple16w500Roboto)
+                              : Text(''),
+                        ],
+                      ),
                       Text(date, style: TextStyles.grey14w400Roboto)
                     ],
                   ),
                 ],
               ),
             ),
-            Text("R\$ ${value.toStringAsFixed(2)}",
+            Text("R\$ ${value.toStringAsFixed(2).replaceAll('.', ',')}",
                 style: TextStyles.black87_16w400Roboto),
           ],
         ),
