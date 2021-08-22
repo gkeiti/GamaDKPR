@@ -98,40 +98,46 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 onPressed: () async {
                   if (indexController.currentIndex == 0 &&
                       nameEmailKey.currentState!.validate()) {
-                    // final response = await FirebaseAuth.instance
-                    //     .createUserWithEmailAndPassword(
-                    //         email: user!.email!,
-                    //         password: user!.password!);
-
-                    // final _user = response.user;
-                    // user!.uid = response.user!.uid;
-                    // Map<String, dynamic> _userMap = user!.toMap();
-
-                    // await FirebaseFirestore.instance
-                    //     .collection("/users")
-                    //     .doc(_user!.uid)
-                    //     .set(_userMap);
-
-                    showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (context) => Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(48.0),
-                          child: LinearProgressIndicator(
-                            color: AppColors.cyan,
-                            minHeight: 4.0,
+                    final _response = await FirebaseFirestore.instance
+                        .collection("/users")
+                        .where("email", isEqualTo: "${user!.email}")
+                        .get();
+                    if (_response.docs.isEmpty) {
+                      showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) => Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(48.0),
+                            child: LinearProgressIndicator(
+                              color: AppColors.cyan,
+                              minHeight: 4.0,
+                            ),
                           ),
                         ),
-                      ),
-                    );
+                      );
 
-                    Future.delayed(Duration(seconds: 3))
-                        .then((value) => Navigator.pop(context))
-                        .then((value) => controller.animateToPage(1,
-                            duration: Duration(milliseconds: 400),
-                            curve: Curves.easeIn));
-
+                      Future.delayed(Duration(seconds: 1))
+                          .then((value) => Navigator.pop(context))
+                          .then((value) => controller.animateToPage(1,
+                              duration: Duration(milliseconds: 400),
+                              curve: Curves.easeIn));
+                    } else {
+                      showDialog(
+                        barrierDismissible: true,
+                        context: context,
+                        builder: (context) => Center(
+                          child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: AlertDialog(
+                                title: Text(
+                                  "Email já Cadastrado",
+                                  style: TextStyles.minsk20w500Roboto,
+                                ),
+                              )),
+                        ),
+                      );
+                    }
                   } else if (indexController.currentIndex == 1 &&
                       phoneCpfKey.currentState!.validate()) {
                     controller.animateToPage(2,
@@ -173,7 +179,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                         .doc(_user!.uid)
                         .set(_userMap);
 
-                    Future.delayed(Duration(seconds: 3)).then((value) =>
+                    Future.delayed(Duration(seconds: 1)).then((value) =>
                         Navigator.pushNamed(context, "/register_onboarding"));
                   }
                 },
