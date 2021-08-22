@@ -98,10 +98,12 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 onPressed: () async {
                   if (indexController.currentIndex == 0 &&
                       nameEmailKey.currentState!.validate()) {
+                        
                     final _response = await FirebaseFirestore.instance
                         .collection("/users")
                         .where("email", isEqualTo: "${user!.email}")
                         .get();
+
                     if (_response.docs.isEmpty) {
                       showDialog(
                         barrierDismissible: false,
@@ -128,13 +130,14 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                         context: context,
                         builder: (context) => Center(
                           child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: AlertDialog(
-                                title: Text(
-                                  "Email já Cadastrado",
-                                  style: TextStyles.minsk20w500Roboto,
-                                ),
-                              )),
+                            padding: const EdgeInsets.all(20.0),
+                            child: AlertDialog(
+                              title: Text(
+                                "Email já Cadastrado",
+                                style: TextStyles.minsk20w500Roboto,
+                              ),
+                            ),
+                          ),
                         ),
                       );
                     }

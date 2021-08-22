@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 
 class InputText extends StatefulWidget {
@@ -35,7 +32,6 @@ class InputText extends StatefulWidget {
 }
 
 class _InputTextState extends State<InputText> {
-  Color _colorText = AppColors.black54;
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +45,8 @@ class _InputTextState extends State<InputText> {
       onChanged: widget.onChanged,
       decoration: InputDecoration(
         labelText: widget.label,
-        errorText: widget.errorText == null ? null : widget.errorText!(),
-        labelStyle: TextStyle(color: _colorText),
-        helperText: widget.helperText,
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: AppColors.black54, width: 2.0),
+          borderSide: BorderSide( width: 1.0),
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: AppColors.minsk, width: 2.0),
