@@ -119,27 +119,30 @@ class _LoginPasswordState extends State<LoginPassword> {
                       ),
                       child: ContinueButton(
                         onPressed: () async {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Carregando informações'),
+                                content: LinearProgressIndicator(),
+                              );
+                            },
+                          );
                           UserData? user =
                               await context.read<AuthService>().signIn(
                                     email: emailController.text.trim(),
                                     password: passwordController.text.trim(),
                                   );
-                          user != null
-                              ? Navigator.pushNamed(context, '/home',
-                                  arguments: user)
-                              : AlertDialog(
-                                  title: Text('Erro ao fazer login'),
-                                  content: Text(
-                                    'Tente novamente mais tarde',
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text('Ok'))
-                                  ],
-                                );
+                          if (user != null) {
+                            Navigator.pushNamed(context, '/home',
+                                arguments: user);
+                          } else {
+                            Future.delayed(Duration(seconds: 1))
+                                .then((value) async {
+                              Navigator.pop(context);
+                              formKey.currentState!.validate();
+                            });
+                          }
                         },
                       ),
                     ),
@@ -153,3 +156,24 @@ class _LoginPasswordState extends State<LoginPassword> {
     );
   }
 }
+// UserData? user =
+//                               await context.read<AuthService>().signIn(
+//                                     email: emailController.text.trim(),
+//                                     password: passwordController.text.trim(),
+//                                   );
+//                           user != null
+//                               ? Navigator.pushNamed(context, '/home',
+//                                   arguments: user)
+//                               : AlertDialog(
+//                                   title: Text('Erro ao fazer login'),
+//                                   content: Text(
+//                                     'Tente novamente mais tarde',
+//                                   ),
+//                                   actions: [
+//                                     TextButton(
+//                                         onPressed: () {
+//                                           Navigator.of(context).pop();
+//                                         },
+//                                         child: Text('Ok'))
+//                                   ],
+//                                 );
