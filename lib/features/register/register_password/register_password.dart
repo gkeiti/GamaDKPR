@@ -13,10 +13,12 @@ import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 class RegisterPasswordPage extends StatefulWidget {
   final GlobalKey<FormState> passwordKey;
   final RegisterUser? user;
+  final TextEditingController passwordController;
   const RegisterPasswordPage({
     Key? key,
     required this.passwordKey,
     this.user,
+    required this.passwordController,
   }) : super(key: key);
 
   @override
@@ -24,8 +26,7 @@ class RegisterPasswordPage extends StatefulWidget {
 }
 
 class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   FocusNode _focusNode = FocusNode();
 
   Validator validator = Validator();
@@ -38,8 +39,8 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
 
   @override
   void dispose() {
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
+    widget.passwordController.dispose();
+    confirmPasswordController.dispose();
     _focusNode.dispose();
     super.dispose();
   }
@@ -96,27 +97,23 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                   children: [
                     InputText(
                       textInputAction: TextInputAction.next,
-                      controller: _passwordController,
+                      controller: widget.passwordController,
                       label: 'Crie uma senha',
                       textInputType: TextInputType.text,
                       validator: (value) => validator.isPasswordValid(value!),
-                      onChanged: (String? value) {
-                        widget.user?.password = value;
-                      },
+                      onChanged: (String? value) => widget.passwordController.text,
                     ),
                     SizedBox(height: 32.0),
                     InputText(
                       focusNode: _focusNode,
                       textInputAction: TextInputAction.done,
-                      controller: _confirmPasswordController,
+                      controller: confirmPasswordController,
                       label: 'Confirme sua senha',
                       textInputType: TextInputType.text,
                       validator: (value) =>
                           validator.setConfirmPassword(value!, value),
-                      onChanged: (String? value) {
-                        widget.user?.confirmPassword = value;
-                      },
-                    )
+                      onChanged: (String? value) => confirmPasswordController.text,
+                    ),
                   ],
                 ),
               ),

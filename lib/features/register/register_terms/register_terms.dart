@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
@@ -8,7 +7,6 @@ import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/comments.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
-
 import '../../user_repository.dart';
 
 class RegisterTermsPage extends StatefulWidget {
@@ -83,21 +81,28 @@ class _RegisterTermsPageState extends State<RegisterTermsPage> {
               child: Form(
                 key: widget.termsKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: CheckboxListTile(
+                child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(
                     "Eu li e aceito os termos e condições e a Política de privacidade do budget.",
                     style: TextStyles.black16w400Roboto,
                   ),
                   activeColor: AppColors.minsk,
-                  checkColor: AppColors.white,
+                  // checkColor: AppColors.white,
                   controlAffinity: ListTileControlAffinity.leading,
-                  value: widget.user?.checkTerms,
+                  value: true,
+                  groupValue: widget.user!.checkTerms,
                   onChanged: (value) {
                     setState(() {
-                      widget.user?.checkTerms = !widget.user!.checkTerms;
+                      if (widget.user!.checkTerms == false) {
+                        widget.user!.checkTerms = true;
+                      } else {
+                        widget.user!.checkTerms = false;
+                      }
                     });
                   },
+                  selected: widget.user!.checkTerms,
+                  toggleable: true,
                 ),
               ),
             ),

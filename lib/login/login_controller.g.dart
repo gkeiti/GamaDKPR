@@ -15,5 +15,4 @@ mixin _$LoginController on _LoginControllerBase, Store {
 
     ''';
   }
-
 }
