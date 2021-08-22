@@ -1,27 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:trabalho_final_dgpr/modules/home/home_repository.dart';
-import 'package:trabalho_final_dgpr/modules/home/widgets/last_transactions/last_transactions_controller.dart';
+import 'package:trabalho_final_dgpr/modules/control/control_repository.dart';
+import 'package:trabalho_final_dgpr/modules/control/model/all_transactions_model.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
+import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/extended_gradient_container.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/side_drawer.dart';
+
+import 'control_controller.dart';
 
 class AllTransactionsPage extends StatefulWidget {
   const AllTransactionsPage({
     Key? key,
-    required this.uid,
   }) : super(key: key);
-  final String uid;
 
   @override
   _AllTransactionsPageState createState() => _AllTransactionsPageState();
 }
 
 class _AllTransactionsPageState extends State<AllTransactionsPage> {
-  final controller = LastTransactionsController(HomeRepositoryImpl(), '123456');
-
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'Entradas'),
     Tab(text: 'Saídas'),
@@ -42,10 +41,24 @@ class _AllTransactionsPageState extends State<AllTransactionsPage> {
     'NOVEMBRO',
     'DEZEMBRO'
   ];
-  int month = 8;
+  String month = '8';
+  late ControlController controller;
+  UserData? user;
+  //late String uid;
+
+  /* _AllTransactionsPageState() {
+    controller = ControlController(uid, month, ControlRepositoryImpl());
+  } */
 
   @override
   Widget build(BuildContext context) {
+    final UserData? arguments =
+        ModalRoute.of(context)!.settings.arguments as UserData?;
+    if (arguments != null) {
+      user = arguments;
+      String uid = user!.uid;
+      controller = ControlController(uid, month, ControlRepositoryImpl());
+    }
     return MaterialApp(
       home: DefaultTabController(
         length: myTabs.length,
@@ -57,25 +70,32 @@ class _AllTransactionsPageState extends State<AllTransactionsPage> {
               DropdownButton(
                 value: dropdownValue,
                 dropdownColor: AppColors.blue,
-                menuMaxHeight: 200,
+                menuMaxHeight: 400,
                 underline: Container(color: Colors.black),
                 onChanged: (String? newValue) {
                   setState(() {
                     dropdownValue = newValue!;
-                    month = months.indexOf(dropdownValue) + 1;
+                    month = (months.indexOf(dropdownValue) + 1).toString();
+                    controller.getAllTransactionsValue(user!.uid, month);
                   });
                 },
                 items: months.map((e) {
                   return DropdownMenuItem(
                     value: e,
-                    child: Text(e, style: TextStyles.white14w500Roboto),
+                    child: SizedBox(
+                        width: 90,
+                        child: Text(
+                          e,
+                          style: TextStyles.white14w500Roboto,
+                          textAlign: TextAlign.right,
+                        )),
                   );
                 }).toList(),
               ),
             ],
           ),
           extendBodyBehindAppBar: true,
-          drawer: SideDrawer(),
+          drawer: SideDrawer(user: user),
           body: Column(
             children: [
               Stack(
@@ -93,263 +113,287 @@ class _AllTransactionsPageState extends State<AllTransactionsPage> {
               Expanded(
                 child: Container(
                   child: TabBarView(children: [
-                    Container(
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 395,
-                            child: Card(
-                              child: Container(
-                                width: double.infinity,
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-                                  child: Column(
-                                    children: [
-                                      Expanded(
-                                        child: StreamBuilder(
-                                          stream: controller
-                                              .repository.transactions
-                                              .where('uid',
-                                                  isEqualTo: widget.uid)
-                                              .where('month',
-                                                  isEqualTo: month.toString())
-                                              .where('type', isEqualTo: 'in')
-                                              //.orderBy('date', descending: false)
-                                              .snapshots(),
-                                          builder: (context,
-                                              AsyncSnapshot<QuerySnapshot>
-                                                  snapshot) {
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              );
-                                            }
-                                            return ListView(
-                                              padding: EdgeInsets.all(0),
-                                              children: controller.repository
-                                                  .getItems(snapshot),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                      Container(
-                                        height: 57.0,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'Total de entradas',
-                                              style:
-                                                  TextStyles.purple16w500Roboto,
-                                            ),
-                                            Observer(
-                                              builder: (_) {
-                                                return Text(
-                                                    'R\$ ${controller.total!.replaceAll('.', ',')}',
-                                                    style: TextStyles
-                                                        .green14w500Roboto);
-                                              },
-                                            )
-                                          ],
-                                        ),
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                                color:
-                                                    AppColors.drawerItemBorder),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(7.0)),
-                              elevation: 3,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 395,
-                            child: Card(
-                              child: Container(
-                                width: double.infinity,
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-                                  child: Column(
-                                    children: [
-                                      Expanded(
-                                        child: StreamBuilder(
-                                          stream: controller
-                                              .repository.transactions
-                                              .limit(3)
-                                              .where('uid',
-                                                  isEqualTo: widget.uid)
-                                              .where('month',
-                                                  isEqualTo: month.toString())
-                                              .where('type', isEqualTo: 'out')
-                                              //.orderBy('date', descending: false)
-                                              .snapshots(),
-                                          builder: (context,
-                                              AsyncSnapshot<QuerySnapshot>
-                                                  snapshot) {
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              );
-                                            }
-                                            return ListView(
-                                              padding: EdgeInsets.all(0),
-                                              children: controller.repository
-                                                  .getItems(snapshot),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                      Container(
-                                        height: 57.0,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'Total de saídas',
-                                              style:
-                                                  TextStyles.purple16w500Roboto,
-                                            ),
-                                            Observer(
-                                              builder: (_) {
-                                                return Text(
-                                                    'R\$ ${controller.total!.replaceAll('.', ',')}',
-                                                    style: TextStyles
-                                                        .red14w500Roboto);
-                                              },
-                                            )
-                                          ],
-                                        ),
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                                color:
-                                                    AppColors.drawerItemBorder),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(7.0)),
-                              elevation: 3,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 395,
-                            child: Card(
-                              child: Container(
-                                width: double.infinity,
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-                                  child: Column(
-                                    children: [
-                                      Expanded(
-                                        child: StreamBuilder(
-                                          stream: controller
-                                              .repository.transactions
-                                              .limit(3)
-                                              .where('uid',
-                                                  isEqualTo: widget.uid)
-                                              .where('month',
-                                                  isEqualTo: month.toString())
-                                              //.orderBy('date', descending: false)
-                                              .snapshots(),
-                                          builder: (context,
-                                              AsyncSnapshot<QuerySnapshot>
-                                                  snapshot) {
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              );
-                                            }
-                                            return ListView(
-                                              padding: EdgeInsets.all(0),
-                                              children: controller.repository
-                                                  .getItems(snapshot),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                      Container(
-                                        height: 57.0,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'Total',
-                                              style:
-                                                  TextStyles.purple16w500Roboto,
-                                            ),
-                                            Observer(
-                                              builder: (_) {
-                                                return Text(
-                                                    'R\$ ${controller.total!.replaceAll('.', ',')}',
-                                                    style: TextStyles
-                                                        .grey14w500Roboto);
-                                              },
-                                            )
-                                          ],
-                                        ),
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                                color:
-                                                    AppColors.drawerItemBorder),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(7.0)),
-                              elevation: 3,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
+                    allInTransactions(),
+                    allOutTransactions(),
+                    allTransactions()
                   ]),
                 ),
               )
             ],
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () =>
-                Navigator.pushNamed(context, '/home/transactions_control'),
-            child: Icon(Icons.add),
-          ),
+          /* floatingActionButton: AddButton(),
           floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
+              FloatingActionButtonLocation.centerFloat, */
         ),
+      ),
+    );
+  }
+
+  Container allTransactions() {
+    return Container(
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(bottom: 40.0),
+              child: Card(
+                child: Container(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: StreamBuilder(
+                            stream: controller.repository.transactions
+                                .where('uid', isEqualTo: user!.uid)
+                                .where('month', isEqualTo: month.toString())
+                                .orderBy('date', descending: true)
+                                .snapshots(),
+                            builder: (context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                              return ListView(
+                                padding: EdgeInsets.all(0),
+                                children: controller.repository
+                                    .getAllTransactions(snapshot),
+                              );
+                            },
+                          ),
+                        ),
+                        Container(
+                          height: 57.0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Total',
+                                style: TextStyles.purple16w500Roboto,
+                              ),
+                              Observer(
+                                builder: (_) {
+                                  List<AllTransactionsModel>? total =
+                                      controller.allTransactions!.data;
+                                  if (total == null) {
+                                    return CircularProgressIndicator();
+                                  }
+                                  if (total.isEmpty) {
+                                    return Text('R\$ 0,00',
+                                        style: TextStyles.grey14w500Roboto);
+                                  } else {
+                                    return Text(
+                                        'R\$ ' +
+                                            (total[0].total / 100)
+                                                .toStringAsFixed(2)
+                                                .replaceAll('.', ','),
+                                        style: TextStyles.grey14w500Roboto);
+                                  }
+                                },
+                              )
+                            ],
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom:
+                                  BorderSide(color: AppColors.drawerItemBorder),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7.0)),
+                elevation: 3,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container allOutTransactions() {
+    return Container(
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(bottom: 40.0),
+              child: Card(
+                child: Container(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: StreamBuilder(
+                            stream: controller.repository.transactions
+                                .where('uid', isEqualTo: user!.uid)
+                                .where('month', isEqualTo: month.toString())
+                                .where('type', isEqualTo: 'out')
+                                .orderBy('date', descending: true)
+                                .snapshots(),
+                            builder: (context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                              return ListView(
+                                padding: EdgeInsets.all(0),
+                                children: controller.repository
+                                    .getAllTransactions(snapshot),
+                              );
+                            },
+                          ),
+                        ),
+                        Container(
+                          height: 57.0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Total de saídas',
+                                style: TextStyles.purple16w500Roboto,
+                              ),
+                              Observer(
+                                builder: (_) {
+                                  List<AllTransactionsModel>? total =
+                                      controller.allTransactions!.data;
+                                  if (total == null) {
+                                    return CircularProgressIndicator();
+                                  }
+                                  if (total.isEmpty) {
+                                    return Text('R\$ 0,00',
+                                        style: TextStyles.red14w500Roboto);
+                                  } else {
+                                    return Text(
+                                        'R\$ ' +
+                                            (total[0].out / 100)
+                                                .toStringAsFixed(2)
+                                                .replaceAll('.', ','),
+                                        style: TextStyles.red14w500Roboto);
+                                  }
+                                },
+                              )
+                            ],
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom:
+                                  BorderSide(color: AppColors.drawerItemBorder),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7.0)),
+                elevation: 3,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container allInTransactions() {
+    return Container(
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(bottom: 40.0),
+              child: Card(
+                child: Container(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: StreamBuilder(
+                            stream: controller.repository.transactions
+                                .where('uid', isEqualTo: user!.uid)
+                                .where('month', isEqualTo: month.toString())
+                                .where('type', isEqualTo: 'in')
+                                .orderBy('date', descending: true)
+                                .snapshots(),
+                            builder: (context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                              return ListView(
+                                padding: EdgeInsets.all(0),
+                                children: controller.repository
+                                    .getAllTransactions(snapshot),
+                              );
+                            },
+                          ),
+                        ),
+                        Container(
+                          height: 57.0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Total de entradas',
+                                style: TextStyles.purple16w500Roboto,
+                              ),
+                              Observer(
+                                builder: (_) {
+                                  List<AllTransactionsModel>? total =
+                                      controller.allTransactions!.data;
+                                  if (total == null) {
+                                    return CircularProgressIndicator();
+                                  }
+                                  if (total.isEmpty) {
+                                    return Text('R\$ 0,00',
+                                        style: TextStyles.green14w500Roboto);
+                                  } else {
+                                    return Text(
+                                        'R\$ ' +
+                                            (total[0].entrance / 100)
+                                                .toStringAsFixed(2)
+                                                .replaceAll('.', ','),
+                                        style: TextStyles.green14w500Roboto);
+                                  }
+                                },
+                              )
+                            ],
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom:
+                                  BorderSide(color: AppColors.drawerItemBorder),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7.0)),
+                elevation: 3,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
+import 'package:trabalho_final_dgpr/features/user_repository.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
-import 'package:trabalho_final_dgpr/shared/app_constants/input_validators.dart';
+import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
@@ -9,7 +11,13 @@ import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
 
 class RegisterPasswordPage extends StatefulWidget {
-  const RegisterPasswordPage({Key? key}) : super(key: key);
+  final GlobalKey<FormState> passwordKey;
+  final RegisterUser? user;
+  const RegisterPasswordPage({
+    Key? key,
+    required this.passwordKey,
+    this.user,
+  }) : super(key: key);
 
   @override
   _RegisterPasswordPageState createState() => _RegisterPasswordPageState();
@@ -20,7 +28,7 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
   TextEditingController _confirmPasswordController = TextEditingController();
   FocusNode _focusNode = FocusNode();
 
-  final GlobalKey<FormState>? passwordKey = GlobalKey<FormState>();
+  Validator validator = Validator();
 
   @override
   void initState() {
@@ -82,18 +90,18 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
             Padding(
               padding: EdgeInsets.only(top: 280.0, left: 48.0, right: 49.0),
               child: Form(
-                key: passwordKey,
+                key: widget.passwordKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InputText(
                       textInputAction: TextInputAction.next,
                       controller: _passwordController,
-                      onChanged: (value) => _passwordController.value,
                       label: 'Crie uma senha',
                       textInputType: TextInputType.text,
-                      validator: (String? password) {
-                        InputValidators().passwordValidator(password);
+                      validator: (value) => validator.isPasswordValid(value!),
+                      onChanged: (String? value) {
+                        widget.user?.password = value;
                       },
                     ),
                     SizedBox(height: 32.0),
@@ -101,13 +109,14 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                       focusNode: _focusNode,
                       textInputAction: TextInputAction.done,
                       controller: _confirmPasswordController,
-                      onChanged: (value) => _confirmPasswordController.value,
                       label: 'Confirme sua senha',
                       textInputType: TextInputType.text,
-                      validator: (String? value) {
-                        InputValidators().confirmPasswordValidator(_passwordController.text, _confirmPasswordController.text);
+                      validator: (value) =>
+                          validator.setConfirmPassword(value!, value),
+                      onChanged: (String? value) {
+                        widget.user?.confirmPassword = value;
                       },
-                    ),
+                    )
                   ],
                 ),
               ),

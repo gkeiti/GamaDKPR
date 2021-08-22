@@ -5,26 +5,31 @@ import 'package:trabalho_final_dgpr/modules/home/widgets/last_transactions/last_
 import 'package:trabalho_final_dgpr/modules/home/widgets/new_control_button.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
+import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/side_drawer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
-    required this.uid,
   }) : super(key: key);
-  final String uid;
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  //final controller = HomeController(repository: HomeRepositoryImpl());
+  UserData? user;
 
   @override
   Widget build(BuildContext context) {
+    final UserData? arguments =
+        ModalRoute.of(context)!.settings.arguments as UserData?;
+    if (arguments != null) {
+      user = arguments;
+    }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Olá, José', style: TextStyles.white24w400Roboto),
+        title: Text('Olá, ${user!.name}', style: TextStyles.white24w400Roboto),
         centerTitle: true,
         flexibleSpace: Container(
           alignment: Alignment.center,
@@ -39,25 +44,30 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      drawer: SideDrawer(),
+      drawer: SideDrawer(
+        user: user,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              BudgetCard(uid: widget.uid),
+              BudgetCard(uid: user!.uid),
               SizedBox(height: 16),
               GestureDetector(
-                  child: BalanceCard(uid: widget.uid),
-                  onTap: () =>
-                      Navigator.pushNamed(context, '/home/all_transactions')),
+                  child: BalanceCard(uid: user!.uid),
+                  onTap: () => Navigator.pushNamed(
+                      context, '/home/all_transactions',
+                      arguments: user)),
               SizedBox(height: 16),
-              LastTransactionsCard(uid: widget.uid),
+              LastTransactionsCard(uid: user!.uid),
             ],
           ),
         ),
       ),
-      floatingActionButton: NewControlButton(),
+      floatingActionButton: NewControlButton(
+        user: user,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

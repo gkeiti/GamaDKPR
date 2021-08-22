@@ -9,6 +9,7 @@ class InputText extends StatefulWidget {
   final TextInputType textInputType;
   final TextInputAction? textInputAction;
   final String label;
+  final String? Function()? errorText;
   final String? helperText;
   final String? Function(String? value)? validator;
   final ValueChanged<String?>? onChanged;
@@ -21,6 +22,7 @@ class InputText extends StatefulWidget {
     this.textInputType = TextInputType.text,
     this.textInputAction,
     required this.label,
+    this.errorText,
     this.helperText,
     this.validator,
     this.onChanged,
@@ -43,9 +45,11 @@ class _InputTextState extends State<InputText> {
       obscureText: widget.obscureText,
       controller: widget.controller,
       keyboardType: widget.textInputType,
+      validator: widget.validator,
       onChanged: widget.onChanged,
       decoration: InputDecoration(
         labelText: widget.label,
+        errorText: widget.errorText == null ? null : widget.errorText!(),
         labelStyle: TextStyle(color: _colorText),
         helperText: widget.helperText,
         enabledBorder: UnderlineInputBorder(

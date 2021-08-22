@@ -1,36 +1,35 @@
 import 'package:flutter/material.dart';
 
 import 'package:trabalho_final_dgpr/modules/control/control_controller.dart';
+import 'package:trabalho_final_dgpr/modules/control/control_repository.dart';
 import 'package:trabalho_final_dgpr/modules/control/widget/in_transaction.dart';
 import 'package:trabalho_final_dgpr/modules/control/widget/out_transaction.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
+import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/extended_gradient_container.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/side_drawer.dart';
 
 class TransactionsControl extends StatefulWidget {
   const TransactionsControl({
     Key? key,
-    required this.uid,
   }) : super(key: key);
-  final String uid;
 
   @override
-  _TransactionsControlState createState() => _TransactionsControlState(uid);
+  _TransactionsControlState createState() => _TransactionsControlState();
 }
 
 class _TransactionsControlState extends State<TransactionsControl> {
-  final controller = ControlController();
   DateTime dateTime = DateTime.now();
   TextEditingController valueController = TextEditingController();
   TextEditingController transactionNameController = TextEditingController();
-  final String uid;
+  UserData? user;
+
+  late ControlController controller;
 
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'Entrada'),
     Tab(text: 'Saída'),
   ];
-
-  _TransactionsControlState(this.uid);
 
   @override
   void dispose() {
@@ -41,8 +40,15 @@ class _TransactionsControlState extends State<TransactionsControl> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
+    final UserData? arguments =
+        ModalRoute.of(context)!.settings.arguments as UserData?;
+    if (arguments != null) {
+      user = arguments;
+      String uid = user!.uid;
+      controller = ControlController(uid, '8', ControlRepositoryImpl());
+    }
+    return Scaffold(
+      body: DefaultTabController(
         length: myTabs.length,
         child: Scaffold(
           appBar: AppBar(
@@ -50,7 +56,7 @@ class _TransactionsControlState extends State<TransactionsControl> {
             elevation: 0,
           ),
           extendBodyBehindAppBar: true,
-          drawer: SideDrawer(),
+          drawer: SideDrawer(user: user),
           body: Column(
             children: [
               Stack(
@@ -74,7 +80,7 @@ class _TransactionsControlState extends State<TransactionsControl> {
                         valueController: valueController,
                         dropdownInValue: 'Dinheiro',
                         transactionNameController: transactionNameController,
-                        uid: uid,
+                        uid: user!.uid,
                       ),
                       OutTransactionCard(
                         controller: controller,
@@ -82,7 +88,7 @@ class _TransactionsControlState extends State<TransactionsControl> {
                         //dateTime: dateTime,
                         dropdownOutValue: 'Educação',
                         transactionNameController: transactionNameController,
-                        uid: uid,
+                        uid: user!.uid,
                       )
                     ],
                   ),
