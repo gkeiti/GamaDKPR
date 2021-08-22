@@ -125,21 +125,37 @@ class _LoginPasswordState extends State<LoginPassword> {
                               await (Connectivity().checkConnectivity());
                           if (connectivityResult == ConnectivityResult.wifi ||
                               connectivityResult == ConnectivityResult.mobile) {
+                                  showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Carregando informações'),
+                                content: LinearProgressIndicator(),
+                              );
+                            },
+                          );
                             UserData? user =
                                 await context.read<AuthService>().signIn(
                                       email: emailController.text.trim(),
                                       password: passwordController.text.trim(),
                                     );
-                            user != null
-                                ? Navigator.pushNamedAndRemoveUntil(
+                          if (user != null) {
+                            Navigator.pushNamedAndRemoveUntil(
                                     context, '/home', (route) => false,
-                                    arguments: user)
-                                : formKey.currentState!.validate();
+                                    arguments: user);
+                          } else {
+                            Future.delayed(Duration(seconds: 1))
+                                .then((value) async {
+                              Navigator.pop(context);
+                              formKey.currentState!.validate();
+                             },
+                            );
+                          }  
                           } else {
                             Navigator.pushNamed(context, '/error_home_page');
-                          }
-                        },
-                      ),
+                          }                             
+                        }
+                      )
                     ),
                   ],
                 ),
