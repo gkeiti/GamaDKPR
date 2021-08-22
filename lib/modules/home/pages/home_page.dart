@@ -56,8 +56,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 16),
               GestureDetector(
                   child: BalanceCard(uid: user!.uid),
-                  onTap: () => Navigator.pushNamed(
-                      context, '/home/all_transactions',
+                  onTap: () => Navigator.pushNamed(context, '/all_transactions',
                       arguments: user)),
               SizedBox(height: 16),
               LastTransactionsCard(uid: user!.uid),
@@ -67,6 +66,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: NewControlButton(
         user: user,
+        initialPage: 0,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

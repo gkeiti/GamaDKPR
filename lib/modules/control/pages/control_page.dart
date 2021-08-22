@@ -40,15 +40,15 @@ class _TransactionsControlState extends State<TransactionsControl> {
 
   @override
   Widget build(BuildContext context) {
-    final UserData? arguments =
-        ModalRoute.of(context)!.settings.arguments as UserData?;
-    if (arguments != null) {
-      user = arguments;
-      String uid = user!.uid;
-      controller = ControlController(uid, '8', ControlRepositoryImpl());
+    var arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    if (arguments['user'] != null) {
+      user = arguments['user'];
+      controller = ControlController(user!.uid, '8', ControlRepositoryImpl());
     }
+    int initialPage = arguments['initialPage'];
     return Scaffold(
       body: DefaultTabController(
+        initialIndex: initialPage,
         length: myTabs.length,
         child: Scaffold(
           appBar: AppBar(
@@ -80,7 +80,7 @@ class _TransactionsControlState extends State<TransactionsControl> {
                         valueController: valueController,
                         dropdownInValue: 'Dinheiro',
                         transactionNameController: transactionNameController,
-                        uid: user!.uid,
+                        user: user,
                       ),
                       OutTransactionCard(
                         controller: controller,

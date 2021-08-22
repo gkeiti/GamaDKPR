@@ -10,8 +10,6 @@ class ErrorHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Olá, José', style: TextStyles.white24w400Roboto),
-        centerTitle: true,
         flexibleSpace: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -57,7 +55,9 @@ class ErrorHomePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(34),
                 ),
                 child: MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.popAndPushNamed(context, '/login_password');
+                  },
                   child: Row(
                     children: [
                       Flexible(
