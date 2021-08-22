@@ -117,6 +117,7 @@ class _UpdateRegisterScreenState extends State<UpdateRegisterScreen> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 16.0),
         child: Container(
+          width: 192,
           height: 50,
           decoration: BoxDecoration(
             gradient: LinearGradient(
