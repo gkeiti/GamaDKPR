@@ -140,7 +140,8 @@ class _UpdateRegisterScreenState extends State<UpdateRegisterScreen> {
                       phone: phoneController.text,
                       name: nameController.text),
                 );
-                Navigator.pushReplacementNamed(context, '/login');
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/login', (route) => false);
               }
             },
             child: Row(
