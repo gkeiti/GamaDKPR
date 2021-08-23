@@ -6,7 +6,6 @@ import 'package:trabalho_final_dgpr/modules/control/model/transactions_model.dar
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
-
 import 'insert_button.dart';
 
 // ignore: must_be_immutable

@@ -51,8 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     right: 112,
                   ),
                   child: Container(
-                    // width: 200,
-                    // height: 112,
                     child: Text(
                       'Vamos começar!',
                       style: TextStyle(
@@ -162,7 +160,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             'CONTINUAR COM O GOOGLE',
                             style: TextStyles.black54_13w500Roboto,
                           ),
-                          // Image.asset('assets/images/continue_google.png'),
                         ],
                       ),
                     ),
@@ -192,7 +189,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               'CONTINUAR COM O FACEBOOK',
                               style: TextStyles.white13w500Roboto,
                             ),
-                            // Image.asset('assets/images/continue_facebook.png'),
                           ],
                         ),
                       ),

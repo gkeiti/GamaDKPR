@@ -7,7 +7,6 @@ import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
-
 import 'insert_button.dart';
 
 // ignore: must_be_immutable

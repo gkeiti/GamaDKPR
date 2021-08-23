@@ -6,13 +6,11 @@ import 'package:trabalho_final_dgpr/modules/home/widgets/budget/budget_model.dar
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/transactions.dart';
-
 import 'widgets/balance/dtd_model.dart';
 import 'widgets/last_transactions/last_transactions_model.dart';
 
 abstract class HomeRepository {
   List<Widget> getItems(AsyncSnapshot snapshot);
-  //Future<String> getTotal(String uid);
   Stream<List<BudgetModel>> getBudget(String uid);
   Stream<List<DtdModel>> getBalance(String uid, String month);
   Stream<List<LastTransactionsModel>> getLastTransactionsTotal(String uid);
