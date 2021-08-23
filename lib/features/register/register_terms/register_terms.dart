@@ -88,7 +88,6 @@ class _RegisterTermsPageState extends State<RegisterTermsPage> {
                     style: TextStyles.black16w400Roboto,
                   ),
                   activeColor: AppColors.minsk,
-                  // checkColor: AppColors.white,
                   controlAffinity: ListTileControlAffinity.leading,
                   value: true,
                   groupValue: widget.user!.checkTerms,
