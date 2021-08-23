@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:trabalho_final_dgpr/features/user_repository.dart';
+import 'package:trabalho_final_dgpr/modules/register/user_repository.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/appbar_white.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:trabalho_final_dgpr/login/login_password.dart';
-import 'features/register/pageview/page_view.dart';
-import 'features/register/register_onboarding/register_onboarding_page.dart';
-import 'features/splash/splash_screen.dart';
-import 'login/login_screen.dart';
+import 'package:trabalho_final_dgpr/modules/login/pages/login_password.dart';
+import 'package:trabalho_final_dgpr/modules/login/pages/login_screen.dart';
+import 'package:trabalho_final_dgpr/modules/register/pages/register_onboarding_page.dart';
+import 'package:trabalho_final_dgpr/modules/register/pageview/page_view.dart';
+import 'package:trabalho_final_dgpr/modules/splash/splash_screen.dart';
 import 'modules/control/pages/all_transactions_page.dart';
 import 'modules/control/pages/control_page.dart';
 import 'modules/home/pages/error_home_page.dart';
@@ -20,7 +20,6 @@ class AppWidget extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
     Map<int, Color> color = {
       50: Color.fromRGBO(52, 48, 144, .1),
       100: Color.fromRGBO(52, 48, 144, .2),
