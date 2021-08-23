@@ -12,10 +12,9 @@ class AuthService {
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
-  
+
   Future<UserData?> signIn(
       {required String email, required String password}) async {
-
     try {
       final response = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -35,36 +34,4 @@ class AuthService {
       }
     }
   }
-
-// logica do gringo
-  Future<String?> signUp(
-      {required String email, required String password}) async {
-    try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      return 'Deslogado';
-    } on FirebaseAuthException catch (e) {
-      return e.message;
-    }
-  }
-
-  // Future<String?> signUp(UserModel user, String password) async {
-  //   try {
-  //     final response = await _firebaseAuth.createUserWithEmailAndPassword(
-  //         email: user.email, password: password);
-  //     saveUser(user);
-  //     final newUser = response.user;
-  //     await FirebaseFirestore.instance
-  //         .collection("/users")
-  //         .doc(user.uid)
-  //         .set({"email": user.email, "created": FieldValue.serverTimestamp()});
-  //     print(user);
-  //     return 'Deslogado';
-  //   } on FirebaseAuthException catch (e) {
-  //     return e.message;
-  //   }
-  // }
-
-  // saveUser(UserModel user) {}
-
 }

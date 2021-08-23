@@ -51,8 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     right: 112,
                   ),
                   child: Container(
-                    // width: 200,
-                    // height: 112,
                     child: Text(
                       'Vamos começar!',
                       style: TextStyle(
@@ -110,13 +108,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: ContinueButton(
                     onPressed: () async {
                       showDialog(
+                        barrierDismissible: false,
                         context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('Carregando informações'),
-                            content: LinearProgressIndicator(),
-                          );
-                        },
+                        builder: (context) => Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(48.0),
+                            child: CircularProgressIndicator(
+                              color: AppColors.cyan,
+                            ),
+                          ),
+                        ),
                       );
                       bool result = await controller.repository
                           .getEmail(emailController.text);
@@ -162,7 +163,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             'CONTINUAR COM O GOOGLE',
                             style: TextStyles.black54_13w500Roboto,
                           ),
-                          // Image.asset('assets/images/continue_google.png'),
                         ],
                       ),
                     ),
@@ -192,7 +192,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               'CONTINUAR COM O FACEBOOK',
                               style: TextStyles.white13w500Roboto,
                             ),
-                            // Image.asset('assets/images/continue_facebook.png'),
                           ],
                         ),
                       ),

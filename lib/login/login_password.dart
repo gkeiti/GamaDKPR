@@ -64,7 +64,6 @@ class _LoginPasswordState extends State<LoginPassword> {
                     right: 112,
                   ),
                   child: Container(
-                    // height: 112,
                     child: Text(
                       'Insira sua senha',
                       style: TextStyle(
@@ -116,47 +115,47 @@ class _LoginPasswordState extends State<LoginPassword> {
                       onPressed: () {},
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(
-                        top: 16.0,
-                      ),
-                      child: ContinueButton(
-                        onPressed: () async {
+                        padding: const EdgeInsets.only(
+                          top: 16.0,
+                        ),
+                        child: ContinueButton(onPressed: () async {
                           var connectivityResult =
                               await (Connectivity().checkConnectivity());
                           if (connectivityResult == ConnectivityResult.wifi ||
                               connectivityResult == ConnectivityResult.mobile) {
-                                  showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('Carregando informações'),
-                                content: LinearProgressIndicator(),
-                              );
-                            },
-                          );
+                            showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (context) => Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(48.0),
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.cyan,
+                                  ),
+                                ),
+                              ),
+                            );
                             UserData? user =
                                 await context.read<AuthService>().signIn(
                                       email: emailController.text.trim(),
                                       password: passwordController.text.trim(),
                                     );
-                          if (user != null) {
-                            Navigator.pushNamedAndRemoveUntil(
-                                    context, '/home', (route) => false,
-                                    arguments: user);
-                          } else {
-                            Future.delayed(Duration(seconds: 1))
-                                .then((value) async {
-                              Navigator.pop(context);
-                              formKey.currentState!.validate();
-                             },
-                            );
-                          }  
+                            if (user != null) {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/home', (route) => false,
+                                  arguments: user);
+                            } else {
+                              Future.delayed(Duration(seconds: 1)).then(
+                                (value) async {
+                                  Navigator.pop(context);
+                                  formKey.currentState!.validate();
+                                },
+                              );
+                            }
                           } else {
                             Navigator.pushNamed(context, '/error_home_page');
-                          }                             
-                        }
-                      )
-                    ),
+                          }
+                        })),
                   ],
                 ),
               ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 

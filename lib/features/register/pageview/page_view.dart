@@ -96,12 +96,10 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 onPressed: () async {
                   if (indexController.currentIndex == 0 &&
                       nameEmailKey.currentState!.validate()) {
-                        
                     final _response = await FirebaseFirestore.instance
                         .collection("/users")
                         .where("email", isEqualTo: "${user!.email}")
                         .get();
-
                     if (_response.docs.isEmpty) {
                       showDialog(
                         barrierDismissible: false,
@@ -109,14 +107,12 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                         builder: (context) => Center(
                           child: Padding(
                             padding: const EdgeInsets.all(48.0),
-                            child: LinearProgressIndicator(
+                            child: CircularProgressIndicator(
                               color: AppColors.cyan,
-                              minHeight: 4.0,
                             ),
                           ),
                         ),
                       );
-
                       Future.delayed(Duration(seconds: 1))
                           .then((value) => Navigator.pop(context))
                           .then((value) => controller.animateToPage(1,
@@ -157,29 +153,24 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       builder: (context) => Center(
                         child: Padding(
                           padding: const EdgeInsets.all(48.0),
-                          child: LinearProgressIndicator(
+                          child: CircularProgressIndicator(
                             color: AppColors.cyan,
-                            minHeight: 4.0,
                           ),
                         ),
                       ),
                     );
-
                     final response = await FirebaseAuth.instance
                         .createUserWithEmailAndPassword(
                       email: user!.email!,
                       password: passwordController.text,
                     );
-
                     final _user = response.user;
                     user!.uid = response.user!.uid;
                     Map<String, dynamic> _userMap = user!.toMap();
-
                     await FirebaseFirestore.instance
                         .collection("/users")
                         .doc(_user!.uid)
                         .set(_userMap);
-
                     Future.delayed(Duration(seconds: 1)).then((value) =>
                         Navigator.pushNamed(context, "/register_onboarding"));
                   }
