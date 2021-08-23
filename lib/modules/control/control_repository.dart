@@ -4,7 +4,6 @@ import 'package:trabalho_final_dgpr/modules/control/model/balance_model.dart';
 import 'package:trabalho_final_dgpr/modules/control/model/transactions_model.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/transactions.dart';
-
 import 'model/all_transactions_model.dart';
 
 abstract class ControlRepository {
@@ -14,8 +13,6 @@ abstract class ControlRepository {
   Stream<List<AllTransactionsModel>> getAllTransactionsValue(
       String uid, String month);
   List<Widget> getAllTransactions(AsyncSnapshot snapshot);
-  /* Stream<List<AllTransactionsModel>> getAllTransactions(
-      String uid, String type); */
 }
 
 class ControlRepositoryImpl extends ControlRepository {

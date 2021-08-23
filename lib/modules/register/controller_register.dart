@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:trabalho_final_dgpr/features/register/register_state.dart';
+import 'package:trabalho_final_dgpr/modules/register/register_state.dart';
 import 'package:trabalho_final_dgpr/services/auth_service.dart';
 part 'controller_register.g.dart';
 

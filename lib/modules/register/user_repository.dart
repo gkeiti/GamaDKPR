@@ -6,8 +6,6 @@ class RegisterUser {
   String? phone;
   String? cpf;
   bool checkTerms;
-  String? password;
-  String? confirmPassword;
   String? uid;
   RegisterUser({
     this.name,
@@ -15,8 +13,6 @@ class RegisterUser {
     this.phone,
     this.cpf,
     this.checkTerms = false,
-    this.password,
-    this.confirmPassword,
     this.uid,
   });
 
@@ -26,8 +22,6 @@ class RegisterUser {
     String? phone,
     String? cpf,
     bool? checkTerms,
-    String? password,
-    String? confirmPassword,
     String? uid,
   }) {
     return RegisterUser(
@@ -36,8 +30,6 @@ class RegisterUser {
       phone: phone ?? this.phone,
       cpf: cpf ?? this.cpf,
       checkTerms: checkTerms ?? this.checkTerms,
-      password: password ?? this.password,
-      confirmPassword: confirmPassword ?? this.confirmPassword,
       uid: uid ?? this.uid,
     );
   }
@@ -49,8 +41,6 @@ class RegisterUser {
       'phone': phone,
       'cpf': cpf,
       'checkTerms': checkTerms,
-      'password': password,
-      'confirmPassword': confirmPassword,
       'uid': uid,
     };
   }
@@ -62,8 +52,6 @@ class RegisterUser {
       phone: map['phone'],
       cpf: map['cpf'],
       checkTerms: map['checkTerms'],
-      password: map['password'],
-      confirmPassword: map['confirmPassword'],
       uid: map['uid'],
     );
   }
@@ -75,33 +63,29 @@ class RegisterUser {
 
   @override
   String toString() {
-    return 'RegisterUser(name: $name, email: $email, phone: $phone, cpf: $cpf, checkTerms: $checkTerms, password: $password, confirmPassword: $confirmPassword, uid: $uid)';
+    return 'RegisterUser(name: $name, email: $email, phone: $phone, cpf: $cpf, checkTerms: $checkTerms, uid: $uid)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
+  
     return other is RegisterUser &&
-        other.name == name &&
-        other.email == email &&
-        other.phone == phone &&
-        other.cpf == cpf &&
-        other.checkTerms == checkTerms &&
-        other.password == password &&
-        other.confirmPassword == confirmPassword &&
-        other.uid == uid;
+      other.name == name &&
+      other.email == email &&
+      other.phone == phone &&
+      other.cpf == cpf &&
+      other.checkTerms == checkTerms &&
+      other.uid == uid;
   }
 
   @override
   int get hashCode {
     return name.hashCode ^
-        email.hashCode ^
-        phone.hashCode ^
-        cpf.hashCode ^
-        checkTerms.hashCode ^
-        password.hashCode ^
-        confirmPassword.hashCode ^
-        uid.hashCode;
+      email.hashCode ^
+      phone.hashCode ^
+      cpf.hashCode ^
+      checkTerms.hashCode ^
+      uid.hashCode;
   }
 }

@@ -7,8 +7,6 @@ import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/extended_gradient_container.dart';
-import 'package:trabalho_final_dgpr/shared/widgets/side_drawer.dart';
-
 import '../control_controller.dart';
 
 class AllTransactionsPage extends StatefulWidget {
@@ -89,7 +87,6 @@ class _AllTransactionsPageState extends State<AllTransactionsPage> {
             ],
           ),
           extendBodyBehindAppBar: true,
-          drawer: SideDrawer(user: user),
           body: Column(
             children: [
               Stack(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:trabalho_final_dgpr/features/user_repository.dart';
-import 'package:trabalho_final_dgpr/login/login_get_email.dart';
+import 'package:trabalho_final_dgpr/modules/login/login_repository.dart';
+import 'package:trabalho_final_dgpr/modules/register/user_repository.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
-import 'login_controller.dart';
+import '../login_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -51,8 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     right: 112,
                   ),
                   child: Container(
-                    // width: 200,
-                    // height: 112,
                     child: Text(
                       'Vamos começar!',
                       style: TextStyle(
@@ -110,13 +108,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: ContinueButton(
                     onPressed: () async {
                       showDialog(
+                        barrierDismissible: false,
                         context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('Carregando informações'),
-                            content: LinearProgressIndicator(),
-                          );
-                        },
+                        builder: (context) => Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(48.0),
+                            child: CircularProgressIndicator(
+                              color: AppColors.cyan,
+                            ),
+                          ),
+                        ),
                       );
                       bool result = await controller.repository
                           .getEmail(emailController.text);
@@ -162,7 +163,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             'CONTINUAR COM O GOOGLE',
                             style: TextStyles.black54_13w500Roboto,
                           ),
-                          // Image.asset('assets/images/continue_google.png'),
                         ],
                       ),
                     ),
@@ -192,7 +192,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               'CONTINUAR COM O FACEBOOK',
                               style: TextStyles.white13w500Roboto,
                             ),
-                            // Image.asset('assets/images/continue_facebook.png'),
                           ],
                         ),
                       ),

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:trabalho_final_dgpr/login/login_model.dart';
+import 'package:trabalho_final_dgpr/modules/login/models/login_model.dart';
 import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 
 abstract class LoginRepository {

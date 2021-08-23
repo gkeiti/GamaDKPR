@@ -6,7 +6,6 @@ import 'package:trabalho_final_dgpr/modules/control/model/transactions_model.dar
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
-
 import 'insert_button.dart';
 
 // ignore: must_be_immutable
@@ -73,7 +72,7 @@ class _OutTransactionCardState extends State<OutTransactionCard> {
                               child: InputText(
                                 label: 'Valor',
                                 prefix: Text('R\$'),
-                                maxLength: 15,
+                                maxLength: 8,
                                 maxLines: 1,
                                 controller: widget.valueController,
                                 textInputType: TextInputType.number,
@@ -118,7 +117,7 @@ class _OutTransactionCardState extends State<OutTransactionCard> {
                               padding: const EdgeInsets.only(top: 20.0),
                               child: InputText(
                                 label: 'Nome da Saída',
-                                maxLength: 20,
+                                maxLength: 10,
                                 maxLines: 1,
                                 controller: widget.transactionNameController,
                                 textInputAction: TextInputAction.done,
