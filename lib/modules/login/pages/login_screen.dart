@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:trabalho_final_dgpr/features/user_repository.dart';
-import 'package:trabalho_final_dgpr/login/login_get_email.dart';
+import 'package:trabalho_final_dgpr/modules/login/login_repository.dart';
+import 'package:trabalho_final_dgpr/modules/register/user_repository.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/validator.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
-import 'login_controller.dart';
+import '../login_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

@@ -72,7 +72,7 @@ class _OutTransactionCardState extends State<OutTransactionCard> {
                               child: InputText(
                                 label: 'Valor',
                                 prefix: Text('R\$'),
-                                maxLength: 15,
+                                maxLength: 8,
                                 maxLines: 1,
                                 controller: widget.valueController,
                                 textInputType: TextInputType.number,
@@ -117,7 +117,7 @@ class _OutTransactionCardState extends State<OutTransactionCard> {
                               padding: const EdgeInsets.only(top: 20.0),
                               child: InputText(
                                 label: 'Nome da Saída',
-                                maxLength: 20,
+                                maxLength: 10,
                                 maxLines: 1,
                                 controller: widget.transactionNameController,
                                 textInputAction: TextInputAction.done,

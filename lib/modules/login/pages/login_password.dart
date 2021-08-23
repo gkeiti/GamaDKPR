@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:trabalho_final_dgpr/features/user_repository.dart';
-import 'package:trabalho_final_dgpr/login/login_controller.dart';
+import 'package:trabalho_final_dgpr/modules/login/login_controller.dart';
+import 'package:trabalho_final_dgpr/modules/login/login_repository.dart';
+import 'package:trabalho_final_dgpr/modules/register/user_repository.dart';
 import 'package:trabalho_final_dgpr/services/auth_service.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/app_colors.dart';
 import 'package:trabalho_final_dgpr/shared/app_constants/text_styles.dart';
@@ -11,8 +12,6 @@ import 'package:trabalho_final_dgpr/shared/model/user_model.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/continue_button.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/input_text.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-
-import 'login_get_email.dart';
 
 class LoginPassword extends StatefulWidget {
   const LoginPassword({Key? key}) : super(key: key);
@@ -99,9 +98,6 @@ class _LoginPasswordState extends State<LoginPassword> {
                     textInputType: TextInputType.text,
                     validator: (String? value) =>
                         validator.isPasswordValidLogin(value!),
-                    onChanged: (String? value) {
-                      user?.email = value;
-                    },
                   ),
                 ),
                 Row(
@@ -115,10 +111,11 @@ class _LoginPasswordState extends State<LoginPassword> {
                       onPressed: () {},
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(
-                          top: 16.0,
-                        ),
-                        child: ContinueButton(onPressed: () async {
+                      padding: const EdgeInsets.only(
+                        top: 16.0,
+                      ),
+                      child: ContinueButton(
+                        onPressed: () async {
                           var connectivityResult =
                               await (Connectivity().checkConnectivity());
                           if (connectivityResult == ConnectivityResult.wifi ||
@@ -147,15 +144,17 @@ class _LoginPasswordState extends State<LoginPassword> {
                             } else {
                               Future.delayed(Duration(seconds: 1)).then(
                                 (value) async {
-                                  Navigator.pop(context);
                                   formKey.currentState!.validate();
+                                  Navigator.pop(context);
                                 },
                               );
                             }
                           } else {
                             Navigator.pushNamed(context, '/error_home_page');
                           }
-                        })),
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ],

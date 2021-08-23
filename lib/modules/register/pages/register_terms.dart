@@ -7,7 +7,7 @@ import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/bem_vindo_comment.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/comments.dart';
 import 'package:trabalho_final_dgpr/shared/widgets/logo_budget_2_1.dart';
-import '../../user_repository.dart';
+import '../user_repository.dart';
 
 class RegisterTermsPage extends StatefulWidget {
   final GlobalKey<FormState> termsKey;
