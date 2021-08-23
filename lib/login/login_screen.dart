@@ -108,13 +108,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: ContinueButton(
                     onPressed: () async {
                       showDialog(
+                        barrierDismissible: false,
                         context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('Carregando informações'),
-                            content: LinearProgressIndicator(),
-                          );
-                        },
+                        builder: (context) => Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(48.0),
+                            child: CircularProgressIndicator(
+                              color: AppColors.cyan,
+                            ),
+                          ),
+                        ),
                       );
                       bool result = await controller.repository
                           .getEmail(emailController.text);

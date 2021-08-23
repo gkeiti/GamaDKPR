@@ -89,7 +89,6 @@ class _AllTransactionsPageState extends State<AllTransactionsPage> {
             ],
           ),
           extendBodyBehindAppBar: true,
-          drawer: SideDrawer(user: user),
           body: Column(
             children: [
               Stack(

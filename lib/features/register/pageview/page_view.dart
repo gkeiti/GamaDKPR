@@ -95,7 +95,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
               ContinueForwardButton(
                 onPressed: () async {
                   if (indexController.currentIndex == 0 &&
-                      nameEmailKey.currentState!.validate()) {                        
+                      nameEmailKey.currentState!.validate()) {
                     final _response = await FirebaseFirestore.instance
                         .collection("/users")
                         .where("email", isEqualTo: "${user!.email}")
@@ -107,9 +107,8 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                         builder: (context) => Center(
                           child: Padding(
                             padding: const EdgeInsets.all(48.0),
-                            child: LinearProgressIndicator(
+                            child: CircularProgressIndicator(
                               color: AppColors.cyan,
-                              minHeight: 4.0,
                             ),
                           ),
                         ),
@@ -154,9 +153,8 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                       builder: (context) => Center(
                         child: Padding(
                           padding: const EdgeInsets.all(48.0),
-                          child: LinearProgressIndicator(
+                          child: CircularProgressIndicator(
                             color: AppColors.cyan,
-                            minHeight: 4.0,
                           ),
                         ),
                       ),
